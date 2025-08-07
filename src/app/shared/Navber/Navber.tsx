@@ -1,28 +1,14 @@
 "use client";
 
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import {
-  ChevronDownIcon,
-  CircleCheckIcon,
-  CircleHelpIcon,
-  CircleIcon,
-  CircleUserRound,
-  Search,
-} from "lucide-react";
+import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle, } from "@/components/ui/navigation-menu";
+import { AlignJustify, ChevronDownIcon, CircleCheckIcon, CircleHelpIcon, CircleIcon, CircleUserRound, Search, X, } from "lucide-react";
 import Link from "next/link";
 import { Poppins } from "next/font/google";
 import { Product } from "@/app/interfaces/product";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import MobileView from "./MobileView";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -99,28 +85,48 @@ const categorys: Product[] = [
 
 const Navber = () => {
   const [searchProduct, setSearchProduct] = useState("");
+  const [toggleHamburger, setToggleHamburger] = useState(false);
+
+  const toggleHamburgerHandle = () => {
+        setToggleHamburger(current => !current);
+  }
   console.log(searchProduct);
+  
+  const navigationMenuLink = `text-base lg:text-lg font-medium !px-2 !py-1 lg:!px-4 lg:!py-2`;
 
   return (
-    <section className="sticky top-0 bg-slate-200">
-      <NavigationMenu className="p-2 !pr-10">
-        <button
-          className={`cursor-default shrink-0 text-xl md:text-2xl lg:text-3xl font-semibold mr-10 md:mr-14 ${poppins.className}`}
-        >
-          Happy Shop
-        </button>
+    <section className="flex flex-col sticky top-0 bg-slate-100 z-50">
+     <section className="flex items-center relative p-2 !pr-2 md:!pr-10">
+      {/* toggle Hamburger Handle */}
+      <div className="md:hidden">
+         {toggleHamburger ? (
+           <X onClick={toggleHamburgerHandle} size={30} className="mx-2" />
+         ) : (
+           <AlignJustify onClick={toggleHamburgerHandle} size={30} className="mx-2" />
+         )}
+      </div>
+
+      {/* Logo Text */}
+      <button
+        className={`cursor-default shrink-0 text-base md:text-xl lg:text-3xl font-semibold mr-4 md:mr-10 lg:mr-14 ${poppins.className}`}
+      >
+        Happy Shop
+      </button>
+
+      {/* NavigationMenu for Tab and Desktop view */}
+      <NavigationMenu className="hidden md:flex">
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuLink
               asChild
-              className={navigationMenuTriggerStyle()}
+              className={`${navigationMenuTriggerStyle()} ${navigationMenuLink}`}
             >
               <Link href="/">Home</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <NavigationMenuTrigger>
+            <NavigationMenuTrigger className={navigationMenuLink}>
               Man
               <ChevronDownIcon
                 className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
@@ -145,7 +151,7 @@ const Navber = () => {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>
+            <NavigationMenuTrigger className={navigationMenuLink}>
               Women
               <ChevronDownIcon
                 className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
@@ -170,7 +176,7 @@ const Navber = () => {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>
+            <NavigationMenuTrigger className={navigationMenuLink}>
               Kids
               <ChevronDownIcon
                 className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
@@ -195,7 +201,7 @@ const Navber = () => {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>
+            <NavigationMenuTrigger className={navigationMenuLink}>
               Accessories
               <ChevronDownIcon
                 className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
@@ -220,41 +226,56 @@ const Navber = () => {
             </NavigationMenuContent>
           </NavigationMenuItem>
         </NavigationMenuList>
+      </NavigationMenu>
 
-        <div className="flex w-full items-center mx-2 gap-1">
-          <Search />
-          <Input
-            onChange={(e) => setSearchProduct(e.target.value)}
-            className="w-full"
-            type="text"
-            placeholder="Search..."
-          />
+      {/* Search bar of product */}
+      <div className="flex w-full items-center mx-2 gap-1">
+        <Search className="hidden lg:flex " />
+        <Input
+          onChange={(e) => setSearchProduct(e.target.value)}
+          className="w-full"
+          type="text"
+          placeholder="Search..."
+        />
+      </div>
+
+      {/* Authentication related Menu */}
+      <NavigationMenu viewport={false} className="">
+        <NavigationMenuList>
+          <NavigationMenuItem className="">
+            <NavigationMenuTrigger className={navigationMenuLink}>
+              <CircleUserRound />
+              <ChevronDownIcon
+                className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+                aria-hidden="true"
+              />
+            </NavigationMenuTrigger>
+            <NavigationMenuContent className="!absolute !bg-fuchsia-800 w-auto -left-6 md:left-0">
+              <ul className="grid gap-1">
+                <NavigationMenuLink asChild className="py-1 px-2">
+                  <Link href="" className="text-base lg:text-lg">
+                    Register
+                  </Link>
+                </NavigationMenuLink>
+                <NavigationMenuLink asChild className="py-1 px-2">
+                  <Link href="" className="text-base lg:text-lg">
+                    Login
+                  </Link>
+                </NavigationMenuLink>
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      </NavigationMenu>
+
+        {/* NavigationMenu for only mobile view */}
+        <div className="absolute top-full">
+          {toggleHamburger &&
+            <MobileView/>
+          }
         </div>
 
-        <NavigationMenu viewport={false}>
-          <NavigationMenuList className="">
-            <NavigationMenuItem className="">
-              <NavigationMenuTrigger>
-                <CircleUserRound />
-                <ChevronDownIcon
-                  className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-                  aria-hidden="true"
-                />
-              </NavigationMenuTrigger>
-              <NavigationMenuContent className="!absolute">
-                <ul className="grid gap-1 max-w-max">
-                  <NavigationMenuLink asChild className="py-1 px-2">
-                    <Link href="">Register</Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild className="py-1 px-2">
-                    <Link href="">Login</Link>
-                  </NavigationMenuLink>
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-      </NavigationMenu>
+      </section>
     </section>
   );
 };

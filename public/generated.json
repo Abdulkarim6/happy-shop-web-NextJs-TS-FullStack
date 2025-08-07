@@ -1,0 +1,58 @@
+[
+  {
+    "man": [
+      {
+        "categiry": "Shirts",
+        "image": ""
+      },
+      {
+        "categiry": "T-Shirts",
+        "image": ""
+      },
+      {
+        "categiry": "Panjabi",
+        "image": ""
+      },
+      {
+        "categiry": "Pant",
+        "image": ""
+      },
+      {
+        "categiry": "Trousers & T-shirt",
+        "image": ""
+      }
+    ]
+  },
+  {
+    "woman": [
+      {
+        "categiry": "Saree",
+        "image": ""
+      },
+      {
+        "categiry": "Burqa",
+        "image": ""
+      },
+      {
+        "categiry": "Tops",
+        "image": ""
+      },
+      {
+        "categiry": "T-Shirts",
+        "image": ""
+      },
+      {
+        "categiry": "3-piece sets",
+        "image": ""
+      },
+      {
+        "categiry": "Bag",
+        "image": ""
+      },
+      {
+        "categiry": "Stylish Shirt Gaun",
+        "image": ""
+      }
+    ]
+  }
+]
