@@ -17,12 +17,16 @@ const Banner = () => {
     <Carousel
       plugins={[
         Autoplay({
-          delay: 1500,
+          delay: 1700,
           stopOnInteraction: false,
           stopOnMouseEnter: true,
         }),
       ]}
-      className="mx-28"
+      opts={{
+        align: "start",
+        loop: true,
+      }}
+      className=""
     >
       <CarouselContent className="">
         {images?.map((image, i) => (
@@ -37,8 +41,8 @@ const Banner = () => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious iconSize="size-14" />
-      <CarouselNext iconSize="size-14" />
+      <CarouselPrevious iconSize="size-8 md:size-10 lg:size-14" iconPosition="left-1 lg:left-2" />
+      <CarouselNext iconSize="size-8 md:size-10 lg:size-14" iconPosition="right-1 lg:right-2" />
     </Carousel>
   );
 };
