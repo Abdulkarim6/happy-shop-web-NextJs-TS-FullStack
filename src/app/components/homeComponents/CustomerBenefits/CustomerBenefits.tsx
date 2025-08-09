@@ -14,7 +14,7 @@ const CustomerBenefits = () => {
         <h1 className={`text-4xl font-semibold ${poppins.className}`}>
           -Why Buy From Us-
         </h1>
-        <div className="grid grid-cols-1 lg:grid-cols-3 justify-evenly gap-4 mt-2 md:mt-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 justify-evenly gap-2 lg:gap-4 mt-2 md:mt-5">
           <div>
             <Truck className="size-32 text-base md:text-lg" />
             <h4 className="text-2xl font-medium">Delivery</h4>
