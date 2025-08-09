@@ -14,7 +14,7 @@ const CustomerBenefits = () => {
         <h1 className={`text-4xl font-semibold ${poppins.className}`}>
           -Why Buy From Us-
         </h1>
-        <div className="w-full grid grid-cols-1 lg:grid-cols-3 justify-around justify-items-center mt-2 md:mt-5">
+        <div className="grid grid-cols-1 lg:grid-cols-3 justify-evenly gap-4 mt-2 md:mt-5">
           <div>
             <Truck className="size-32 text-base md:text-lg" />
             <h4 className="text-2xl font-medium">Delivery</h4>
@@ -26,14 +26,14 @@ const CustomerBenefits = () => {
             <ArrowRightLeft className="size-32 text-base md:text-lg" />
             <h4 className="text-2xl font-medium">Return</h4>
             <p>Simply return it within 1 Week for an exchange.</p>
-            <p> <strong>Note: </strong>Product return acceptable only for our mistakes! </p>
+            <p> <strong>Note: </strong>Product return acceptable only for our mistakes!</p>
           </div>
           <div>
             <PhoneCall className="size-32 text-base md:text-lg" />
             <h4 className="text-2xl font-medium">Return</h4>
             <p>Contact us 24 hours a day, 7 days a week</p>
-            <p> <strong>Phone: </strong>(+880) 01888181990 </p>
-            <p> <strong>Gmail: </strong>mdhossainJwe687@gmail.com </p>
+            <p><strong>Phone: </strong>(+880) 01888181990</p>
+            <p><strong>Gmail: </strong>mdhossainJwe687@gmail.com</p>
           </div>
         </div>
       </section>
