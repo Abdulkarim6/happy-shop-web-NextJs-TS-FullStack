@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import Banner from "./components/Banner/Banner";
+import Banner from "./components/homeComponents/Banner/Banner";
+import CustomerBenefits from "./components/homeComponents/CustomerBenefits/CustomerBenefits";
 
 export default function Home() {
   return (
-  <main className="flex flex-col justify-center">
-      <Banner/>
+    <main className="flex flex-col justify-center">
+      <Banner />
+      <CustomerBenefits />
 
       {/* <Button variant="outline">Button</Button>
       <Button className="cursor-default" variant="default">
@@ -15,21 +15,11 @@ export default function Home() {
       <button className="cursor-default">Button</button>
       <button className="cursor-default">Button</button>
       <button className="cursor-default">Button</button>
-      <button className="cursor-default">Button</button>
-      <button className="cursor-default">Button</button>
-      <button className="cursor-default">Button</button>
-      <button className="cursor-default">Button</button>
-      <button className="cursor-default">Button</button>
-      <button className="cursor-default">Button</button>
-      <button className="cursor-default">Button</button>
-      <button className="cursor-default">Button</button>
-      <button className="cursor-default">Button</button>
-      <button className="cursor-default">Button</button>
-      <button className="cursor-default">Button</button>
-      <button className="cursor-default">Button</button>
-      <button className="cursor-default">Button</button>
-      <button className="cursor-default">Button</button>
       <button className="cursor-default">Button</button> */}
-      </main>
+      <button className="cursor-default">Button</button>
+      <button className="cursor-default">Button</button>
+      <button className="cursor-default">Button</button>
+      <button className="cursor-default">Button</button>
+    </main>
   );
 }
