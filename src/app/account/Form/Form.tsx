@@ -84,7 +84,7 @@ const Form = () => {
                   </p>
                     :
                   <p className="flex gap-1"> 
-                      Don't have an account?
+                      Don&apos;t have an account?
                     <button onClick={() => handleAuthenticate("/account/register")} type="button" className="text-sm underline-offset-2 hover:underline" >
                       Register Here
                     </button> 
