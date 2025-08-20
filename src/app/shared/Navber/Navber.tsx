@@ -8,6 +8,8 @@ import { Product } from "@/app/interfaces/product";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import MobileView from "./MobileView";
+import { signIn, useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -84,6 +86,7 @@ const categorys: Product[] = [
 
 
 const Navber = () => {
+  const {data:session} = useSession();
   const [searchProduct, setSearchProduct] = useState<string>("");
   const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
   const [width, setWidth] = useState<number>(0);
@@ -99,16 +102,23 @@ const Navber = () => {
 
   return (
     <section className="flex flex-col sticky top-0 bg-slate-100 z-50">
-      <section className="flex items-center relative md:p-2 !pr-2 md:!pr-10">
+      <section className="flex items-center relative p-2 !pr-2 md:!pr-10">
         {/* toggle Hamburger Handle */}
         <div className="md:hidden">
           {toggleHamburger ? (
             <>
-              <X onClick={() => setToggleHamburger(!toggleHamburger)} size={30} className="mx-2" />
+              <X
+                onClick={() => setToggleHamburger(!toggleHamburger)}
+                size={30}
+                className="mx-2"
+              />
             </>
           ) : (
             <>
-              <AlignJustify onClick={() => setToggleHamburger(!toggleHamburger)} size={30} className="mx-2"
+              <AlignJustify
+                onClick={() => setToggleHamburger(!toggleHamburger)}
+                size={30}
+                className="mx-2"
               />
             </>
           )}
@@ -118,7 +128,9 @@ const Navber = () => {
         <button
           className={`cursor-default shrink-0 text-base md:text-xl lg:text-3xl font-semibold mr-4 md:mr-10 lg:mr-14 ${poppins.className}`}
         >
-          Happy Shop
+          {/* Happy Shop */}
+
+          {session?.user?.name}
         </button>
 
         {/* NavigationMenu for Tab and Desktop view */}
@@ -258,18 +270,24 @@ const Navber = () => {
                   aria-hidden="true"
                 />
               </NavigationMenuTrigger>
-              <NavigationMenuContent className="!absolute !bg-fuchsia-800 w-auto -left-6 md:left-0">
+              <NavigationMenuContent className="!absolute w-auto -left-6 md:left-0">
                 <ul className="grid gap-1">
-                  <NavigationMenuLink asChild className="py-1 px-2">
-                    <Link href="" className="text-base lg:text-lg">
+                  <Link href="/account/register">
+                    <Button
+                      variant="ghost"
+                      className="text-base lg:text-lg py-1 px-2"
+                    >
                       Register
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild className="py-1 px-2">
-                    <Link href="" className="text-base lg:text-lg">
+                    </Button>
+                  </Link>
+                  {/* <Link href="/account/login">
+                    <Button
+                      variant="ghost"
+                      className="text-base lg:text-lg py-1 px-2"
+                    >
                       Login
-                    </Link>
-                  </NavigationMenuLink>
+                    </Button>
+                  </Link> */}
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
@@ -277,14 +295,18 @@ const Navber = () => {
         </NavigationMenu>
 
         {/* NavigationMenu for only mobile view */}
-        {
-          width <= 767 &&
-             <div className={`absolute top-full overflow-x-hidden 
-               transition-all duration-200 ease-in-out ${toggleHamburger ? "w-4/5 translate-x-0" : "w-0 -translate-x-full"} `} >
-               <MobileView />
-             </div>
-        }
-
+        {width <= 767 && (
+          <div
+            className={`absolute top-full overflow-x-hidden 
+               transition-all duration-200 ease-in-out ${
+                 toggleHamburger
+                   ? "w-4/5 translate-x-0"
+                   : "w-0 -translate-x-full"
+               } `}
+          >
+            <MobileView />
+          </div>
+        )}
       </section>
     </section>
   );
