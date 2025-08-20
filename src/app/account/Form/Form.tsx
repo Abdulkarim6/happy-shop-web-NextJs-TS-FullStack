@@ -4,39 +4,74 @@ import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader,
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
+import Swal from "sweetalert2";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import authenticateImg from "@/bannerImages/authenticate.jpg";
+import { postNewRegisterUser, UserData } from "@/app/actions/auth/postNewRegisterUser";
 
 const Form = () => {
       const pathName = usePathname();
       const router = useRouter();
-    
-      const handleSubmit = (e : FormEvent<HTMLFormElement>) =>{
-        e.preventDefault();
-        console.log("clk");
-    }
+      
       const handleAuthenticate = (switchFormUi : string) => {
         router.push(switchFormUi);
-       };
+      };
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        padding:"10px 10px",
+        customClass:{
+           title:'mx' 
+        },
+        timerProgressBar: true,
+      });
+      
+
+      const handleSubmit = async (event : FormEvent<HTMLFormElement>) =>{
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        const data = Object.fromEntries(formData.entries());
+        const userData : UserData = {
+              name : data?.name as string,
+              email : data?.email as string,
+              password : data?.password as string
+        }
+
+       const res = await postNewRegisterUser(userData);
+       console.log(res);
+       
+        if(res?.acknowledged){
+          Toast.fire({
+            icon: "success",
+            title: "You created account successfully",
+          });
+        }
+        if(res?.message){
+          Toast.fire({
+            icon: "info",
+            title: `${res?.message}`,
+          });
+        }
+        
+    }
 
     return (
       <div className="flex flex-col gap-6 w-full">
           <div className="fixed h-screen w-screen overflow-hidden -z-1 opacity-80">
           <Image
-            alt="Mountains"
-            src={authenticateImg}
-            placeholder="blur"
-            quality={100}
-            fill
-            sizes="100vw"
+            alt="Mountains" src={authenticateImg} placeholder="blur"
+            quality={100} fill sizes="100vw"
             style={{
               objectFit: "cover",
             }}
            />
           </div>
-      <Card className="overflow-hidden opacity-90 p- mt-7 mx-auto w-full max-w-sm">
+      <Card className={`overflow-hidden bg-slate-100 opacity-90 ${ pathName.includes("register") ? "mt-5" : "mt-7"} mx-auto w-full max-w-sm`}>
         <CardContent className="p-0">
          <form onSubmit={handleSubmit} className="p-6 md:p-8">
               <div className="flex flex-col gap-6">
@@ -48,20 +83,20 @@ const Form = () => {
                 {pathName.includes("register") && 
                 <div className="grid gap-3">
                   <Label htmlFor="name">Name</Label>
-                  <Input id="name" type="text" placeholder="Your Name" required />
+                  <Input name="name" id="name" type="text" placeholder="Your Name" required />
                 </div>
                 }
                 <div className="grid gap-3">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="Your Email" required />
+                  <Input name="email" id="email" type="email" placeholder="Your Email" required />
                 </div>
                 <div className="grid gap-3">
                   <Label htmlFor="password">Password</Label>
-                  <Input id="password" type="password" 
+                  <Input name="password" id="password" type="password" 
                     placeholder={`Enter ${pathName.includes("register") ? "a" : "your" } Password`} required />
                 </div>
                 <Button type="submit" className="w-full">
-                  { pathName.includes("register") ? "LOGIN" : "REGISTER"}
+                  { pathName.includes("register") ? "REGISTER" : "LOGIN"}
                 </Button>
                 <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                   <span className="bg-card text-muted-foreground relative z-10 px-2">
