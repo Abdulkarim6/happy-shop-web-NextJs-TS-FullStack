@@ -24,7 +24,7 @@ export const authOptions = {
       
       const isPasswordOk = await bcrypt.compare(password, hashedPassword);
       
-      const user = { name: isExistsUser?.name, email: isExistsUser?.email }; 
+      const user = { id: isExistsUser?._id.toString(), name: isExistsUser?.name, email: isExistsUser?.email }; 
 
       if (isPasswordOk) {
         // Any object returned will be saved in `user` property of the JWT
