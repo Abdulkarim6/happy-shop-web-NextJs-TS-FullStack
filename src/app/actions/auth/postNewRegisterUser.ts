@@ -1,4 +1,5 @@
 "use server"
+import bcrypt from "bcrypt";
 
 import dbConnect from "@/lib/dbConnect"
 
@@ -7,10 +8,10 @@ export interface UserData {
     email:string;
     password:string;
 }
-export const postNewRegisterUser = async (userData : UserData) => {
+export const postNewRegisterUser = async (payload : UserData) => {
     try {
         const usersCollection = dbConnect("users");
-        const email = userData.email;
+        const {email, password} = payload;
         const query = {email : email}
     
         const isExistsUser = await usersCollection.findOne(query);
@@ -21,9 +22,10 @@ export const postNewRegisterUser = async (userData : UserData) => {
            }
         };
         
-        const res = await usersCollection.insertOne(userData);
-        console.log(res);
-        
+        const hashingPassword = await bcrypt.hash(password, 10);
+        payload.password = hashingPassword;
+        const res = await usersCollection.insertOne(payload);
+       
         return {
            acknowledged: res.acknowledged,
            insertedId: res.insertedId.toString()

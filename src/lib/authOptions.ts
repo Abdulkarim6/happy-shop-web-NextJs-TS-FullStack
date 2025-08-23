@@ -1,32 +1,37 @@
 import CredentialsProvider from "next-auth/providers/credentials";
+import dbConnect from "./dbConnect";
+import bcrypt from "bcrypt";
 
 export const authOptions = {
   providers: [
   CredentialsProvider({
     // The name to display on the sign in form (e.g. "Sign in with...")
     name: "Credentials",
-    // `credentials` is used to generate a form on the sign in page.
-    // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-    // e.g. domain, username, password, 2FA token, etc.
-    // You can pass any HTML attribute to the <input> tag through the object.
     credentials: {
-      useremail: { label: "Useremail", type: "text", placeholder: "email" },
+      loginEmail: { label: "email", type: "email", placeholder: "Your Email" },
       password: { label: "Password", type: "password" }
     },
     async authorize(credentials, req) {
-
-      console.log("credentials:", credentials, "req:" ,req);
+      if(!credentials){
+        throw new Error("No credentials provided"); //Never come credentials type as undefined in this block
+      }
       
-      // Add logic here to look up the user from the credentials supplied
-      const user = { id: "1", name: "J Smith", email: "jsmith@example.com" }
+      const {loginEmail, password} = credentials;   
+      const usersCollection = dbConnect("users");
+      const isExistsUser = await usersCollection.findOne({email : loginEmail});
+    
+      const hashedPassword = isExistsUser?.password;
+      
+      const isPasswordOk = await bcrypt.compare(password, hashedPassword);
+      
+      const user = { name: isExistsUser?.name, email: isExistsUser?.email }; 
 
-      if (user) {
+      if (isPasswordOk) {
         // Any object returned will be saved in `user` property of the JWT
-        return user
+        return user;
       } else {
         // If you return null then an error will be displayed advising the user to check their details.
         return null
-
         // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
       }
     }
@@ -34,6 +39,6 @@ export const authOptions = {
 ],
 
 pages: {
-    signIn: "/authentication/login"
+    signIn: "/account/login"
 }
 }

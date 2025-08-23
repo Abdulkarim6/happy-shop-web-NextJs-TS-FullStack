@@ -107,19 +107,11 @@ const Navber = () => {
         <div className="md:hidden">
           {toggleHamburger ? (
             <>
-              <X
-                onClick={() => setToggleHamburger(!toggleHamburger)}
-                size={30}
-                className="mx-2"
-              />
+              <X onClick={() => setToggleHamburger(!toggleHamburger)} size={30} className="mx-2" />
             </>
           ) : (
             <>
-              <AlignJustify
-                onClick={() => setToggleHamburger(!toggleHamburger)}
-                size={30}
-                className="mx-2"
-              />
+              <AlignJustify onClick={() => setToggleHamburger(!toggleHamburger)} size={30} className="mx-2" />
             </>
           )}
         </div>
@@ -280,15 +272,15 @@ const Navber = () => {
                       Register
                     </Button>
                   </Link>
-                  {/* <Link href="/account/login">
+                  <Link href="/account/login">
                     <Button
                       variant="ghost"
                       className="text-base lg:text-lg py-1 px-2"
                     >
                       Login
                     </Button>
-                  </Link> */}
-                </ul>
+                  </Link>
+                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
           </NavigationMenuList>

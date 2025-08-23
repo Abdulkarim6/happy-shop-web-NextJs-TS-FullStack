@@ -1,61 +1,75 @@
 "use client"
 import { Button } from "@/components/ui/button";
-import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card";
+import { Card, CardContent} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
-import Swal from "sweetalert2";
-import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import authenticateImg from "@/bannerImages/authenticate.jpg";
 import { postNewRegisterUser, UserData } from "@/app/actions/auth/postNewRegisterUser";
+import { Toast } from "@/lib/utils";
+import { signIn } from "next-auth/react";
 
 const Form = () => {
+      const [loding, setLoading] = useState<boolean>(false);
       const pathName = usePathname();
       const router = useRouter();
+      const isRegisterPage = pathName.includes("register");
+      const isLoginPage = pathName.includes("login");
       
       const handleAuthenticate = (switchFormUi : string) => {
         router.push(switchFormUi);
-      };
-
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 2000,
-        padding:"10px 10px",
-        customClass:{
-           title:'mx' 
-        },
-        timerProgressBar: true,
-      });
-      
+      };      
 
       const handleSubmit = async (event : FormEvent<HTMLFormElement>) =>{
         event.preventDefault();
-        const formData = new FormData(event.currentTarget);
+        const form = event.currentTarget;
+        const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
-        const userData : UserData = {
+        const payload : UserData = {
               name : data?.name as string,
               email : data?.email as string,
               password : data?.password as string
         }
 
-       const res = await postNewRegisterUser(userData);
-       console.log(res);
-       
-        if(res?.acknowledged){
-          Toast.fire({
-            icon: "success",
-            title: "You created account successfully",
-          });
+        if (isRegisterPage) {
+          {/**New user data send in database */}
+          setLoading(true);
+          const res = await postNewRegisterUser(payload);
+          
+           if(res?.acknowledged){
+             Toast.fire({
+               icon: "success",
+               title: "You created account successfully",
+             });
+           }
+           if(res?.message){
+             Toast.fire({
+               icon: "info",
+               title: `${res?.message}`,
+             });
+           }
+          form.reset();
+          setLoading(false);
         }
-        if(res?.message){
-          Toast.fire({
-            icon: "info",
-            title: `${res?.message}`,
-          });
+
+        if (isLoginPage) {
+         setLoading(true);
+         const res = await signIn("credentials", {redirect: false, loginEmail: payload?.email, password: payload?.password});
+         if(res?.ok){
+             Toast.fire({
+               icon: "success",
+               title: "Login successfully",
+             });
+          }else{
+             Toast.fire({
+              icon: "error",
+              title: "Invalid credentials",
+             });
+          }
+         form.reset();
+         setLoading(false);
         }
         
     }
@@ -71,16 +85,16 @@ const Form = () => {
             }}
            />
           </div>
-      <Card className={`overflow-hidden bg-slate-100 opacity-90 ${ pathName.includes("register") ? "mt-5" : "mt-7"} mx-auto w-full max-w-sm`}>
+      <Card className={`overflow-hidden bg-slate-100 opacity-90 ${ isRegisterPage ? "mt-5" : "mt-7"} mx-auto w-full max-w-sm`}>
         <CardContent className="p-0">
          <form onSubmit={handleSubmit} className="p-6 md:p-8">
               <div className="flex flex-col gap-6">
                 <div className="flex flex-col items-center text-center">
                   <h1 className="text-2xl font-bold">
-                    {pathName.includes("register") ? "Create An Account" : "Welcome back"}
+                    {isRegisterPage ? "Create An Account" : "Welcome back"}
                   </h1>
                 </div>
-                {pathName.includes("register") && 
+                {isRegisterPage && 
                 <div className="grid gap-3">
                   <Label htmlFor="name">Name</Label>
                   <Input name="name" id="name" type="text" placeholder="Your Name" required />
@@ -93,10 +107,10 @@ const Form = () => {
                 <div className="grid gap-3">
                   <Label htmlFor="password">Password</Label>
                   <Input name="password" id="password" type="password" 
-                    placeholder={`Enter ${pathName.includes("register") ? "a" : "your" } Password`} required />
+                    placeholder={`Enter ${isRegisterPage ? "a" : "your" } Password`} required />
                 </div>
-                <Button type="submit" className="w-full">
-                  { pathName.includes("register") ? "REGISTER" : "LOGIN"}
+                <Button type="submit" disabled={loding} className="w-full">
+                  { isRegisterPage ? "REGISTER" : "LOGIN"}
                 </Button>
                 <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                   <span className="bg-card text-muted-foreground relative z-10 px-2">
@@ -110,7 +124,7 @@ const Form = () => {
                 </div>
                 <div className="text-sm">
                   {
-                    pathName.includes("register") ?
+                    isRegisterPage ?
                   <p className="flex gap-1"> 
                       Allready have an account?
                     <button onClick={() => handleAuthenticate("/account/login")} type="button" className="text-sm underline-offset-2 hover:underline" >
