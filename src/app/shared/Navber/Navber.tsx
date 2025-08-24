@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import MobileView from "./MobileView";
 import { signIn, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import { getCategories } from "@/app/actions/products/getCategories";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -83,13 +84,39 @@ const categorys: Product[] = [
     category: "Shirt",
   },
 ];
+interface Category  {
+  category: string;
+  description: string;
+  image: string;
+};
 
 
+interface CategoryDocument {
+  _id: string ;
+  man?: Category[];
+  woman?: Category[];
+  kids?: Category[];
+  accessories?: Category[];
+};
 const Navber = () => {
   const {data:session} = useSession();
   const [searchProduct, setSearchProduct] = useState<string>("");
   const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
   const [width, setWidth] = useState<number>(0);
+  const [categoriesOfGenders, setCategoriesOfGenders] = useState<CategoryDocument[]>([]);
+  const categoriesOfMan = categoriesOfGenders.find(categoriesOfGender => categoriesOfGender.man);
+  const categoriesOfwoman = categoriesOfGenders.find(categoriesOfGender => categoriesOfGender.woman);
+  const categoriesOfkids = categoriesOfGenders.find(categoriesOfGender => categoriesOfGender.kids);
+  const categoriesOfaccessories = categoriesOfGenders.find(categoriesOfGender => categoriesOfGender.accessories);
+  
+   useEffect(() => {
+    (async () => {
+      const categoriesOfGenders = await getCategories(); // ✅ render এর বাইরে fetch
+      console.log(118, categoriesOfGenders);
+      
+      setCategoriesOfGenders(categoriesOfGenders);
+    })();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => setWidth(window.innerWidth);
@@ -107,11 +134,19 @@ const Navber = () => {
         <div className="md:hidden">
           {toggleHamburger ? (
             <>
-              <X onClick={() => setToggleHamburger(!toggleHamburger)} size={30} className="mx-2" />
+              <X
+                onClick={() => setToggleHamburger(!toggleHamburger)}
+                size={30}
+                className="mx-2"
+              />
             </>
           ) : (
             <>
-              <AlignJustify onClick={() => setToggleHamburger(!toggleHamburger)} size={30} className="mx-2" />
+              <AlignJustify
+                onClick={() => setToggleHamburger(!toggleHamburger)}
+                size={30}
+                className="mx-2"
+              />
             </>
           )}
         </div>
@@ -147,11 +182,11 @@ const Navber = () => {
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                  {categorys.map((category) => (
-                    <NavigationMenuLink asChild key={category?.id}>
+                  {categoriesOfMan?.man?.map((category : Category | null, id) => (
+                    <NavigationMenuLink asChild key={id}>
                       <Link href="">
-                        <div className="text-sm leading-none font-medium">
-                          {category?.name}
+                        <div className="text-sm lg:text-base leading-none font-medium">
+                          {category?.category}
                         </div>
                         <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
                           {category?.description}
@@ -172,11 +207,11 @@ const Navber = () => {
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                  {categorys.map((category) => (
-                    <NavigationMenuLink asChild key={category?.id}>
+                  {categoriesOfwoman?.woman?.map((category : Category | null, id) => (
+                    <NavigationMenuLink asChild key={id}>
                       <Link href="">
-                        <div className="text-sm leading-none font-medium">
-                          {category?.name}
+                        <div className="text-sm lg:text-base leading-none font-medium">
+                          {category?.category}
                         </div>
                         <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
                           {category?.description}
@@ -196,12 +231,12 @@ const Navber = () => {
                 />
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                  {categorys.map((category) => (
-                    <NavigationMenuLink asChild key={category?.id}>
+                <ul className="grid w-[200px] gap-2 md:w-[300px] lg:w-[400px]">
+                  {categoriesOfkids?.kids?.map((category : Category | null, id) => (
+                    <NavigationMenuLink asChild key={id}>
                       <Link href="">
-                        <div className="text-sm leading-none font-medium">
-                          {category?.name}
+                        <div className="text-sm lg:text-base leading-none font-medium">
+                          {category?.category}
                         </div>
                         <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
                           {category?.description}
@@ -221,12 +256,12 @@ const Navber = () => {
                 />
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                  {categorys.map((category) => (
-                    <NavigationMenuLink asChild key={category?.id}>
+                <ul className="grid w-[200px] gap-2 md:w-[300px] lg:w-[400px]">
+                  {categoriesOfaccessories?.accessories?.map((category : Category | null, id) => (
+                    <NavigationMenuLink asChild key={id}>
                       <Link href="">
-                        <div className="text-sm leading-none font-medium">
-                          {category?.name}
+                        <div className="text-sm lg:text-base leading-none font-medium">
+                          {category?.category}
                         </div>
                         <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
                           {category?.description}
@@ -280,7 +315,7 @@ const Navber = () => {
                       Login
                     </Button>
                   </Link>
-                 </ul>
+                </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
           </NavigationMenuList>

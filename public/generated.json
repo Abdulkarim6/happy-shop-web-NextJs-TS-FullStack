@@ -46,11 +46,31 @@
         "image": ""
       },
       {
+        "categiry": "Stylish Shirt Gaun",
+        "image": ""
+      }
+    ]
+  },
+  {
+    "kids": [
+      {
+        "categiry": "Saree",
+        "image": ""
+      },
+      {
+        "categiry": "Burqa",
+        "image": ""
+      }
+    ]
+  },
+  {
+    "accessories": [
+      {
         "categiry": "Bag",
         "image": ""
       },
       {
-        "categiry": "Stylish Shirt Gaun",
+        "categiry": "Watch",
         "image": ""
       }
     ]
