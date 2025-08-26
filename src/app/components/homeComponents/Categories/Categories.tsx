@@ -6,7 +6,9 @@ import Link from "next/link";
 
 
 const Categories = async () => {
-  const res = await fetch("http://localhost:3000/api/categories");
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  
+  const res = await fetch(`${baseUrl}/api/categories`);
   const categoriesOfGenders = await res.json();
  
   if (!res.ok) {
