@@ -6,20 +6,20 @@ import Link from "next/link";
 
 
 const Categories = async () => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  // const baseUrl = process.env.NEXT_PUBLIC_API_URL;
   
-  const res = await fetch(`${baseUrl}/api/categories`);
-  const categoriesOfGenders = await res.json();
+  // const res = await fetch(`${baseUrl}/api/categories`);
+  // const categoriesOfGenders = await res.json();
  
-  if (!res.ok) {
-    return "There was an error in categories server component.";
-  }
+  // if (!res.ok) {
+  //   return "There was an error in categories server component.";
+  // }
 
   return (
     <section className="flex flex-col justify-center items-center">
       <h2 className={`text-2xl md:text-3xl lg:text-4xl font-semibold ${poppins.className}`}>-SHOP BY-</h2>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-1">
-        {categoriesOfGenders?.map((categoryOfGenders: CategoryDocument) => (
+        {/* {categoriesOfGenders?.map((categoryOfGenders: CategoryDocument) => (
           <Link href={`/${categoryOfGenders?.title}`} key={categoryOfGenders?._id}>
           <Card
             className="w-full py-0 gap-0 rounded-lg"
@@ -38,7 +38,7 @@ const Categories = async () => {
             </h3>
           </Card>
           </Link>
-        ))}
+        ))} */}
       </div>
     </section>
   );
