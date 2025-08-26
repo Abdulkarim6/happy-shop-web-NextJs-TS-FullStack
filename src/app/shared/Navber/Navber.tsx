@@ -33,8 +33,7 @@ const Navber = () => {
   useEffect(() => {
     (async () => {
       const categoriesOfGenders = await getCategories(); // ✅ render এর বাইরে fetch
-      console.log(36, categoriesOfGenders);
-      
+     
       setCategoriesOfGenders(categoriesOfGenders);
     })();
   }, []);
@@ -121,7 +120,8 @@ const Navber = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/woman">
+              {/* <Link href="/woman"> */}
+              <Link href="/">
                 <NavigationMenuTrigger className={navigationMenuLink}>
                   Women
                   <ChevronDownIcon
@@ -134,7 +134,8 @@ const Navber = () => {
                 <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                   {categoriesOfwoman?.woman?.map((category : Category | null, id) => (
                     <NavigationMenuLink asChild key={id}>
-                      <Link href={`/woman/${category?.category}`}>
+                      {/* <Link href={`/woman/${category?.category}`}> */}
+                      <Link href={`/`}>
                         <div className="text-sm lg:text-base leading-none font-medium">
                           {category?.category}
                         </div>
@@ -148,7 +149,8 @@ const Navber = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/kids">
+              {/* <Link href="/kids"> */}
+              <Link href="/">
                 <NavigationMenuTrigger className={navigationMenuLink}>
                   Kids
                   <ChevronDownIcon
@@ -161,7 +163,8 @@ const Navber = () => {
                 <ul className="grid w-[200px] gap-2 md:w-[300px] lg:w-[400px]">
                   {categoriesOfkids?.kids?.map((category : Category | null, id) => (
                     <NavigationMenuLink asChild key={id}>
-                      <Link href={`/kids/${category?.category}`}>
+                      {/* <Link href={`/kids/${category?.category}`}> */}
+                      <Link href={`/`}>
                         <div className="text-sm lg:text-base leading-none font-medium">
                           {category?.category}
                         </div>
@@ -175,7 +178,8 @@ const Navber = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/accessories">
+              {/* <Link href="/accessories"> */}
+              <Link href="/">
                 <NavigationMenuTrigger className={navigationMenuLink}>
                   Accessories
                   <ChevronDownIcon
@@ -188,7 +192,8 @@ const Navber = () => {
                 <ul className="grid w-[200px] gap-2 md:w-[300px] lg:w-[400px]">
                   {categoriesOfaccessories?.accessories?.map((category : Category | null, id) => (
                     <NavigationMenuLink asChild key={id}>
-                      <Link href={`/accessories/${category?.category}`}>
+                      {/* <Link href={`/accessories/${category?.category}`}> */}
+                      <Link href={`/`}>
                         <div className="text-sm lg:text-base leading-none font-medium">
                           {category?.category}
                         </div>

@@ -8,8 +8,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import authenticateImg from "../../../../public/bannerImages/authenticate.jpg";
 import { postNewRegisterUser, UserData } from "@/app/actions/auth/postNewRegisterUser";
-import { Toast } from "@/lib/utils";
+
 import { signIn } from "next-auth/react";
+import { Toast } from "@/app/interfaces/product";
 
 const Form = () => {
       const [loding, setLoading] = useState<boolean>(false);

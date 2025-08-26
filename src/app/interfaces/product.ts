@@ -1,3 +1,5 @@
+import Swal from "sweetalert2";
+
 export interface Product {
   id: number;
   name: string;
@@ -29,5 +31,18 @@ export interface CategoryDocument {
   kids?: Category[];
   accessories?: Category[];
 };
+
+
+export const Toast = Swal.mixin({
+       toast: true,
+       position: "top-end",
+       showConfirmButton: false,
+       timer: 2000,
+       padding:"10px 10px",
+       customClass:{
+          title:'mx' 
+       },
+       timerProgressBar: true,
+     });
  
     
