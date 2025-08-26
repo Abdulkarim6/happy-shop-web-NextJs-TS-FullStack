@@ -17,3 +17,7 @@
     page.
   * cheks the email and pass is exists or not in database. If exists, checks the given pass is 
     ok or not using `bcrypt`. If all is ok, set the user on `jwt` by return user otherwise return error or null;
+
+# Menu list related
+* Loaded categories inside the navber page using server action
+* set categories name in menu list dynamicly

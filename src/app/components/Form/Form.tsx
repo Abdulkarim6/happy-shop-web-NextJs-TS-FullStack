@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
-import authenticateImg from "@/bannerImages/authenticate.jpg";
+import authenticateImg from "../../../../public/bannerImages/authenticate.jpg";
 import { postNewRegisterUser, UserData } from "@/app/actions/auth/postNewRegisterUser";
 import { Toast } from "@/lib/utils";
 import { signIn } from "next-auth/react";

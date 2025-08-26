@@ -3,12 +3,13 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
 
-import _1stSlide from "@/bannerImages/1stSlide.webp";
-import _2ndSlide from "@/bannerImages/2ndSlide.webp";
-import _3rdSlide from "@/bannerImages/3rdSlide.webp";
-import _4thSlide from "@/bannerImages/4thSlide.webp";
-import _5thSlide from "@/bannerImages/5thSlide.webp";
-import _6thSlide from "@/bannerImages/6thSlide.webp";
+// import _1stSlide from "@/bannerImages/1stSlide.webp";
+import _1stSlide from "../../../../../public/bannerImages/1stSlide.webp";
+import _2ndSlide from "../../../../../public/bannerImages/2ndSlide.webp";
+import _3rdSlide from "../../../../../public/bannerImages/3rdSlide.webp";
+import _4thSlide from "../../../../../public/bannerImages/4thSlide.webp";
+import _5thSlide from "../../../../../public/bannerImages/5thSlide.webp";
+import _6thSlide from "../../../../../public/bannerImages/6thSlide.webp";
 
 const images = [ _1stSlide, _2ndSlide, _3rdSlide, _4thSlide, _5thSlide, _6thSlide, ];
 

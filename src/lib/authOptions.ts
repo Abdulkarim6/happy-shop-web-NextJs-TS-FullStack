@@ -17,7 +17,7 @@ export const authOptions = {
       }
       
       const {loginEmail, password} = credentials;   
-      const usersCollection = dbConnect("users");
+      const usersCollection = await dbConnect("users");
       const isExistsUser = await usersCollection.findOne({email : loginEmail});
     
       const hashedPassword = isExistsUser?.password;

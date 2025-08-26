@@ -13,5 +13,21 @@ export interface Product {
 //   color: string;
 }
 
+export interface Category  {
+  category: string;
+  description: string;
+  image: string;
+};
+
+
+export interface CategoryDocument {
+  _id: string ;
+  thumbnail: string ;
+  title:string;
+  man?: Category[];
+  woman?: Category[];
+  kids?: Category[];
+  accessories?: Category[];
+};
  
     

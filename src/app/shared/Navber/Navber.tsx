@@ -4,11 +4,11 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMe
 import { AlignJustify, ChevronDownIcon, CircleUserRound, Search, X, } from "lucide-react";
 import Link from "next/link";
 import { Poppins } from "next/font/google";
-import { Product } from "@/app/interfaces/product";
+import { Category, CategoryDocument, Product } from "@/app/interfaces/product";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import MobileView from "./MobileView";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { getCategories } from "@/app/actions/products/getCategories";
 
@@ -19,85 +19,6 @@ const poppins = Poppins({
   display: "swap",
 });
 
-const categorys: Product[] = [
-  {
-    id: 1,
-    name: "Boys Formal Shirt",
-    description: "Comfortable cotton t-shirt for everyday use.",
-    brand: "KidsZone",
-    category: "Shirt",
-  },
-  {
-    id: 2,
-    name: "Boys Formal Shirt",
-    description: "Comfortable cotton t-shirt for everyday use.",
-    brand: "KidsZone",
-    category: "Shirt",
-  },
-  {
-    id: 3,
-    name: "Boys Formal Shirt",
-    description: "Comfortable cotton t-shirt for everyday use.",
-    brand: "KidsZone",
-    category: "Shirt",
-  },
-  {
-    id: 4,
-    name: "Boys Formal Shirt",
-    description: "Comfortable cotton t-shirt for everyday use.",
-    brand: "KidsZone",
-    category: "Shirt",
-  },
-  {
-    id: 5,
-    name: "Boys Formal Shirt",
-    description: "Comfortable cotton t-shirt for everyday use.",
-    brand: "KidsZone",
-    category: "Shirt",
-  },
-  {
-    id: 6,
-    name: "Boys Casual Shirt",
-    description: "Comfortable cotton shirt for everyday use.",
-    brand: "KidsZone",
-    category: "Shirt",
-  },
-  {
-    id: 7,
-    name: "Boys Casual Shirt",
-    description: "Comfortable cotton shirt for everyday use.",
-    brand: "KidsZone",
-    category: "Shirt",
-  },
-  {
-    id: 8,
-    name: "Boys Casual Shirt",
-    description: "Comfortable cotton shirt for everyday use.",
-    brand: "KidsZone",
-    category: "Shirt",
-  },
-  {
-    id: 9,
-    name: "Boys Casual Shirt",
-    description: "Comfortable cotton shirt for everyday use.",
-    brand: "KidsZone",
-    category: "Shirt",
-  },
-];
-interface Category  {
-  category: string;
-  description: string;
-  image: string;
-};
-
-
-interface CategoryDocument {
-  _id: string ;
-  man?: Category[];
-  woman?: Category[];
-  kids?: Category[];
-  accessories?: Category[];
-};
 const Navber = () => {
   const {data:session} = useSession();
   const [searchProduct, setSearchProduct] = useState<string>("");
@@ -109,10 +30,10 @@ const Navber = () => {
   const categoriesOfkids = categoriesOfGenders.find(categoriesOfGender => categoriesOfGender.kids);
   const categoriesOfaccessories = categoriesOfGenders.find(categoriesOfGender => categoriesOfGender.accessories);
   
-   useEffect(() => {
+  useEffect(() => {
     (async () => {
       const categoriesOfGenders = await getCategories(); // ✅ render এর বাইরে fetch
-      console.log(118, categoriesOfGenders);
+      console.log(36, categoriesOfGenders);
       
       setCategoriesOfGenders(categoriesOfGenders);
     })();
@@ -173,18 +94,20 @@ const Navber = () => {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <NavigationMenuTrigger className={navigationMenuLink}>
-                Man
-                <ChevronDownIcon
-                  className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-                  aria-hidden="true"
-                />
-              </NavigationMenuTrigger>
+              <Link href="/man">
+                <NavigationMenuTrigger className={navigationMenuLink}>
+                  Man
+                  <ChevronDownIcon
+                    className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+                    aria-hidden="true"
+                  />
+                </NavigationMenuTrigger>
+              </Link>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                   {categoriesOfMan?.man?.map((category : Category | null, id) => (
                     <NavigationMenuLink asChild key={id}>
-                      <Link href="">
+                      <Link href={`/man/${category?.category == "Trousers & T-shirt" ? "Trousers-&-Tshirt" : category?.category}`}>
                         <div className="text-sm lg:text-base leading-none font-medium">
                           {category?.category}
                         </div>
@@ -198,18 +121,20 @@ const Navber = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuTrigger className={navigationMenuLink}>
-                Women
-                <ChevronDownIcon
-                  className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-                  aria-hidden="true"
-                />
-              </NavigationMenuTrigger>
+              <Link href="/woman">
+                <NavigationMenuTrigger className={navigationMenuLink}>
+                  Women
+                  <ChevronDownIcon
+                    className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+                    aria-hidden="true"
+                  />
+                </NavigationMenuTrigger>
+              </Link>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                   {categoriesOfwoman?.woman?.map((category : Category | null, id) => (
                     <NavigationMenuLink asChild key={id}>
-                      <Link href="">
+                      <Link href={`/woman/${category?.category}`}>
                         <div className="text-sm lg:text-base leading-none font-medium">
                           {category?.category}
                         </div>
@@ -223,18 +148,20 @@ const Navber = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuTrigger className={navigationMenuLink}>
-                Kids
-                <ChevronDownIcon
-                  className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-                  aria-hidden="true"
-                />
-              </NavigationMenuTrigger>
+              <Link href="/kids">
+                <NavigationMenuTrigger className={navigationMenuLink}>
+                  Kids
+                  <ChevronDownIcon
+                    className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+                    aria-hidden="true"
+                  />
+                </NavigationMenuTrigger>
+              </Link>
               <NavigationMenuContent>
                 <ul className="grid w-[200px] gap-2 md:w-[300px] lg:w-[400px]">
                   {categoriesOfkids?.kids?.map((category : Category | null, id) => (
                     <NavigationMenuLink asChild key={id}>
-                      <Link href="">
+                      <Link href={`/kids/${category?.category}`}>
                         <div className="text-sm lg:text-base leading-none font-medium">
                           {category?.category}
                         </div>
@@ -248,18 +175,20 @@ const Navber = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuTrigger className={navigationMenuLink}>
-                Accessories
-                <ChevronDownIcon
-                  className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-                  aria-hidden="true"
-                />
-              </NavigationMenuTrigger>
+              <Link href="/accessories">
+                <NavigationMenuTrigger className={navigationMenuLink}>
+                  Accessories
+                  <ChevronDownIcon
+                    className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+                    aria-hidden="true"
+                  />
+                </NavigationMenuTrigger>
+              </Link>
               <NavigationMenuContent>
                 <ul className="grid w-[200px] gap-2 md:w-[300px] lg:w-[400px]">
                   {categoriesOfaccessories?.accessories?.map((category : Category | null, id) => (
                     <NavigationMenuLink asChild key={id}>
-                      <Link href="">
+                      <Link href={`/accessories/${category?.category}`}>
                         <div className="text-sm lg:text-base leading-none font-medium">
                           {category?.category}
                         </div>

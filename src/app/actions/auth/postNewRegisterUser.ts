@@ -10,7 +10,7 @@ export interface UserData {
 }
 export const postNewRegisterUser = async (payload : UserData) => {
     try {
-        const usersCollection = dbConnect("users");
+        const usersCollection = await dbConnect("users");
         const {email, password} = payload;
         const query = {email : email}
     

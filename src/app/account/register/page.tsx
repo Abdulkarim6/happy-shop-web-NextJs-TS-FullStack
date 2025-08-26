@@ -1,5 +1,6 @@
+import Form from "@/app/components/Form/Form";
 
-import Form from "../Form/Form";
+
 
 const registerFromPage = () => {
     return (
