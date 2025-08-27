@@ -21,3 +21,11 @@
 # Menu list related
 * Loaded categories inside the navber page using server action
 * set categories name in menu list dynamicly
+
+# products categories related
+* Loads products categories using `NextJs route handler`.
+  * created an api route with `GET` function to connect mongodb in directory `app/api/     categories/route.ts`.
+  * calls the api ```fetch(`${baseUrl}/api/categories`,{cache: "no-store"})``` inside the component to fetching the data using the api.
+  * ***WARNING: For Production***
+    * Need to declared base api starting with NEXT_PUBLIC_`NEXT_PUBLIC_API_URL=http://localhost:3000` URl in `.env.local` variable for local dev.
+    * Need to declared base api starting with NEXT_PUBLIC_`NEXT_PUBLIC_API_URL=https://yourdomain.vercel.app` URl in `.env.local` variable for Production level.

@@ -53,21 +53,9 @@ const Navber = () => {
         {/* toggle Hamburger Handle */}
         <div className="md:hidden">
           {toggleHamburger ? (
-            <>
-              <X
-                onClick={() => setToggleHamburger(!toggleHamburger)}
-                size={30}
-                className="mx-2"
-              />
-            </>
+            <> <X onClick={() => setToggleHamburger(!toggleHamburger)} size={30} className="mx-2" /> </>
           ) : (
-            <>
-              <AlignJustify
-                onClick={() => setToggleHamburger(!toggleHamburger)}
-                size={30}
-                className="mx-2"
-              />
-            </>
+            <> <AlignJustify onClick={() => setToggleHamburger(!toggleHamburger)} size={30} className="mx-2" /> </>
           )}
         </div>
 
@@ -120,9 +108,8 @@ const Navber = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              {/* <Link href="/woman"> */}
-              <Link href="/">
-                <NavigationMenuTrigger className={navigationMenuLink}>
+              <Link href="/woman">
+               <NavigationMenuTrigger className={navigationMenuLink}>
                   Women
                   <ChevronDownIcon
                     className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
@@ -134,8 +121,7 @@ const Navber = () => {
                 <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                   {categoriesOfwoman?.woman?.map((category : Category | null, id) => (
                     <NavigationMenuLink asChild key={id}>
-                      {/* <Link href={`/woman/${category?.category}`}> */}
-                      <Link href={`/`}>
+                      <Link href={`/woman/${category?.category}`}>
                         <div className="text-sm lg:text-base leading-none font-medium">
                           {category?.category}
                         </div>
@@ -149,8 +135,7 @@ const Navber = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              {/* <Link href="/kids"> */}
-              <Link href="/">
+              <Link href="/kids">
                 <NavigationMenuTrigger className={navigationMenuLink}>
                   Kids
                   <ChevronDownIcon
@@ -163,9 +148,8 @@ const Navber = () => {
                 <ul className="grid w-[200px] gap-2 md:w-[300px] lg:w-[400px]">
                   {categoriesOfkids?.kids?.map((category : Category | null, id) => (
                     <NavigationMenuLink asChild key={id}>
-                      {/* <Link href={`/kids/${category?.category}`}> */}
-                      <Link href={`/`}>
-                        <div className="text-sm lg:text-base leading-none font-medium">
+                      <Link href={`/kids/${category?.category}`}>
+                       <div className="text-sm lg:text-base leading-none font-medium">
                           {category?.category}
                         </div>
                         <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
@@ -178,8 +162,7 @@ const Navber = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              {/* <Link href="/accessories"> */}
-              <Link href="/">
+              <Link href="/accessories">
                 <NavigationMenuTrigger className={navigationMenuLink}>
                   Accessories
                   <ChevronDownIcon
@@ -192,9 +175,8 @@ const Navber = () => {
                 <ul className="grid w-[200px] gap-2 md:w-[300px] lg:w-[400px]">
                   {categoriesOfaccessories?.accessories?.map((category : Category | null, id) => (
                     <NavigationMenuLink asChild key={id}>
-                      {/* <Link href={`/accessories/${category?.category}`}> */}
-                      <Link href={`/`}>
-                        <div className="text-sm lg:text-base leading-none font-medium">
+                      <Link href={`/accessories/${category?.category}`}>
+                       <div className="text-sm lg:text-base leading-none font-medium">
                           {category?.category}
                         </div>
                         <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
@@ -234,18 +216,12 @@ const Navber = () => {
               <NavigationMenuContent className="!absolute w-auto -left-6 md:left-0">
                 <ul className="grid gap-1">
                   <Link href="/account/register">
-                    <Button
-                      variant="ghost"
-                      className="text-base lg:text-lg py-1 px-2"
-                    >
+                    <Button variant="ghost" className="text-base lg:text-lg py-1 px-2" >
                       Register
                     </Button>
                   </Link>
                   <Link href="/account/login">
-                    <Button
-                      variant="ghost"
-                      className="text-base lg:text-lg py-1 px-2"
-                    >
+                    <Button variant="ghost" className="text-base lg:text-lg py-1 px-2" >
                       Login
                     </Button>
                   </Link>

@@ -3,15 +3,15 @@ import dbConnect from "@/lib/dbConnect";
 
 export async function GET(request: Request){
     try {
-        // const collection = dbConnect("categories");
-        // const data = await collection.find({}).toArray();
+        const collection = dbConnect("categories");
+        const data = await collection.find({}).toArray();
 
-        const data = {
-            name:"karim",
-            roll:"100010023",
-            dep:"CSE",
-            cgpa:"3.71"
-        }
+        // const data = {
+        //     name:"karim",
+        //     roll:"100010023",
+        //     dep:"CSE",
+        //     cgpa:"3.71"
+        // }
 
         return Response.json({data})
 
