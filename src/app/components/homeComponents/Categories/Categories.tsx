@@ -8,8 +8,10 @@ const Categories = async () => {
    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
    const res = await fetch(`${baseUrl}/api/categories`,{cache: "force-cache"});
-
    const categoriesOfGenders = await res.json(); 
+   if(!res.ok){
+    throw new Error("Failed to fetch");
+   }
 
   return (
     <section className="flex flex-col justify-center items-center">
