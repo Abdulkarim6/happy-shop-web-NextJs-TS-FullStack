@@ -5,7 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Categories = async () => {
-  const res = await fetch("http://localhost:3000/api/categories", { cache: "no-store" });
+   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+   console.log(baseUrl);
+
+   const res = await fetch(`${baseUrl}/api/categories`);
+   
 
   const data = await res.json();
   console.log(9, data);
