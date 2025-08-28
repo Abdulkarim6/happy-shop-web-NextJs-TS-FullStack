@@ -8,10 +8,10 @@ const Categories = async () => {
    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
    const res = await fetch(`${baseUrl}/api/categories`,{cache: "no-store"});
+   const resJson = await res.json(); 
    if(!res.ok){
     throw new Error("Failed to fetch");
    }
-   const resJson = await res.json(); 
    const categoriesOfGenders = await resJson?.data;
    console.log(15, categoriesOfGenders);
 
