@@ -4,7 +4,7 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMe
 import { AlignJustify, ChevronDownIcon, CircleUserRound, Search, X, } from "lucide-react";
 import Link from "next/link";
 import { Poppins } from "next/font/google";
-import { Category, CategoryDocument, Product } from "@/app/interfaces/product";
+import { SubCategoriesType, CategoriesType, Product } from "@/app/interfaces/product";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import MobileView from "./MobileView";
@@ -18,7 +18,7 @@ const poppins = Poppins({
   display: "swap",
 });
 
-const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoryDocument[]}) => {
+const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoriesType[]}) => {
     const { data: session } = useSession();
     const [searchProduct, setSearchProduct] = useState<string>("");
     const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
@@ -37,6 +37,10 @@ const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoryDocum
     }, []);
 
     const navigationMenuLink = `text-base lg:text-lg font-medium !px-2 !py-1 lg:!px-4 lg:!py-2`;
+
+  //  console.log("categoriesOfGenders", categoriesOfGenders);
+  //  console.log("categoriesOfMan", categoriesOfMan);
+  //  {categoriesOfwoman?.woman?.map((category => console.log(category)))}
 
     return (
         <section className="flex items-center relative p-2 !pr-2 md:!pr-10">
@@ -71,7 +75,7 @@ const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoryDocum
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <Link href="/man">
+              <Link href={`/categories/${categoriesOfMan?.title}`}>
                 <NavigationMenuTrigger className={navigationMenuLink}>
                   Man
                   <ChevronDownIcon
@@ -82,9 +86,9 @@ const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoryDocum
               </Link>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                  {categoriesOfMan?.man?.map((category : Category | null, id) => (
+                  {categoriesOfMan?.man?.map((category : SubCategoriesType | null, id) => (
                     <NavigationMenuLink asChild key={id}>
-                      <Link href={`/man/${category?.category == "Trousers & T-shirt" ? "Trousers-&-Tshirt" : category?.category}`}>
+                      <Link href={`/categories/${categoriesOfMan?.title}/${category?.category == "Trousers & T-shirt" ? "Trousers-&-Tshirt" : category?.category}`}>
                         <div className="text-sm lg:text-base leading-none font-medium">
                           {category?.category}
                         </div>
@@ -98,7 +102,7 @@ const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoryDocum
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/woman">
+              <Link href={`/categories/${categoriesOfwoman?.title}`}>
                <NavigationMenuTrigger className={navigationMenuLink}>
                   Women
                   <ChevronDownIcon
@@ -109,9 +113,9 @@ const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoryDocum
               </Link>
               <NavigationMenuContent>
                 <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                  {categoriesOfwoman?.woman?.map((category : Category | null, id) => (
+                  {categoriesOfwoman?.woman?.map((category : SubCategoriesType | null, id) => (
                     <NavigationMenuLink asChild key={id}>
-                      <Link href={`/woman/${category?.category}`}>
+                      <Link href={`/categories/${categoriesOfwoman?.title}/${category?.category}`}>
                         <div className="text-sm lg:text-base leading-none font-medium">
                           {category?.category}
                         </div>
@@ -125,7 +129,7 @@ const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoryDocum
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/kids">
+              <Link href={`/categories/${categoriesOfkids?.title}`}>
                 <NavigationMenuTrigger className={navigationMenuLink}>
                   Kids
                   <ChevronDownIcon
@@ -136,9 +140,9 @@ const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoryDocum
               </Link>
               <NavigationMenuContent>
                 <ul className="grid w-[200px] gap-2 md:w-[300px] lg:w-[400px]">
-                  {categoriesOfkids?.kids?.map((category : Category | null, id) => (
+                  {categoriesOfkids?.kids?.map((category : SubCategoriesType | null, id) => (
                     <NavigationMenuLink asChild key={id}>
-                      <Link href={`/kids/${category?.category}`}>
+                      <Link href={`/categories/${categoriesOfkids?.title}/${category?.category}`}>
                        <div className="text-sm lg:text-base leading-none font-medium">
                           {category?.category}
                         </div>
@@ -152,7 +156,7 @@ const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoryDocum
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href="/accessories">
+              <Link href={`/categories/${categoriesOfaccessories?.title}`}>
                 <NavigationMenuTrigger className={navigationMenuLink}>
                   Accessories
                   <ChevronDownIcon
@@ -163,9 +167,9 @@ const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoryDocum
               </Link>
               <NavigationMenuContent>
                 <ul className="grid w-[200px] gap-2 md:w-[300px] lg:w-[400px]">
-                  {categoriesOfaccessories?.accessories?.map((category : Category | null, id) => (
+                  {categoriesOfaccessories?.accessories?.map((category : SubCategoriesType | null, id) => (
                     <NavigationMenuLink asChild key={id}>
-                      <Link href={`/accessories/${category?.category}`}>
+                      <Link href={`/categories/${categoriesOfaccessories?.title}/${category?.category}`}>
                        <div className="text-sm lg:text-base leading-none font-medium">
                           {category?.category}
                         </div>

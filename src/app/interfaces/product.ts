@@ -15,21 +15,21 @@ export interface Product {
 //   color: string;
 }
 
-export interface Category  {
+export interface SubCategoriesType  {
   category: string;
   description: string;
   image: string;
 };
 
 
-export interface CategoryDocument {
+export interface CategoriesType {
   _id: string ;
   thumbnail: string ;
   title:string;
-  man?: Category[];
-  woman?: Category[];
-  kids?: Category[];
-  accessories?: Category[];
+  man?: SubCategoriesType[];
+  woman?: SubCategoriesType[];
+  kids?: SubCategoriesType[];
+  accessories?: SubCategoriesType[];
 };
 
 

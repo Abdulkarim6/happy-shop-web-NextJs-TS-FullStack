@@ -1,10 +1,10 @@
 "use server"
 
 
-import { CategoryDocument } from "@/app/interfaces/product";
+import { CategoriesType } from "@/app/interfaces/product";
 import dbConnect from "@/lib/dbConnect"
 
-export const getCategories = async (): Promise<CategoryDocument[]> =>{
+export const getCategories = async (): Promise<CategoriesType[]> =>{
     try {
         const categoriesCollection = await dbConnect("categories");
         const query = {};
@@ -15,7 +15,7 @@ export const getCategories = async (): Promise<CategoryDocument[]> =>{
             _id : category._id.toString()
         }))
         
-        return serialized as CategoryDocument[];
+        return serialized as CategoriesType[];
         
     } catch (error) {
         console.log(error);
