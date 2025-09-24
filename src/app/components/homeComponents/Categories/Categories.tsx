@@ -1,4 +1,4 @@
-import { CategoryDocument } from "@/app/interfaces/product";
+import { CategoriesType } from "@/app/utils/interfaces";
 import { poppins } from "@/app/layout";
 import { Card, CardContent, } from "@/components/ui/card";
 import Image from "next/image";
@@ -13,14 +13,13 @@ const Categories = async () => {
     throw new Error("Failed to fetch");
    }
    const categoriesOfGenders = await resJson?.data;
-   console.log(15, categoriesOfGenders);
 
   return (
     <section className="flex flex-col justify-center items-center">
       <h2 className={`text-2xl md:text-3xl lg:text-4xl font-semibold ${poppins.className}`}>-SHOP BY-</h2>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-1">
-        {categoriesOfGenders.map((categoryOfGenders: CategoryDocument) => (
-        <Link href={`/${categoryOfGenders?.title}`} key={categoryOfGenders?._id}>
+        {categoriesOfGenders.map((categoryOfGenders: CategoriesType) => (
+        <Link href={`/categories/${categoryOfGenders?.targetAudience}`} key={categoryOfGenders?._id}>
           <Card className="w-full py-0 gap-0 rounded-lg" >
             <CardContent className="p-1 md:p-2">
               <Image
@@ -32,7 +31,7 @@ const Categories = async () => {
               />
             </CardContent>
             <h3 className="text-center text-xl md:text-2xl font-semibold my-2">
-              {categoryOfGenders?.title.toUpperCase()}
+              {categoryOfGenders?.targetAudience.toUpperCase()}
             </h3>
           </Card>
         </Link>

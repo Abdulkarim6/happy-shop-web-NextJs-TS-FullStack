@@ -11,8 +11,14 @@
   cursor: pointer;
 }    */
 
-.mx{
-  margin: 8px;
+.bg-l-overlay{
+background: #000000;
+background: linear-gradient(79deg, rgba(0, 0, 0, 0.67) 0%, rgba(224, 34, 34, 0) 62%);
+}
+
+.bg-r-overlay{
+  background: #000000;
+background: linear-gradient(301deg, rgba(0, 0, 0, 0.67) 0%, rgba(224, 34, 34, 0) 62%);
 }
 
 @custom-variant dark (&:is(.dark *));

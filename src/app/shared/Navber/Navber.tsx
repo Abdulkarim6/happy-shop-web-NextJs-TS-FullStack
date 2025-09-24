@@ -1,10 +1,10 @@
 
 import { getCategories } from "@/app/actions/products/getCategories";
 import NavberClient from "./NavberClient";
-import { CategoryDocument } from "@/app/interfaces/product";
+import { CategoriesType } from "@/app/utils/interfaces";
 
 const Navber = async() => {
-  const categoriesOfGenders: CategoryDocument[] = await getCategories(); // ✅ render এর বাইরে fetch
+  const categoriesOfGenders: CategoriesType[] = await getCategories(); // ✅ render এর বাইরে fetch
 
   return (
     <section className="flex flex-col sticky top-0 bg-slate-100 z-50">

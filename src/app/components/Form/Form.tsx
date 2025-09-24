@@ -10,7 +10,7 @@ import authenticateImg from "../../../../public/bannerImages/authenticate.jpg";
 import { postNewRegisterUser, UserData } from "@/app/actions/auth/postNewRegisterUser";
 
 import { signIn } from "next-auth/react";
-import { Toast } from "@/app/interfaces/product";
+import { Toast } from "@/app/utils/interfaces";
 
 const Form = () => {
       const [loding, setLoading] = useState<boolean>(false);
