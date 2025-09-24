@@ -3,6 +3,7 @@ import "./globals.css";
 import Navber from "./shared/Navber/Navber";
 import NextAuthSessionProvider from "./providers/NextAuthSessionProvider";
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import Footer from "./shared/Footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,11 +35,12 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
       </head>
       <NextAuthSessionProvider>
          <body
-           className={`${geistSans.variable} ${geistMono.variable} antialiased w-max-[1440px] mx-auto min-h-screen bg-slate-50`}
+           className={`${poppins.className} antialiased w-max-[1440px] mx-auto min-h-screen bg-slate-50`}
          >
           <main>
             <Navber/>
             {children}
+            <Footer/>
           </main>
          </body>
       </NextAuthSessionProvider>
