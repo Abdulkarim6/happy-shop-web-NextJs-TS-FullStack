@@ -136,6 +136,32 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
             </div>
           </figure>
         </div>
+
+        <div>
+          <h3 className="text-4xl font-semibold text-center my-3 md:my-5">SHOP BY CATEGORIES</h3>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+            {categoriesOfkids?.kids?.map((subCategory: SubCategoriesType, id) => (
+              <Link
+                key={id}
+                href={`/categories/${ categoriesOfkids?.targetAudience
+                }/${subCategory?.subCategory?.split(" ").join("-")}`}
+              >
+                <Image
+                  src={subCategory?.image} alt="Picture of the author" width={400} height={450}
+                  className="rounded-md hover:rounded-lg overflow-hidden hover:scale-105 transition-transform opacity-90"
+                />
+                <div className={`my-2 ${poppins.className}`}>
+                  <h3 className="text-sm md:text-3xl text-center leading-none font-medium my-2">
+                    {subCategory?.subCategory}
+                  </h3>
+                  <p className="text-base font-medium">
+                     {subCategory?.description}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
     );
   }
@@ -151,6 +177,32 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
               />
             </div>
           </figure>
+      </div>
+
+      <div>
+          <h3 className="text-4xl font-semibold text-center my-3 md:my-5">SHOP BY CATEGORIES</h3>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+            {categoriesOfaccessories?.accessories?.map((subCategory: SubCategoriesType, id) => (
+              <Link
+                key={id}
+                href={`/categories/${ categoriesOfaccessories?.targetAudience
+                }/${subCategory?.subCategory?.split(" ").join("-")}`}
+              >
+                <Image
+                  src={subCategory?.image} alt="Picture of the author" width={400} height={450}
+                  className="rounded-md hover:rounded-lg overflow-hidden hover:scale-105 transition-transform opacity-90"
+                />
+                <div className={`my-2 ${poppins.className}`}>
+                  <h3 className="text-sm md:text-3xl text-center leading-none font-medium my-2">
+                    {subCategory?.subCategory}
+                  </h3>
+                  <p className="text-base font-medium">
+                     {subCategory?.description}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
     </section>
   }
