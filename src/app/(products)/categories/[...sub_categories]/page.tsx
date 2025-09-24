@@ -10,8 +10,9 @@ import BannerRightTitleComponent from "@/app/shared/BannerRightTitleComponent/Ba
 
 import man from "../../../../../public/productsPageBannerImages/162770 (2).jpg";
 import woman from "../../../../../public/productsPageBannerImages/122063.jpg";
-import acc from "../../../../../public/productsPageBannerImages/acc.png";
-import k from "../../../../../public/productsPageBannerImages/k.jpeg";
+import kids from "../../../../../public/productsPageBannerImages/k.jpeg";
+import accessories from "../../../../../public/productsPageBannerImages/acc.png";
+import { poppins } from "@/app/layout";
 
 const imageStyle = {
   border: "1px solid #fff",
@@ -64,12 +65,14 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
                   src={subCategory?.image} alt="Picture of the author" width={450} height={500}
                   className="rounded-md hover:rounded-lg overflow-hidden hover:scale-105 transition-transform opacity-90"
                 />
-                <div className="text-sm md:text-3xl text-center leading-none font-medium my-2">
-                  {subCategory?.subCategory}
+                <div className={`my-2 ${poppins.className}`}>
+                  <h3 className="text-sm md:text-3xl text-center leading-none font-medium my-2">
+                    {subCategory?.subCategory}
+                  </h3>
+                  <p className="text-base font-medium">
+                     {subCategory?.description}
+                  </p>
                 </div>
-                <p className="text-muted-foreground line-clamp-2 text-sm leading-snug">
-                  {subCategory?.description}
-                </p>
               </Link>
             ))}
           </div>
@@ -91,6 +94,32 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
             </div>
           </figure>
         </div>
+
+        <div>
+          <h3 className="text-4xl font-semibold text-center my-3 md:my-5">SHOP BY CATEGORIES</h3>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+            {categoriesOfwomen?.women?.map((subCategory: SubCategoriesType, id) => (
+              <Link
+                key={id}
+                href={`/categories/${ categoriesOfwomen?.targetAudience
+                }/${subCategory?.subCategory?.split(" ").join("-")}`}
+              >
+                <Image
+                  src={subCategory?.image} alt="Picture of the author" width={400} height={450}
+                  className="rounded-md hover:rounded-lg overflow-hidden hover:scale-105 transition-transform opacity-90"
+                />
+                <div className={`my-2 ${poppins.className}`}>
+                  <h3 className="text-sm md:text-3xl text-center leading-none font-medium my-2">
+                    {subCategory?.subCategory}
+                  </h3>
+                  <p className="text-base font-medium">
+                     {subCategory?.description}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
     </section>
   }
   else if(urlPathe === "kids"){
@@ -98,7 +127,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
       <section>
         <div>
           <figure className="relative">
-            <Image src={k} style={imageStyle} alt="banner" />
+            <Image src={kids} style={imageStyle} alt="banner" />
             <div className="absolute top-0 w-full h-full bg-l-overlay">
               <BannerRightTitleComponent
                 title="KIDS"
@@ -114,7 +143,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
     content = <section>
       <div>
           <figure className="relative">
-            <Image src={acc} style={imageStyle} alt="banner" />
+            <Image src={accessories} style={imageStyle} alt="banner" />
             <div className="absolute top-0 w-full h-full flex justify-end bg-r-overlay ">
               <BannerRightTitleComponent
                 title="Accessories"
