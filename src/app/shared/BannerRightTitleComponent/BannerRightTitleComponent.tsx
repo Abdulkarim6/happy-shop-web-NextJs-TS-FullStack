@@ -15,8 +15,7 @@ type Props = {
 
 const BannerRightTitleComponent = ({ title, subTitle }: Props) => {
   const container = useRef<HTMLDivElement | null>(null);
-  const p = usePathname();
-  console.log(p);
+  const p = usePathname(); //like: /categories/men
   
 
   useGSAP(() => {

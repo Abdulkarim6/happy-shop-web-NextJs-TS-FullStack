@@ -6,7 +6,7 @@ import dbConnect from "@/lib/dbConnect"
 export const getAllProducts = async () : Promise<Product[]> => {
     try {
     //    const collection = dbConnect("products");
-       const collection = dbConnect("pro-ducts");
+       const collection = dbConnect("products");
        const data = await collection.find({}).toArray();
        
     //    const serialized = data.map(subCategory => ({

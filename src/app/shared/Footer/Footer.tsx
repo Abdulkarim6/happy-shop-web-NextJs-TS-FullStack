@@ -20,16 +20,16 @@ const Footer = () => {
       </aside>
 
       <nav className="w-3/5 flex flex-col justify-center">
-        <h3 className="text-2xl text-center">Social</h3>
+        <h3 className="text-2xl text-center">Touch Us With Social</h3>
         <div className="flex gap-5 justify-center items-center">
           <Link href="">
-            <Instagram stroke="currentColor" size={56} />
+            <Instagram stroke="currentColor" size={50} />
           </Link>
           <Link href="">
-            <Youtube size={56} />
+            <Youtube size={50} />
           </Link>
           <Link href="">
-            <Facebook size={56} />
+            <Facebook size={50} />
           </Link>
         </div>
       </nav>
