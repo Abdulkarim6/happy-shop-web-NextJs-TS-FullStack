@@ -13,7 +13,7 @@ type Props = {
   subTitle: string;
 };
 
-const BannerRightTitleComponent = ({ title, subTitle }: Props) => {
+const BannerTitleComponent = ({ title, subTitle }: Props) => {
   const container = useRef<HTMLDivElement | null>(null);
   const p = usePathname(); //like: /categories/men
   
@@ -52,4 +52,4 @@ const BannerRightTitleComponent = ({ title, subTitle }: Props) => {
   );
 };
 
-export default BannerRightTitleComponent;
+export default BannerTitleComponent;

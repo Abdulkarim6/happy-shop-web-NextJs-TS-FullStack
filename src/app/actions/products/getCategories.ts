@@ -10,9 +10,9 @@ export const getCategories = async (): Promise<CategoriesType[]> =>{
         const query = {};
         const res = await categoriesCollection.find(query).toArray();
         
-        const serialized = res.map(subCategory => ({
+        const serialized = res?.map(subCategory => ({
             ...subCategory,
-            _id : subCategory._id.toString()
+            _id : subCategory?._id?.toString()
         }))
         
         return serialized as CategoriesType[];

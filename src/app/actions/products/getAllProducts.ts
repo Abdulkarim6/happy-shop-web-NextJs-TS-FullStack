@@ -9,12 +9,12 @@ export const getAllProducts = async () : Promise<Product[]> => {
        const collection = dbConnect("products");
        const data = await collection.find({}).toArray();
        
-    //    const serialized = data.map(subCategory => ({
-    //         ...subCategory,
-    //         _id : subCategory._id.toString()
-    //     }))
+       const serialized = data.map(subCategory => ({
+            ...subCategory,
+            _id : subCategory._id.toString()
+        }))
 
-       return data as Product[];
+       return serialized as Product[];
        
     } catch (error) {
         console.log(error);

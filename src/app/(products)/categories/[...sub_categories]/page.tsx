@@ -6,9 +6,8 @@ import Image from "next/image";
 import { getAllProducts } from "@/app/actions/products/getAllProducts";
 import { decodeParams } from "@/app/utils/decodeParams";
 import { filteredDataBySubcategory } from "@/app/utils/filteredDataBySubcategory";
-import BannerRightTitleComponent from "@/app/shared/BannerRightTitleComponent/BannerRightTitleComponent";
-import { Button } from "@/components/ui/button";
-import {SlidersHorizontal, Trash2 } from "lucide-react";
+import BannerTitleComponent from "@/app/shared/BannerTitleComponent/BannerTitleComponent";
+import MenProducts from "@/app/components/productsPageComponents/MenProducts/MenProducts";
 
 import man from "../../../../../public/productsPageBannerImages/162770 (2).jpg";
 import woman from "../../../../../public/productsPageBannerImages/122063.jpg";
@@ -46,7 +45,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
           <figure className="relative">
             <Image src={man} style={imageStyle} alt="banner" />
             <div className="absolute top-0 w-full h-full flex justify-end bg-r-overlay ">
-              <BannerRightTitleComponent
+              <BannerTitleComponent
                 title="Men"
                 subTitle="Explore our Mans collection designed for endless play, happy smiles, and unforgettable memories"
               />
@@ -91,7 +90,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
           <figure className="relative">
             <Image src={woman} style={imageStyle} alt="banner" />
             <div className="absolute top-0 w-full h-full flex justify-end bg-r-overlay ">
-              <BannerRightTitleComponent
+              <BannerTitleComponent
                 title="Women"
                 subTitle="Explore our womans collection designed for endless play, happy smiles, and unforgettable memories"
               />
@@ -135,7 +134,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
           <figure className="relative">
             <Image src={kids} style={imageStyle} alt="banner" />
             <div className="absolute top-0 w-full h-full bg-l-overlay">
-              <BannerRightTitleComponent
+              <BannerTitleComponent
                 title="KIDS"
                 subTitle="Explore our kids collection designed for endless play, happy smiles, and unforgettable memories"
               />
@@ -182,7 +181,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
           <figure className="relative">
             <Image src={accessories} style={imageStyle} alt="banner" />
             <div className="absolute top-0 w-full h-full flex justify-end bg-r-overlay ">
-              <BannerRightTitleComponent
+              <BannerTitleComponent
                 title="Accessories"
                 subTitle="Explore our Mans accessories designed for endless play, happy smiles, and unforgettable memories"
               />
@@ -226,45 +225,8 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
      filteredDataBySubcategory(allProductsOfCategory, decodedSub_categories));
     // console.log(dataBySubcategory);
      
-     content = 
-        <section className="w-full flex gap-2">
-          <div className="w-1/5">
-            <h4 className="flex items-center"> 
-              <SlidersHorizontal size={18}/> <span className="text-xl font-bold ml-2"> FILTER BY </span>
-            </h4>
-            <div className="w-full border-1 border-gray-300 my-2 pr-12"></div>
-            <div>
-              <Button variant="ghost" buttonSize="sm" className="flex items-center"> 
-                <Trash2 size={18}/> <span className="text-lg font-medium"> CLEAR ALL </span>
-              </Button>
-            </div>
-          </div>
-          <div className="w-4/5 grid grid-cols-2 lg:grid-cols-3 gap-5">
-            {dataBySubcategory?.map((product: Product, id) => (
-              <Link
-                key={id}
-                href={`/categories/${ categoriesOfMan?.targetAudience
-                }/${product?.subCategory?.split(" ").join("-")}`}
-              >
-                <Image
-                  src={product?.image} alt="Picture of the author" width={450} height={550}
-                  className="overflow-hidden hover:scale-105 transition-transform opacity-90"
-                />
-                <div className={`my-2 ${poppins.className}`}>
-                  <h3 className="text-sm md:text-2xl text-center leading-none font-medium my-2">
-                    {product?.name}
-                  </h3>
-                  <p className="text-base font-medium">
-                     {product?.description}
-                  </p>
-                  <p className="text-lg font-light">
-                     BDT {product?.price} TK
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
+    content = <MenProducts dataBySubcategory={dataBySubcategory} 
+              categoriesOfMan={categoriesOfMan} urlPathe={urlPathe}/>;
   } 
   else if(urlPathe.startsWith("women/") ) {
     const dataBySubcategory = 

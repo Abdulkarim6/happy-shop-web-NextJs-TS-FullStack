@@ -1,8 +1,7 @@
-import { ObjectId } from "mongodb";
 import Swal from "sweetalert2";
 
 export interface Product {
-  _id: ObjectId;
+  _id: string;
   name: string;
   description: string;
   brand: string;
@@ -10,7 +9,7 @@ export interface Product {
   targetAudience: string;
   size: string | string[];
   price: number;
-  inStock: string | number;
+  inStock: string | number | boolean;
   rating: string | number | boolean;
   image: string;
   color: string;

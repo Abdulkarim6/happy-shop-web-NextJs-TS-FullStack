@@ -6,8 +6,8 @@ export const filteredDataBySubcategory = (subCategory : Product, decodedSub_cate
   // console.log(subCategory.subCategory?.split(" ").join("-").toLowerCase(), decodedSub_categories[1]?.toLowerCase(), subCategory.subCategory?.split(" ").join("-").toLowerCase() === decodedSub_categories[1]?.toLowerCase());
   // console.log(subCategory.subCategory?.split(" ").join("-").toLowerCase(), decodedSub_categories[0]?.toLowerCase(), subCategory.subCategory?.split(" ").join("-").toLowerCase() === decodedSub_categories[1]?.toLowerCase());
   
-  const isMatchtargetAudience = subCategory.targetAudience?.toLowerCase() === decodedSub_categories[0]?.toLowerCase();
-  const isMatchSubcategory = subCategory.subCategory?.split(" ").join("-").toLowerCase() === decodedSub_categories[1]?.toLowerCase();
+  const isMatchtargetAudience = subCategory.targetAudience?.toLowerCase() === decodedSub_categories[0]?.toLowerCase(); // like: men
+  const isMatchSubcategory = subCategory.subCategory?.split(" ").join("-").toLowerCase() === decodedSub_categories[1]?.toLowerCase(); //like : pant
 
     return isMatchtargetAudience && isMatchSubcategory;
 }
