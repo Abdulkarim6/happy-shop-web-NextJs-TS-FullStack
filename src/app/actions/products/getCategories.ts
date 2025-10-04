@@ -1,14 +1,13 @@
 "use server"
 
-
 import { CategoriesType } from "@/app/utils/interfaces";
 import dbConnect from "@/lib/dbConnect"
 
 export const getCategories = async (): Promise<CategoriesType[]> =>{
     try {
-        const categoriesCollection = await dbConnect("categories");
-        const query = {};
-        const res = await categoriesCollection.find(query).toArray();
+        const categoriesCollection = dbConnect("categories");
+        // const query = {};
+        const res = await categoriesCollection.find({}).toArray();
         
         const serialized = res?.map(subCategory => ({
             ...subCategory,

@@ -4,21 +4,19 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Eye, Menu, Minus, Plus, Ruler, SlidersHorizontal, Trash2, X } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type GroupPropsTypes = {
   dataBySubcategory : Product[];
   categoriesOfMan: CategoriesType | undefined;
-  urlPathe : string;
+  decodedSub_categories : string[];
 };
 
 type filterAreaKey = "price" | "size" | "inStock" | "color";
 
-const MenProducts = ({dataBySubcategory, categoriesOfMan, urlPathe} : GroupPropsTypes) => {
-  console.log("urlPathe", urlPathe);
-  
+const MenProducts = ({dataBySubcategory, categoriesOfMan, decodedSub_categories} : GroupPropsTypes) => {
     const [filterArea, setFilterArea] = useState<Record<filterAreaKey, boolean>>({
-      price:true, size:false, inStock:false, color:true
+      price:true, size:true, inStock:false, color:true
     });
     
     // state of filters values
@@ -26,6 +24,7 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, urlPathe} : GroupProps
     const [sizes, setSizes] = useState<string[]>([]);
     const [inStock, setStock] = useState<boolean>(false);
     const [colors, setColors] = useState<string[]>([]); 
+    const [quantityOfSizes, setQuantityOfSizes] = useState<{ _id: string, quantity: number }[]>([]);  
 
     function normalizeSize(size: string | string[]): string[] {
     if (Array.isArray(size)) {
@@ -62,11 +61,12 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, urlPathe} : GroupProps
 
   // color filter
   const matchColor =
-    colors.length > 0 ? colors.includes(product.color) : true;
+    colors.length > 0 ? colors.some((c) => product.color.includes(c)) : true;
 
   return matchPrice && matchSize && matchAvailability && matchColor;
 });
 
+    //close and open dynamicly filter area for different filter section
     const filterArea_IconToggle = (areaFor: filterAreaKey) => {
       const current = filterArea[areaFor]; // true or false
 
@@ -74,12 +74,12 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, urlPathe} : GroupProps
         setFilterArea((prev) => ({...prev, [areaFor] : !current}));
       }, 250);
     };
-
+    // set and remove in state sizes 
     const handleSizeChange = (size:string) =>{
       setSizes(prev =>
           prev.includes(size) ? prev.filter(s => s != size) : [...prev, size]
       )}
-
+     // set and remove in state colors
     const handleColorChange = (color:string) =>{
       setColors(prev =>
           prev.includes(color) ? prev.filter(s => s != color) : [...prev, color]
@@ -93,17 +93,8 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, urlPathe} : GroupProps
       { name: "Gray", bg: "bg-gray-500" }, { name: "Slate", bg: "bg-slate-500" },
       { name: "Maroon", bg: "bg-red-900" }, { name: "Purpal", bg: "bg-purple-500" }
     ];
-
-    let sizesOfProductBased;
-    if(urlPathe?.startsWith("men/Shirts") || urlPathe?.startsWith("men/T-Shirts")){
-      sizesOfProductBased = ["M", "L", "XL", "XXL"];
-    }else if(urlPathe?.startsWith("men/Panjabi")){
-      sizesOfProductBased = ["36"," 38", "40", "42", "44", "46"];
-    }else {
-      sizesOfProductBased = ["28", "30", "32", "34", "36"," 38"];
-    }
-
-
+    
+    // clear filter values from state with one click or specific value click
     const handleRemoveFilterOption = (actionFor: string, option : string ) => {
           if(actionFor === "sizes"){
             setSizes(prev => prev.filter(s => s != option));
@@ -114,22 +105,48 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, urlPathe} : GroupProps
           }else if(actionFor === "inStock"){
             setStock(!inStock);
           }
+          
+          if (actionFor === "clearAll") {
+            setSizes([]);
+            setPrice("");
+            setColors([]);
+            setStock(curr => !curr);  
+          }
     }
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    // Load quantity of products based on size
+    useEffect(() => {
+       fetch(`${baseUrl}/api/getQuantityOfItemsForEachSizes`,{
+          cache:"no-store",
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            subCategory: decodedSub_categories[1],
+            targetAudience: decodedSub_categories[0],
+           })
+      })
+       .then((res) => res.json())
+         .then((data) => setQuantityOfSizes(data))
+         .catch((err) => console.log("err", err));
+    },[])
+
     return (
         <section className="w-full flex gap-2 ">
           {/* Filtered Area */}
           <div className="w-1/5">
-            <h4 className="flex items-center">
+            <h4 className="flex items-center" >
               <SlidersHorizontal size={18} /> <span className="text-xl font-bold ml-2"> FILTER BY </span>
             </h4>
             <div className="w-full border-1 border-gray-300 my-2 pr-12"></div>
             
             {/* Clear values of filter section */}
             <div className="w-full">
-              <Button variant="ghost" buttonSize="sm" className="flex items-center" >
+              <Button variant="ghost" buttonSize="sm" className="flex items-center" 
+              onClick={() => handleRemoveFilterOption("clearAll", "")}
+              >
                 <Trash2 size={18} /> <span className="text-base font-medium"> CLEAR ALL </span>
               </Button>
-              {/* price filter options */}
+              {/* price filter options remove from state*/}
               <div className="w-full flex flex-row items-center gap-1">
                 {
                   price && 
@@ -139,7 +156,7 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, urlPathe} : GroupProps
                 }
               </div>
              
-              {/* sizes filter options */}
+              {/* sizes filter options remove from state*/}
               <div className="w-full flex flex-row items-center gap-1">
                 {
                   sizes && sizes.map((size, id) =>
@@ -148,7 +165,7 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, urlPathe} : GroupProps
                   )
                 }
               </div>
-              {/* inStock filter options */}
+              {/* inStock filter options remove from state*/}
               <div className="w-full flex flex-row items-center gap-1">
                 {
                   inStock && 
@@ -156,7 +173,7 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, urlPathe} : GroupProps
                    className="flex items-center gap-1 border border-solid border-gray-50 hover:border-black rounded-2xl p-1 text-sm cursor-pointer">In Stock <X className="size-3"/></span>
                 }
               </div>
-              {/* color filter options */}
+              {/* color filter options remove from state*/}
               <div className="w-full flex flex-row items-center gap-1">
                 {
                   colors && colors.map((color, id) =>
@@ -202,13 +219,13 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, urlPathe} : GroupProps
                              ${filterArea?.size ? "max-h-lvh" : "max-h-0"}`}>
                 <div className="bg-slate-100 p-5">
                   {
-                   sizesOfProductBased?.map(size =>(
-                        <label key={size} className="flex items-center gap-2">
+                   quantityOfSizes?.map(size =>(
+                        <label key={size?._id} className="flex items-center gap-2 cursor-pointer">
                          <input 
-                         type="checkbox" checked={sizes.includes(size)}
-                         onChange={() => handleSizeChange(size)}
+                         type="checkbox" checked={sizes.includes(size?._id)}
+                         onChange={() => handleSizeChange(size?._id)}
                          />
-                         {size}
+                         {size?._id} <span className="text-sm">({size?.quantity}P)</span>
                         </label>
                      ))
                   }

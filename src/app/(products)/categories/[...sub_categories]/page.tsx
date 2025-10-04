@@ -30,7 +30,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
   const categoriesOfkids = categoriesOfGenders?.find(categoriesOfGender => categoriesOfGender.kids);
   const categoriesOfaccessories = categoriesOfGenders?.find(categoriesOfGender => categoriesOfGender.accessories);
   
-  const sub_categories = await params; // like: ['women', 'Saree'] 
+  const sub_categories = await params; // like: {sub_categories: Array(2)(2) ['men', 'Pant'} 
   const decodedParams = await decodeParams(sub_categories);
   const decodedSub_categories = decodedParams?.sub_categories;
   const urlPathe = decodedSub_categories.join("/");
@@ -190,7 +190,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
       </div>
 
       <div>
-          {/* --Categories for men page-- */}
+          {/* --Categories for accessories page-- */}
           <h3 className="text-4xl font-semibold text-center my-3 md:my-5">SHOP BY CATEGORIES</h3>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
             {categoriesOfaccessories?.accessories?.map((subCategory: SubCategoriesType, id) => (
@@ -226,7 +226,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
     // console.log(dataBySubcategory);
      
     content = <MenProducts dataBySubcategory={dataBySubcategory} 
-              categoriesOfMan={categoriesOfMan} urlPathe={urlPathe}/>;
+              categoriesOfMan={categoriesOfMan} decodedSub_categories={decodedSub_categories}/>;
   } 
   else if(urlPathe.startsWith("women/") ) {
     const dataBySubcategory = 
