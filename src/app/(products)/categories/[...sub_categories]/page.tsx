@@ -1,4 +1,3 @@
-import { getCategories } from "@/app/actions/products/getCategories";
 import Link from "next/link";
 //import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle, } from "@/components/ui/navigation-menu";
 import { SubCategoriesType, CategoriesType, Product } from "@/app/utils/interfaces";
@@ -22,13 +21,26 @@ const imageStyle = {
 };
 
 const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }) => {
-  const allProductsOfCategories: Product[] = await getAllProducts(); // loaded all products
+  //const allProductsOfCategories: Product[] = await getAllProducts(); // loaded all products via server action
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
+   const response = await fetch(`${baseUrl}/api/allProducts`, {cache: "force-cache"});
+   if(!response.ok){
+     throw new Error("Failed to fetch all Products");
+    }
+   const allProductsOfCategories = await response.json(); // loads all products via api route
+
+   const res = await fetch(`${baseUrl}/api/categories`,{cache: "force-cache"});
+   const resJson = await res.json(); 
+   if(!res.ok){
+    throw new Error("Failed to fetch categories"); 
+   }
+   const categoriesOfGenders = await resJson?.data; // loads all categories via api route
   
-  const categoriesOfGenders: CategoriesType[] = await getCategories(); // loaded all categories
-  const categoriesOfMan = categoriesOfGenders?.find(categoriesOfGender => categoriesOfGender.men);
-  const categoriesOfwomen = categoriesOfGenders?.find(categoriesOfGender => categoriesOfGender.women);
-  const categoriesOfkids = categoriesOfGenders?.find(categoriesOfGender => categoriesOfGender.kids);
-  const categoriesOfaccessories = categoriesOfGenders?.find(categoriesOfGender => categoriesOfGender.accessories);
+  const categoriesOfMan = categoriesOfGenders?.find((categoriesOfGender: CategoriesType) => categoriesOfGender.men);
+  const categoriesOfwomen = categoriesOfGenders?.find((categoriesOfGender:CategoriesType) => categoriesOfGender.women);
+  const categoriesOfkids = categoriesOfGenders?.find((categoriesOfGender:CategoriesType) => categoriesOfGender.kids);
+  const categoriesOfaccessories = categoriesOfGenders?.find((categoriesOfGender:CategoriesType) => categoriesOfGender.accessories);
   
   const sub_categories = await params; // like: {sub_categories: Array(2)(2) ['men', 'Pant'} 
   const decodedParams = await decodeParams(sub_categories);
@@ -38,7 +50,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
   let content;
 
   if (urlPathe === "men") {
-    content = (
+    content = 
       <section>
         <div>
          {/* --Banner for men page-- */}
@@ -57,11 +69,10 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
           {/* --Categories for men page-- */}
           <h3 className="text-4xl font-semibold text-center my-3 md:my-5">SHOP BY CATEGORIES</h3>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
-            {categoriesOfMan?.men?.map((subCategory: SubCategoriesType, id) => (
+            {categoriesOfMan?.men?.map((subCategory: SubCategoriesType, id:number) => (
               <Link
                 key={id}
-                href={`/categories/${ categoriesOfMan?.targetAudience
-                }/${subCategory?.subCategory?.split(" ").join("-")}`}
+                href={`/categories/men/${subCategory?.subCategory?.split(" ").join("-")}`}
               >
                 <Image
                   src={subCategory?.image} alt="Picture of the author" width={450} height={500}
@@ -79,9 +90,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
             ))}
           </div>
         </div>
-
       </section>
-    );
   } 
   else if(urlPathe === "women"){
     content = <section>
@@ -102,11 +111,10 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
           {/* --Categories for women page-- */}
           <h3 className="text-4xl font-semibold text-center my-3 md:my-5">SHOP BY CATEGORIES</h3>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
-            {categoriesOfwomen?.women?.map((subCategory: SubCategoriesType, id) => (
+            {categoriesOfwomen?.women?.map((subCategory: SubCategoriesType, id:number) => (
               <Link
                 key={id}
-                href={`/categories/${ categoriesOfwomen?.targetAudience
-                }/${subCategory?.subCategory?.split(" ").join("-")}`}
+                href={`/categories/women/${subCategory?.subCategory?.split(" ").join("-")}`}
               >
                 <Image
                   src={subCategory?.image} alt="Picture of the author" width={400} height={450}
@@ -146,13 +154,10 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
           {/* --Categories for kids page-- */}
           <h3 className="text-4xl font-semibold text-center my-3 md:my-5"> SHOP BY CATEGORIES </h3>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
-            {categoriesOfkids?.kids?.map(
-              (subCategory: SubCategoriesType, id) => (
+            {categoriesOfkids?.kids?.map((subCategory: SubCategoriesType, id:number) => (
                 <Link
                   key={id}
-                  href={`/categories/${
-                    categoriesOfkids?.targetAudience
-                  }/${subCategory?.subCategory?.split(" ").join("-")}`}
+                  href={`/categories/kids/${subCategory?.subCategory?.split(" ").join("-")}`}
                 >
                   <Image
                     src={subCategory?.image} alt="Picture of the author" width={400} height={450}
@@ -193,11 +198,10 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
           {/* --Categories for accessories page-- */}
           <h3 className="text-4xl font-semibold text-center my-3 md:my-5">SHOP BY CATEGORIES</h3>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
-            {categoriesOfaccessories?.accessories?.map((subCategory: SubCategoriesType, id) => (
+            {categoriesOfaccessories?.accessories?.map((subCategory: SubCategoriesType, id:number) => (
               <Link
                 key={id}
-                href={`/categories/${ categoriesOfaccessories?.targetAudience
-                }/${subCategory?.subCategory?.split(" ").join("-")}`}
+                href={`/categories/accessories/${subCategory?.subCategory?.split(" ").join("-")}`}
               >
                 <Image
                   src={subCategory?.image} alt="Picture of the author" width={400} height={450}
@@ -221,7 +225,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
 
   if (urlPathe.startsWith("men/")) {
    const dataBySubcategory = 
-     allProductsOfCategories?.filter(allProductsOfCategory => 
+     allProductsOfCategories?.filter((allProductsOfCategory:Product) => 
      filteredDataBySubcategory(allProductsOfCategory, decodedSub_categories));
     // console.log(dataBySubcategory);
      
@@ -230,17 +234,17 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
   } 
   else if(urlPathe.startsWith("women/") ) {
     const dataBySubcategory = 
-      allProductsOfCategories?.filter(allProductsOfCategory => 
+      allProductsOfCategories?.filter((allProductsOfCategory:Product) => 
       filteredDataBySubcategory(allProductsOfCategory, decodedSub_categories));
   }
   else if(urlPathe.startsWith("kids/") ) {
     const dataBySubcategory = 
-      allProductsOfCategories?.filter(allProductsOfCategory => 
+      allProductsOfCategories?.filter((allProductsOfCategory:Product) => 
       filteredDataBySubcategory(allProductsOfCategory, decodedSub_categories));
   }
   else if(urlPathe.startsWith("accessories/") ) {
     const dataBySubcategory = 
-      allProductsOfCategories?.filter(allProductsOfCategory => 
+      allProductsOfCategories?.filter((allProductsOfCategory:Product) => 
       filteredDataBySubcategory(allProductsOfCategory, decodedSub_categories));
   }
 

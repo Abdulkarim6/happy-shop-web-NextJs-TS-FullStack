@@ -114,7 +114,7 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, decodedSub_categories}
           }
     }
     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-    // Load quantity of products based on size
+    // Loads quantity of products based on size
     useEffect(() => {
        fetch(`${baseUrl}/api/getQuantityOfItemsForEachSizes`,{
           cache:"no-store",
@@ -291,20 +291,21 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, decodedSub_categories}
            {filteredProducts?.map((product: Product) => (
              <div key={product?._id}>
                 <div className="relative group overflow-hidden">
-               <Link
-                 href={`/categories/${ categoriesOfMan?.targetAudience
-                 }/${product?.subCategory?.split(" ").join("-")}`}
-               >
-                  <Image
-                    src={product?.image}
-                    alt="Picture of the author" width={450} height={550}
-                    className=" hover:scale-105 transition-transform opacity-90"
-                  />
-               </Link>
+                  <Link
+                    href={`/categories/${ categoriesOfMan?.targetAudience
+                    }/${product?.subCategory?.split(" ").join("-")}`}
+                  >
+                     <Image
+                       src={product?.image}
+                       alt="Picture of the author" width={450} height={550}
+                       className=" hover:scale-105 transition-transform opacity-90"
+                     />
+                  </Link>
                   <Button className="flex items-center absolute -bottom-10 group-hover:bottom-0 w-full bg-black/50 transition-all ease-in">
                     <Eye className="size-6"/><h5 className="text-white py-1">QUICK VIEW</h5>
                   </Button>
                 </div>
+               
                <Link
                  href={`/categories/${ categoriesOfMan?.targetAudience
                  }/${product?.subCategory?.split(" ").join("-")}`}
@@ -313,6 +314,7 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, decodedSub_categories}
                    {product?.name}
                  </h3>
                </Link>
+              
                <p className="text-base">{product?.description}</p>
                <p className="text-lg font-light">BDT {product?.price} TK</p>
              </div>

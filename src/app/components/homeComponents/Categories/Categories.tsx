@@ -7,7 +7,7 @@ import Link from "next/link";
 const Categories = async () => {
    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-   const res = await fetch(`${baseUrl}/api/categories`,{cache: "no-store"});
+   const res = await fetch(`${baseUrl}/api/categories`,{cache: "force-cache"});
    const resJson = await res.json(); 
    if(!res.ok){
     throw new Error("Failed to fetch");
@@ -31,7 +31,7 @@ const Categories = async () => {
               />
             </CardContent>
             <h3 className="text-center text-xl md:text-2xl font-semibold my-2">
-              {categoryOfGenders?.targetAudience.toUpperCase()}
+              {categoryOfGenders?.targetAudience?.toLocaleUpperCase()}
             </h3>
           </Card>
         </Link>

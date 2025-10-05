@@ -18,16 +18,23 @@ const poppins = Poppins({
   display: "swap",
 });
 
-const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoriesType[]}) => {
+type TypeOfGenders = {
+  categoriesOfMan : CategoriesType | undefined;
+  categoriesOfwomen : CategoriesType | undefined;
+  categoriesOfkids : CategoriesType | undefined;
+  categoriesOfaccessories : CategoriesType | undefined;
+}
+// const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoriesType[]}) => {
+const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, categoriesOfaccessories}: TypeOfGenders) => {
     const { data: session } = useSession();
     const [searchProduct, setSearchProduct] = useState<string>("");
     const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
     const [width, setWidth] = useState<number>(0);
 
-    const categoriesOfMan = categoriesOfGenders?.find(categoriesOfGender => categoriesOfGender.men);
-    const categoriesOfwomen = categoriesOfGenders?.find(categoriesOfGender => categoriesOfGender.women);
-    const categoriesOfkids = categoriesOfGenders?.find(categoriesOfGender => categoriesOfGender.kids);
-    const categoriesOfaccessories = categoriesOfGenders?.find(categoriesOfGender => categoriesOfGender.accessories);
+    // const categoriesOfMan = categoriesOfGenders?.find(categoriesOfGender => categoriesOfGender.men);
+    // const categoriesOfwomen = categoriesOfGenders?.find(categoriesOfGender => categoriesOfGender.women);
+    // const categoriesOfkids = categoriesOfGenders?.find(categoriesOfGender => categoriesOfGender.kids);
+    // const categoriesOfaccessories = categoriesOfGenders?.find(categoriesOfGender => categoriesOfGender.accessories);
 
     useEffect(() => {
       const handleResize = () => setWidth(window.innerWidth);
@@ -75,7 +82,7 @@ const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoriesTyp
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <Link href={`/categories/${categoriesOfMan?.targetAudience}`}>
+              <Link href={`/categories/men`}>
                 <NavigationMenuTrigger className={navigationMenuLink}>
                   Men
                   <ChevronDownIcon
@@ -88,7 +95,7 @@ const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoriesTyp
                 <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                   {categoriesOfMan?.men?.map((subCategory : SubCategoriesType | null, id) => (
                     <NavigationMenuLink asChild key={id}>
-                      <Link href={`/categories/${categoriesOfMan?.targetAudience}/${subCategory?.subCategory?.split(" ").join("-")}`}>
+                      <Link href={`/categories/men/${subCategory?.subCategory?.split(" ").join("-")}`}>
                         <div className="text-sm lg:text-base leading-none font-medium">
                           {subCategory?.subCategory}
                         </div>
@@ -102,7 +109,7 @@ const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoriesTyp
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href={`/categories/${categoriesOfwomen?.targetAudience}`}>
+              <Link href={`/categories/women`}>
                <NavigationMenuTrigger className={navigationMenuLink}>
                   Women
                   <ChevronDownIcon
@@ -115,7 +122,7 @@ const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoriesTyp
                 <ul className="grid w-[400px] gap-2 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                   {categoriesOfwomen?.women?.map((subCategory : SubCategoriesType | null, id) => (
                     <NavigationMenuLink asChild key={id}>
-                      <Link href={`/categories/${categoriesOfwomen?.targetAudience}/${subCategory?.subCategory?.split(" ").join("-")}`}>
+                      <Link href={`/categories/women/${subCategory?.subCategory?.split(" ").join("-")}`}>
                         <div className="text-sm lg:text-base leading-none font-medium">
                           {subCategory?.subCategory}
                         </div>
@@ -129,7 +136,7 @@ const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoriesTyp
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href={`/categories/${categoriesOfkids?.targetAudience}`}>
+              <Link href={`/categories/kids`}>
                 <NavigationMenuTrigger className={navigationMenuLink}>
                   Kids
                   <ChevronDownIcon
@@ -142,7 +149,7 @@ const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoriesTyp
                 <ul className="grid w-[200px] gap-2 md:w-[300px] lg:w-[400px]">
                   {categoriesOfkids?.kids?.map((subCategory : SubCategoriesType | null, id) => (
                     <NavigationMenuLink asChild key={id}>
-                      <Link href={`/categories/${categoriesOfkids?.targetAudience}/${subCategory?.subCategory}`}>
+                      <Link href={`/categories/kids/${subCategory?.subCategory}`}>
                        <div className="text-sm lg:text-base leading-none font-medium">
                           {subCategory?.subCategory}
                         </div>
@@ -156,7 +163,7 @@ const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoriesTyp
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link href={`/categories/${categoriesOfaccessories?.targetAudience}`}>
+              <Link href={`/categories/accessories`}>
                 <NavigationMenuTrigger className={navigationMenuLink}>
                   Accessories
                   <ChevronDownIcon
@@ -169,7 +176,7 @@ const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoriesTyp
                 <ul className="grid w-[200px] gap-2 md:w-[300px] lg:w-[400px]">
                   {categoriesOfaccessories?.accessories?.map((subCategory : SubCategoriesType | null, id) => (
                     <NavigationMenuLink asChild key={id}>
-                      <Link href={`/categories/${categoriesOfaccessories?.targetAudience}/${subCategory?.subCategory}`}>
+                      <Link href={`/categories/accessories/${subCategory?.subCategory}`}>
                        <div className="text-sm lg:text-base leading-none font-medium">
                           {subCategory?.subCategory}
                         </div>

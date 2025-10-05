@@ -9,18 +9,18 @@ export async function POST(req: Request) {
     
     const pipeline = [
       //  match
-      { $match: { targetAudience : targetAudience, subCategory: subCategoryS}, },
+      { $match: { targetAudience: targetAudience, subCategory: subCategoryS } },
 
       //  size normalize
       {
         $addFields: {
           sizesNormalized: {
             $cond: [
-              { $isArray: "$size" },
-              "$size",
-              {
-                $cond: [{ $eq: ["$size", null] }, [], ["$size"]],
-              },
+              { $isArray: "$size" }, // যদি size আগেই array হয় → true
+              "$size",               // then: রাখো
+              {  // else: যদি array না হয়, আরো চেক:
+                $cond: [{ $eq: ["$size", null] }, [], ["$size"]], // যদি size null → empty array
+              },                                      // না হলে single-element array (string -> ["M"])
             ],
           },
         },
@@ -41,10 +41,10 @@ export async function POST(req: Request) {
         },
       },
 
-      // unwind
+      // unwind : array ভাঙা
       { $unwind: "$sizesNormalized" },
 
-      // 5 count
+      // count 
       {
         $group: {
           _id: "$sizesNormalized",
