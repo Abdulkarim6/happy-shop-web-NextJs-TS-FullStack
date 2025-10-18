@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Eye, Menu, Minus, Plus, Ruler, SlidersHorizontal, Trash2, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import QuickViewDialog from "../QuickViewDialog/QuickViewDialog";
 
 type GroupPropsTypes = {
   dataBySubcategory : Product[];
@@ -301,9 +302,10 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, decodedSub_categories}
                        className=" hover:scale-105 transition-transform opacity-90"
                      />
                   </Link>
-                  <Button className="flex items-center absolute -bottom-10 group-hover:bottom-0 w-full bg-black/50 transition-all ease-in">
-                    <Eye className="size-6"/><h5 className="text-white py-1">QUICK VIEW</h5>
-                  </Button>
+                  <QuickViewDialog 
+                    product={product}
+                    quantityOfSizes={quantityOfSizes}
+                  ></QuickViewDialog>
                 </div>
                
                <Link
