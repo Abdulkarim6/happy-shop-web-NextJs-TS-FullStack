@@ -35,7 +35,7 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
       </head>
       <NextAuthSessionProvider>
          <body
-           className={`${poppins.className} antialiased w-max-[1440px] mx-auto min-h-screen bg-slate-50`}
+           className={`${poppins.className} antialiased w-max-[1440px] mx-auto min-h-screen bg-slate-100`}
          >
           <main>
             <Navber/>
