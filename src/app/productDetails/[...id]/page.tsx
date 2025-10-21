@@ -1,6 +1,6 @@
 import getProduct from "@/app/actions/products/getProduct";
 import CustomerBenefits from "@/app/components/homeComponents/CustomerBenefits/CustomerBenefits";
-import DeleveryPolicy_Terms from "@/app/components/productsPageComponents/DeleveryPolicy_Terms/DeleveryPolicy_Terms";
+import DeleveryPolicy_Terms from "@/app/deleveryPolicy_TermsComponents/DeleveryPolicy_Terms/DeleveryPolicy_Terms";
 import MenProductDetails from "@/app/components/productsPageComponents/MenProductDetails/MenProductDetails";
 import { Product } from "@/app/utils/interfaces";
 import Image from "next/image";

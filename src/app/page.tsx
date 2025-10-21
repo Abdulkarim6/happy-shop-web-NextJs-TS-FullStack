@@ -10,16 +10,7 @@ export default function Home() {
       <Categories />
 
       <h1 className="my-5"> ed cum dolore ipsa fuga doloribus deserunt impedit quibusdam earum perferendis inventore obcaecati omnis minus? Sequi culpa harum nulla nisi qui non.
-      Veritatis tempora dolorum doloribus quam asperiores consequatur omnis totam expedita corrupti quisquam excepturi dicta voluptas cum error et deleniti nam temporibus harum ab saepe, quidem numquam debitis? Nemo, distinctio unde?
-      Ipsum vitae mollitia dolore dolor! Fugit voluptatem cupiditate labore minima quibusdam neque voluptate odio ullam blanditiis nesciunt. Odio fuga, mollitia corrupti soluta ipsa cumque, culpa nesciunt nobis neque esse maxime!
-      Omnis quia at ex, illum quibusdam reprehenderit possimus, laborum quos ratione architecto autem temporibus iure cum voluptate rerum. Est perferendis velit fugit et temporibus repudiandae similique a ex eos tempora.
-      Pariatur consequatur quas ipsum, praesentium alias dolor minus fugiat a aspernatur itaque atque doloribus est! Explicabo nemo, libero, neque eligendi, et consequuntur necessitatibus at cumque eos commodi eaque aperiam labore?
-      Cum soluta ratione repudiandae voluptates repellat suscipit obcaecati doloremque ea quae, officiis commodi necessitatibus omnis modi doloribus, illo fugit et qui maiores ipsa? Animi reprehenderit ad quas neque optio perferendis!
-      Quae fugit incidunt quaerat repudiandae eveniet, explicabo repellat veritatis cumque magnam ducimus? Sint sit accusantium blanditiis fuga sunt, dignissimos iste odio cumque modi! Nihil quaerat corporis qui labore illo repudiandae.
-      Cum quaerat laboriosam at incidunt esse non, molestias quia dolor. Vitae, nihil voluptates. Eveniet quae quis amet dolor reprehenderit quod at atque, veritatis dignissimos earum eaque deleniti, animi ab! Facilis!
-      Consectetur, soluta ad pariatur quae similique accusantium laboriosam ea reprehenderit ullam dicta tenetur tempore, temporibus distinctio eaque nobis illum voluptas perspiciatis? Error cumque natus labore autem iste nemo est aspernatur?
-      Perferendis voluptate similique earum rem, sunt magni cupiditate saepe laudantium sequi expedita facere, blanditiis totam officia? Iusto nemo, necessitatibus architecto reiciendis esse corrupti neque hic tenetur porro est laudantium perferendis.
-      reiciendis incidunt saepe vel adipisci quasi atque necessitatibus inventore suscipit officiis eligendi impedit! Perspiciatis, assumenda eaque consequatur eius veritatis quibusdam quidem odio excepturi alias laborum.
+      Veritatis tempora dolorepe vel adipisci quasi atque necessitatibus inventore suscipit officiis eligendi impedit! Perspiciatis, assumenda eaque consequatur eius veritatis quibusdam quidem odio excepturi alias laborum.
       Non possimussequi nemo magni pariatur modi sunt, quae veritatis eum officia ullam debitis dolorum quam id magnam tenetur doloremque necessitatibus dignissimos libero qui. Quaerat doloribus quis repudiandae.
       Sapiente commodi id iste molestias, iure qui earum cumque voluptate, mollitia assumenda perferendis nam impedit facilis molestiae dolorum pariatur reprehenderit nemo vero consectetur quidem. Error aperiam velit commodi deleniti minima.
       Repellat in voluptatum maiores recusandae eos maxime eaque sint sapiente similique adipisci quidem, aliquam voluptates. Expedita, delectus repellendus? Quisquam, inventore. Reiciendis aperiam quasi pariatur dolorum assumenda repellendus. Consectetur, nemo in.

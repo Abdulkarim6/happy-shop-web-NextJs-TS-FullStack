@@ -40,8 +40,8 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
           <main>
             <Navber/>
             {children}
-            <Footer/>
           </main>
+          <Footer/>
          </body>
       </NextAuthSessionProvider>
     </html>
