@@ -235,14 +235,19 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
         {/* NavigationMenu for only mobile view */}
         {width <= 767 && (
           <div
-            className={`absolute top-full overflow-x-hidden 
+            className={`absolute top-full left-0 overflow-x-hidden 
                transition-all duration-200 ease-in-out ${
                  toggleHamburger
-                   ? "w-4/5 translate-x-0"
+                   ? "w-3/5 translate-x-0"
                    : "w-0 -translate-x-full"
                } `}
           >
-            <MobileView />
+            <MobileView 
+             categoriesOfMan={categoriesOfMan}
+             categoriesOfwomen={categoriesOfwomen}
+             categoriesOfkids={categoriesOfkids}
+             categoriesOfaccessories={categoriesOfaccessories}
+            />
           </div>
         )}
       </section>
