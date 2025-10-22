@@ -21,6 +21,13 @@ background: linear-gradient(79deg, rgba(0, 0, 0, 0.67) 0%, rgba(224, 34, 34, 0) 
 background: linear-gradient(301deg, rgba(0, 0, 0, 0.67) 0%, rgba(224, 34, 34, 0) 62%);
 }
 
+.no-select {
+  user-select: none; /* Chrome, Safari, Edge */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge legacy */
+}
+
+/* Firefox-এর জন্য বাটনগুলো সাধারণত সব সময়ই দৃশ্যমান থাকে, তাই অতিরিক্ত CSS নাও লাগতে পারে। */
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

@@ -15,7 +15,7 @@ const page = async ({ params }: PageProps) => {
 
   return (
     <section>
-       <div className="sm:w-full px-24 rounded-none bg-slate-100 pt-5 flex justify-around gap-3 w-full">
+       <div className="px-2 md:px-24 rounded-none bg-slate-100 pt-3 md:pt-5 flex flex-col md:flex-row justify-around gap-3 w-full">
          <div className="">
            <Image
              alt="" quality={100}
