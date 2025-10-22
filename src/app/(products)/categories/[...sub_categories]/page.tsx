@@ -250,7 +250,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
 
 
   return (
-    <div className="px-3 mt-2">
+    <div className="md:px-3 mt-0 md:mt-2">
      {content}
     </div>
   );

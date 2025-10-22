@@ -2,7 +2,7 @@
 import { CategoriesType, Product } from "@/app/utils/interfaces";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Eye, Menu, Minus, Plus, Ruler, SlidersHorizontal, Trash2, X } from "lucide-react";
+import { Cross, Delete, Eye, ListFilter, ListFilterIcon, Menu, Minus, Plus, Ruler, SlidersHorizontal, Trash2, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import QuickViewDialog from "../QuickViewDialog/QuickViewDialog";
@@ -24,6 +24,7 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, decodedSub_categories}
     const [price, setPrice] = useState<string>("");
     const [sizes, setSizes] = useState<string[]>([]);
     const [inStock, setStock] = useState<boolean>(false);
+    const [mobileNav, setMobileNav] = useState<boolean>(false);
     const [colors, setColors] = useState<string[]>([]); 
     const [quantityOfSizes, setQuantityOfSizes] = useState<{ _id: string, quantity: number }[]>([]);  
 
@@ -111,7 +112,7 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, decodedSub_categories}
             setSizes([]);
             setPrice("");
             setColors([]);
-            setStock(curr => !curr);  
+            setStock(false);  
           }
     }
     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
@@ -129,30 +130,41 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, decodedSub_categories}
        .then((res) => res.json())
          .then((data) => setQuantityOfSizes(data))
          .catch((err) => console.log("err", err));
-    },[])
+    },[decodedSub_categories])
 
     return (
-        <section className="w-full flex gap-2 ">
+      <section className="relative ">
+      {/* Filter drawer open button for mobile view*/}
+      <div className="block md:hidden">
+        <Button type="button" variant="secondary" className="flex items-center" onClick={() => setMobileNav(!mobileNav)}>
+        <span className="text-base font-medium">FILTERS:</span><span className=""><ListFilter /></span>
+        </Button>
+      </div>
+
+      <div className="w-full flex gap-2 z-30">         
           {/* Filtered Area */}
-          <div className="w-1/5">
-            <h4 className="flex items-center" >
-              <SlidersHorizontal size={18} /> <span className="text-xl font-bold ml-2"> FILTER BY </span>
+          <div className={`absolute top-0 transform ${mobileNav ? "translate-x-0" : "-translate-x-full"}
+           transition-transform ease-in-out duration-300 md:translate-x-0 md:static w-3/5 md:w-1/5 bg-slate-100 z-30 h-lvh`}>
+            <div className="hidden md:block">
+              <h4 className="flex items-center" >
+              <ListFilter size={18} /> <span className="text-xl font-bold ml-2"> FILTER BY </span>
             </h4>
-            <div className="w-full border-1 border-gray-300 my-2 pr-12"></div>
+            <div className="w-full border border-gray-300 my-2 pr-12"></div>
+            </div>
             
             {/* Clear values of filter section */}
             <div className="w-full">
               <Button variant="ghost" buttonSize="sm" className="flex items-center" 
               onClick={() => handleRemoveFilterOption("clearAll", "")}
               >
-                <Trash2 size={18} /> <span className="text-base font-medium"> CLEAR ALL </span>
+                <Trash2 size={18} /> <span className="text-base font-medium">CLEAR ALL </span>
               </Button>
               {/* price filter options remove from state*/}
               <div className="w-full flex flex-row items-center gap-1">
                 {
                   price && 
                 <span onClick={() => handleRemoveFilterOption("price", "")}
-                   className="flex items-center gap-1 border border-solid border-gray-50
+                   className="flex items-center gap-1 border border-gray-50
                    hover:border-black rounded-2xl p-1 text-sm cursor-pointer">200TK - {price}TK <X className="size-3"/></span>
                 }
               </div>
@@ -162,7 +174,7 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, decodedSub_categories}
                 {
                   sizes && sizes.map((size, id) =>
                   <span key={id} onClick={() => handleRemoveFilterOption("sizes", size)}
-                   className="flex items-center gap-1 border border-solid border-gray-50 hover:border-black rounded-2xl p-1 text-sm cursor-pointer">{size} <X className="size-3"/></span>
+                   className="flex items-center gap-1 border border-gray-50 hover:border-black rounded-2xl p-1 text-sm cursor-pointer">{size} <X className="size-3"/></span>
                   )
                 }
               </div>
@@ -171,7 +183,7 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, decodedSub_categories}
                 {
                   inStock && 
                   <span onClick={() => handleRemoveFilterOption("inStock", "false")}
-                   className="flex items-center gap-1 border border-solid border-gray-50 hover:border-black rounded-2xl p-1 text-sm cursor-pointer">In Stock <X className="size-3"/></span>
+                   className="flex items-center gap-1 border border-gray-50 hover:border-black rounded-2xl p-1 text-sm cursor-pointer">In Stock <X className="size-3"/></span>
                 }
               </div>
               {/* color filter options remove from state*/}
@@ -179,7 +191,7 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, decodedSub_categories}
                 {
                   colors && colors.map((color, id) =>
                   <span key={id} onClick={() => handleRemoveFilterOption("colors", color)}
-                   className="flex items-center gap-1 border border-solid border-gray-50 hover:border-black rounded-2xl p-1 text-sm cursor-pointer">{color} <X className="size-3"/></span>
+                   className="flex items-center gap-1 border border-gray-50 hover:border-black rounded-2xl p-1 text-sm cursor-pointer">{color} <X className="size-3"/></span>
                   )
                 }
               </div>
@@ -286,9 +298,20 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, decodedSub_categories}
             </div>
 
           </div>
-  
+          
+          {/* Overlay effect during open side nav for mobile view */}
+         {
+          mobileNav &&
+          <div  onClick={() => setMobileNav(false)}
+           className="fixed inset-0 bg-black/40 z-20"
+          >
+            <Delete size={30} className="absolute text-white top-14 right-2"/>
+          </div>
+         }
+
          {/* products display area */}
-         <div className="w-4/5 grid grid-cols-2 lg:grid-cols-3 gap-3">
+         <div className="w-full md:w-4/5 px-1 z-10">
+           <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
            {filteredProducts?.map((product: Product) => (
              <div key={product?._id}>
                 <div className="relative group overflow-hidden">
@@ -321,7 +344,9 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, decodedSub_categories}
                <p className="text-lg font-light">BDT {product?.price} TK</p>
              </div>
            ))}
+           </div>
          </div>
+      </div>
       </section>
     );
 };
