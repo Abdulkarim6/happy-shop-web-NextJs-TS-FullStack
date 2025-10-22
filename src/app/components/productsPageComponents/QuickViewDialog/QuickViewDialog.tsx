@@ -20,14 +20,15 @@ const QuickViewDialog = ({product , quantityOfSizes} : propsTypes) => {
     return (
         <section>
             <Dialog>
-              <DialogTrigger asChild className="absolute bottom-0 group-hover:bottom-0 w-full bg-black/50 transition-all ease-in">
-              {/* <DialogTrigger asChild className="absolute -bottom-10 group-hover:bottom-0 w-full bg-black/50 transition-all ease-in"> */}
-                 <Button className="flex items-center text-white">
+              {/* <DialogTrigger asChild className="absolute bottom-0 group-hover:bottom-0 w-full bg-black/50 transition-all ease-in"> */}
+              <DialogTrigger asChild className="absolute bottom-0 md:-bottom-10 group-hover:bottom-0 w-full bg-black/50 transition-all ease-in">
+                 <Button className="flex items-center text-white py-0 md:py-2 h-6 md:h-8 rounded">
                     <Eye className="size-6"/><h5>QUICK VIEW</h5>
                   </Button>
               </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px] md:max-w-[900px] md:h-[80%] rounded-none bg-slate-100 p-3 flex gap-3 w-full">
-                <div className="w-3/5">
+             
+              <DialogContent className="sm:max-w-[425px] md:max-w-[900px] h-[86%] md:h-[80%] rounded-none bg-slate-100 p-3 flex flex-col md:flex-row gap-2 md:gap-3">
+                <div className="w-full md:w-3/5">
                   <Image
                     alt="" quality={100}
                     src={product?.image}
@@ -35,7 +36,7 @@ const QuickViewDialog = ({product , quantityOfSizes} : propsTypes) => {
                     className="rounded"
                   />
                 </div>
-                <div className="w-2/5 py-5 px-1">
+                <div className="w-full md:w-2/5 py-2 md:py-5 px-1">
                   <DialogHeader>
                     <DialogTitle className="text-2xl">{product?.name}</DialogTitle>
                     <h4 className="text-xl my-3">TK {product?.price}</h4>
