@@ -51,7 +51,7 @@ const MobileView = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, categ
             <ul>
               {categoriesOfwomen?.women?.map((subCategory : SubCategoriesType | null, id) => (
                 <li key={id} className="my-2">
-                  <Link type="button" href={`/categories/men/${subCategory?.subCategory?.split(" ").join("-")}`}>
+                  <Link type="button" href={`/categories/women/${subCategory?.subCategory?.split(" ").join("-")}`}>
                     <div className="text-sm lg:text-base leading-none font-medium">
                       {subCategory?.subCategory}
                     </div>
@@ -74,7 +74,7 @@ const MobileView = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, categ
             <ul>
               {categoriesOfkids?.kids?.map((subCategory : SubCategoriesType | null, id) => (
                 <li key={id} className="my-2">
-                  <Link type="button" href={`/categories/men/${subCategory?.subCategory?.split(" ").join("-")}`}>
+                  <Link type="button" href={`/categories/kids/${subCategory?.subCategory?.split(" ").join("-")}`}>
                     <div className="text-sm lg:text-base leading-none font-medium">
                       {subCategory?.subCategory}
                     </div>
@@ -97,7 +97,7 @@ const MobileView = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, categ
             <ul>
               {categoriesOfaccessories?.accessories?.map((subCategory : SubCategoriesType | null, id) => (
                 <li key={id} className="my-2">
-                  <Link type="button" href={`/categories/men/${subCategory?.subCategory?.split(" ").join("-")}`}>
+                  <Link type="button" href={`/categories/accessories/${subCategory?.subCategory?.split(" ").join("-")}`}>
                     <div className="text-sm lg:text-base leading-none font-medium">
                       {subCategory?.subCategory}
                     </div>

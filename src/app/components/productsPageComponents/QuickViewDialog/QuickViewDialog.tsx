@@ -48,7 +48,7 @@ const QuickViewDialog = ({product , quantityOfSizes} : propsTypes) => {
                 <div className="w-full md:w-2/5 py-2 md:py-5 px-1">
                   <DialogHeader>
                     <DialogTitle className="text-2xl">{product?.name}</DialogTitle>
-                    <h4 className="text-xl my-3">TK {product?.price}.00</h4>
+                    <h4 className="text-xl my-3 text-start">TK {product?.price}.00</h4>
                      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-2 w-full">
                         <div className="flex flex-col w-2/5 md:w-1/3">
                           <label className="text-start">Quantity: </label>

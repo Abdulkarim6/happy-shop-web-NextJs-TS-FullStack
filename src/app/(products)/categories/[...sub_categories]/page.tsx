@@ -6,7 +6,7 @@ import { getAllProducts } from "@/app/actions/products/getAllProducts";
 import { decodeParams } from "@/app/utils/decodeParams";
 import { filteredDataBySubcategory } from "@/app/utils/filteredDataBySubcategory";
 import BannerTitleComponent from "@/app/shared/BannerTitleComponent/BannerTitleComponent";
-import MenProducts from "@/app/components/productsPageComponents/MenProducts/MenProducts";
+import Products from "@/app/components/productsPageComponents/Products/Products";
 
 import man from "../../../../../public/productsPageBannerImages/162770 (2).jpg";
 import woman from "../../../../../public/productsPageBannerImages/122063.jpg";
@@ -229,13 +229,16 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
      filteredDataBySubcategory(allProductsOfCategory, decodedSub_categories));
     // console.log(dataBySubcategory);
      
-    content = <MenProducts dataBySubcategory={dataBySubcategory} 
-              categoriesOfMan={categoriesOfMan} decodedSub_categories={decodedSub_categories}/>;
+    content = <Products dataBySubcategory={dataBySubcategory} 
+            categoriesOfAudience={categoriesOfMan} decodedSub_categories={decodedSub_categories}/>;
   } 
   else if(urlPathe.startsWith("women/") ) {
     const dataBySubcategory = 
       allProductsOfCategories?.filter((allProductsOfCategory:Product) => 
       filteredDataBySubcategory(allProductsOfCategory, decodedSub_categories));
+
+    content = <Products dataBySubcategory={dataBySubcategory} 
+            categoriesOfAudience={categoriesOfwomen} decodedSub_categories={decodedSub_categories}/>;
   }
   else if(urlPathe.startsWith("kids/") ) {
     const dataBySubcategory = 

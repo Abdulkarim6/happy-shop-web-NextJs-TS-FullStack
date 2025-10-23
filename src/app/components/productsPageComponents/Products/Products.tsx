@@ -9,13 +9,13 @@ import QuickViewDialog from "../QuickViewDialog/QuickViewDialog";
 
 type GroupPropsTypes = {
   dataBySubcategory : Product[];
-  categoriesOfMan: CategoriesType | undefined;
+  categoriesOfAudience: CategoriesType | undefined;
   decodedSub_categories : string[];
 };
 
 type filterAreaKey = "price" | "size" | "inStock" | "color";
 
-const MenProducts = ({dataBySubcategory, categoriesOfMan, decodedSub_categories} : GroupPropsTypes) => {
+const MenProducts = ({dataBySubcategory, categoriesOfAudience, decodedSub_categories} : GroupPropsTypes) => {
     const [filterArea, setFilterArea] = useState<Record<filterAreaKey, boolean>>({
       price:true, size:true, inStock:false, color:true
     });
@@ -316,7 +316,7 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, decodedSub_categories}
              <div key={product?._id}>
                 <div className="relative group overflow-hidden">
                   <Link
-                    href={`/categories/${ categoriesOfMan?.targetAudience
+                    href={`/categories/${ categoriesOfAudience?.targetAudience
                     }/${product?.subCategory?.split(" ").join("-")}`}
                   >
                      <Image
@@ -332,7 +332,7 @@ const MenProducts = ({dataBySubcategory, categoriesOfMan, decodedSub_categories}
                 </div>
                
                <Link
-                 href={`/categories/${ categoriesOfMan?.targetAudience
+                 href={`/categories/${ categoriesOfAudience?.targetAudience
                  }/${product?.subCategory?.split(" ").join("-")}`}
                >
                  <h3 className="text-sm md:text-xl text-center font-medium my-2">
