@@ -3,20 +3,24 @@ import dbConnect from "@/lib/dbConnect";
 export async function POST(req: Request) { 
   try {
     const body = await req.json();
-    const { subCategory, targetAudience, colors, sizes } = body;
-    //console.log(subCategory, targetAudience, colors, sizes);
-    const subCategoryS = subCategory?.replace(/-&-/g, ' & ');
-    
+    const { subCategory, targetAudience} = body;
+
+    const finalSubCategory = subCategory
+        ?.replace(/-&-/g, ' & ') 
+        ?.replace(/-/g, ' ')  
+        ?.replace(/T Shirts/gi, 'T-Shirts')
+        ?.replace(/T shirt/gi, 'T-shirt') 
+        ?.replace(/3 piece/gi, '3-piece'); 
+        
     const pipeline = [
       //  match
-      { $match: { targetAudience: targetAudience, subCategory: subCategoryS } },
+      { $match: { targetAudience: targetAudience, subCategory: finalSubCategory } },
 
       //  size normalize
       {
         $addFields: {
           sizesNormalized: {
-            $cond: [
-              { $isArray: "$size" }, // যদি size আগেই array হয় → true
+            $cond: [ { $isArray: "$size" }, // যদি size আগেই array হয় → true
               "$size",               // then: রাখো
               {  // else: যদি array না হয়, আরো চেক:
                 $cond: [{ $eq: ["$size", null] }, [], ["$size"]], // যদি size null → empty array
@@ -69,6 +73,13 @@ export async function POST(req: Request) {
                     { case: { $eq: ["$_id", "XL"] }, then: 1005 },
                     { case: { $eq: ["$_id", "XXL"] }, then: 1006 },
                     { case: { $eq: ["$_id", "XXXL"] }, then: 1007 },
+
+                    { case: { $eq: ["$_id", "2Y"] }, then: 1008 },
+                    { case: { $eq: ["$_id", "3Y"] }, then: 1009 },
+                    { case: { $eq: ["$_id", "4Y"] }, then: 1010 },
+                    { case: { $eq: ["$_id", "5Y"] }, then: 1011 },
+                    { case: { $eq: ["$_id", "6Y"] }, then: 1012 },
+                    { case: { $eq: ["$_id", "7Y"] }, then: 1013 },
                   ],
                   default: 1999,
                 },

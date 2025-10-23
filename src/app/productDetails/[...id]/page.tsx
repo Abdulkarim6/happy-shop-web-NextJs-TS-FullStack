@@ -16,7 +16,7 @@ const page = async ({ params }: PageProps) => {
   return (
     <section>
        <div className="px-2 md:px-24 rounded-none bg-slate-100 pt-3 md:pt-5 flex flex-col md:flex-row justify-around gap-3 w-full">
-         <div className="">
+         <div className="w-full md:w-1/2">
            <Image
              alt="" quality={100}
              src={product?.image}
@@ -25,7 +25,9 @@ const page = async ({ params }: PageProps) => {
            />
          </div>
      
-         <MenProductDetails product={product} />
+         <div className="w-full md:w-1/2">
+          <MenProductDetails product={product} />
+         </div>
        </div>
 
        <DeleveryPolicy_Terms/>

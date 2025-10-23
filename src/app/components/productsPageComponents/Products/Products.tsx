@@ -187,12 +187,12 @@ const MenProducts = ({dataBySubcategory, categoriesOfAudience, decodedSub_catego
                 }
               </div>
               {/* color filter options remove from state*/}
-              <div className="w-full flex flex-row items-center gap-1">
+              <div className="w-full grid grid-cols-3 items-center gap-1">
                 {
                   colors && colors.map((color, id) =>
                   <span key={id} onClick={() => handleRemoveFilterOption("colors", color)}
                    className="flex items-center gap-1 border border-gray-50 hover:border-black rounded-2xl p-1 text-sm cursor-pointer">{color} <X className="size-3"/></span>
-                  )
+                 )
                 }
               </div>
             </div>
@@ -211,8 +211,8 @@ const MenProducts = ({dataBySubcategory, categoriesOfAudience, decodedSub_catego
               <div className={`w-full relative overflow-hidden transition-all ease-in-out duration-700
               ${filterArea.price ? "max-h-lvh" : "max-h-0"}`}>
                 <div className="bg-slate-100 p-5 w-full">
-                  <label className="flex justify-between items-center">TK {price ? price : "200"} <span>TK 1000</span></label> 
-                  <input type="range" min="200" max="1000" className="w-full" step="10" value={price ? price : "1000"}
+                  <label className="flex justify-between items-center">TK {price ? price : "200"} <span>TK 1500</span></label> 
+                  <input type="range" min="200" max="1500" className="w-full" step="10" value={price ? price : "1500"}
                   onChange={(e) => setPrice(e.target.value)}
                   />
                 </div>
@@ -316,8 +316,7 @@ const MenProducts = ({dataBySubcategory, categoriesOfAudience, decodedSub_catego
              <div key={product?._id}>
                 <div className="relative group overflow-hidden">
                   <Link
-                    href={`/categories/${ categoriesOfAudience?.targetAudience
-                    }/${product?.subCategory?.split(" ").join("-")}`}
+                    href={`/productDetails/${product?.subCategory?.split(" ").join("-")}/${product?._id}`}
                   >
                      <Image
                        src={product?.image}
@@ -332,8 +331,7 @@ const MenProducts = ({dataBySubcategory, categoriesOfAudience, decodedSub_catego
                 </div>
                
                <Link
-                 href={`/categories/${ categoriesOfAudience?.targetAudience
-                 }/${product?.subCategory?.split(" ").join("-")}`}
+                 href={`/productDetails/${product?.subCategory?.split(" ").join("-")}/${product?._id}`}
                >
                  <h3 className="text-sm md:text-xl text-center font-medium my-2">
                    {product?.name}
