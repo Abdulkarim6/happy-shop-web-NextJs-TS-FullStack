@@ -16,7 +16,8 @@ type GroupPropsTypes = {
 type filterAreaKey = "price" | "size" | "inStock" | "color";
 
 const MenProducts = ({dataBySubcategory, categoriesOfAudience, decodedSub_categories} : GroupPropsTypes) => {
-    const [filterArea, setFilterArea] = useState<Record<filterAreaKey, boolean>>({
+  const urlPathe = decodedSub_categories.join("/");
+  const [filterArea, setFilterArea] = useState<Record<filterAreaKey, boolean>>({
       price:true, size:true, inStock:false, color:true
     });
     
@@ -218,8 +219,11 @@ const MenProducts = ({dataBySubcategory, categoriesOfAudience, decodedSub_catego
                 </div>
               </div>
             </div>
-  
-            {/* size based filter section */}
+
+           {/* size based filter section */}
+            {
+            !urlPathe.startsWith("accessories/") &&
+
             <div className="my-5">
               <Button onClick={() => filterArea_IconToggle("size")} variant="ghost" buttonSize="sm" className="w-full relative flex items-center justify-between text-lg font-medium">
                  <span className="flex items-center gap-2" ><Ruler />SIZE</span>
@@ -245,7 +249,8 @@ const MenProducts = ({dataBySubcategory, categoriesOfAudience, decodedSub_catego
                 </div>
               </div>
             </div>
-
+            }
+  
             {/* AVAILABILITY based filter section */}
             <div className="my-5">
               <Button onClick={() => filterArea_IconToggle("inStock")} variant="ghost" buttonSize="sm" className="w-full relative flex items-center justify-between text-lg font-medium">
