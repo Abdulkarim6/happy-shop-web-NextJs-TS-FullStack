@@ -244,6 +244,9 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
     const dataBySubcategory = 
       allProductsOfCategories?.filter((allProductsOfCategory:Product) => 
       filteredDataBySubcategory(allProductsOfCategory, decodedSub_categories));
+
+      content = <Products dataBySubcategory={dataBySubcategory} 
+           categoriesOfAudience={categoriesOfkids} decodedSub_categories={decodedSub_categories}/>;
   }
   else if(urlPathe.startsWith("accessories/") ) {
     const dataBySubcategory = 
