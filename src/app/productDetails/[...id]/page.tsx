@@ -1,7 +1,7 @@
 import getProduct from "@/app/actions/products/getProduct";
 import CustomerBenefits from "@/app/components/homeComponents/CustomerBenefits/CustomerBenefits";
 import DeleveryPolicy_Terms from "@/app/deleveryPolicy_TermsComponents/DeleveryPolicy_Terms/DeleveryPolicy_Terms";
-import MenProductDetails from "@/app/components/productsPageComponents/MenProductDetails/MenProductDetails";
+import ProductDetails from "@/app/components/productsPageComponents/ProductDetails/ProductDetails";
 import { Product } from "@/app/utils/interfaces";
 import Image from "next/image";
 
@@ -26,7 +26,7 @@ const page = async ({ params }: PageProps) => {
          </div>
      
          <div className="w-full md:w-1/2">
-          <MenProductDetails product={product} />
+          <ProductDetails product={product} />
          </div>
        </div>
 

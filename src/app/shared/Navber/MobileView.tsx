@@ -1,6 +1,6 @@
 import { CategoriesType, SubCategoriesType } from "@/app/utils/interfaces";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/components/ui/accordion";
-import { Minus, Plus } from "lucide-react";
+import { Home, Minus, Plus } from "lucide-react";
 import Link from "next/link";
 
 type TypeOfGenders = {
@@ -15,6 +15,14 @@ const MobileView = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, categ
   return (
     <div className="mr-0 p-2 bg-slate-50">
       <Accordion type="single" collapsible className="w-full">
+        <AccordionItem value="Home">
+          <Link href="/" className="flex items-center justify-between group pt-2 pb-0">
+            <span className="text-lg font-medium">Home</span>
+            <span className="ml-2">
+              <Home className="h-5 w-5 transition-all duration-200 group-data-[state=open]:hidden" />
+            </span>
+          </Link>
+        </AccordionItem>
 
         <AccordionItem value="men">
           <AccordionTrigger className="flex items-center justify-between group pt-2 pb-0">
@@ -28,10 +36,10 @@ const MobileView = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, categ
             <ul>
               {categoriesOfMan?.men?.map((subCategory : SubCategoriesType | null, id) => (
                 <li key={id} className="my-2">
-                  <Link type="button" href={`/categories/men/${subCategory?.subCategory?.split(" ").join("-")}`}>
-                    <div className="text-sm lg:text-base leading-none font-medium">
-                      {subCategory?.subCategory}
-                    </div>
+                  <Link type="button" href={`/categories/men/${subCategory?.subCategory?.split(" ").join("-")}`}
+                  className="active:bg-blue-500 text-black  border-l border-l-blue-500 px-2 text-base leading-none font-medium"
+                  >
+                    {subCategory?.subCategory}
                   </Link>
                 </li>
               ))}
@@ -51,10 +59,10 @@ const MobileView = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, categ
             <ul>
               {categoriesOfwomen?.women?.map((subCategory : SubCategoriesType | null, id) => (
                 <li key={id} className="my-2">
-                  <Link type="button" href={`/categories/women/${subCategory?.subCategory?.split(" ").join("-")}`}>
-                    <div className="text-sm lg:text-base leading-none font-medium">
-                      {subCategory?.subCategory}
-                    </div>
+                  <Link type="button" href={`/categories/women/${subCategory?.subCategory?.split(" ").join("-")}`}
+                  className="active:bg-blue-500 text-black  border-l border-l-blue-500 px-2 text-base leading-none font-medium"
+                  >
+                    {subCategory?.subCategory}
                   </Link>
                 </li>
               ))}
@@ -74,10 +82,10 @@ const MobileView = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, categ
             <ul>
               {categoriesOfkids?.kids?.map((subCategory : SubCategoriesType | null, id) => (
                 <li key={id} className="my-2">
-                  <Link type="button" href={`/categories/kids/${subCategory?.subCategory?.split(" ").join("-")}`}>
-                    <div className="text-sm lg:text-base leading-none font-medium">
-                      {subCategory?.subCategory}
-                    </div>
+                  <Link type="button" href={`/categories/kids/${subCategory?.subCategory?.split(" ").join("-")}`}
+                  className="active:bg-blue-500 text-black  border-l border-l-blue-500 px-2 text-base leading-none font-medium"
+                  >
+                    {subCategory?.subCategory}
                   </Link>
                 </li>
               ))}
@@ -97,18 +105,16 @@ const MobileView = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, categ
             <ul>
               {categoriesOfaccessories?.accessories?.map((subCategory : SubCategoriesType | null, id) => (
                 <li key={id} className="my-2">
-                  <Link type="button" href={`/categories/accessories/${subCategory?.subCategory?.split(" ").join("-")}`}>
-                    <div className="text-sm lg:text-base leading-none font-medium">
-                      {subCategory?.subCategory}
-                    </div>
+                  <Link type="button" href={`/categories/accessories/${subCategory?.subCategory?.split(" ").join("-")}`}
+                  className="active:bg-blue-500 text-black  border-l border-l-blue-500 px-2 text-base leading-none font-medium"
+                  >
+                    {subCategory?.subCategory}
                   </Link>
                 </li>
               ))}
             </ul>
           </AccordionContent>
         </AccordionItem>
-
-
 
       </Accordion>
     </div>

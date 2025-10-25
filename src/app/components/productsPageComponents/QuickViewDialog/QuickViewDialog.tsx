@@ -36,7 +36,7 @@ const QuickViewDialog = ({product , quantityOfSizes} : propsTypes) => {
                   </Button>
               </DialogTrigger>
              
-              <DialogContent className="no-select sm:max-w-[425px] md:max-w-[900px] h-[76%] md:h-[80%] overflow-scroll md:overflow-hidden rounded-none bg-slate-100 p-3 flex flex-col md:flex-row gap-2 md:gap-3">
+              <DialogContent className="no-select sm:max-w-[425px] md:max-w-[900px] h-[76%] md:h-[80%] overflow-scroll rounded-none bg-slate-100 p-3 flex flex-col md:flex-row gap-2 md:gap-3">
                 <div className="w-full md:w-3/5">
                   <Image
                     alt="" quality={100}
