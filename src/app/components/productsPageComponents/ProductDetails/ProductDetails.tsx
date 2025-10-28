@@ -5,13 +5,11 @@ import { Product } from "@/app/utils/interfaces";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus } from "lucide-react";
 
-const MenProductDetails = ({product} : {product : Product}) => {
+const ProductDetails = ({product} : {product : Product}) => {
     console.log(product);
     
     const [orderQuantity, setorderQuantity] = useState<number>(1);
     const [selectedSizeOfProduct, setSelectedSizeOfProduct] = useState<string>("");
-     const [quantityOfSizes, setQuantityOfSizes] = useState<{ _id: string, quantity: number }[]>([]);  
-
      const handleOrderQuantityControll = (param : "plus" | "minus") =>{
       if (param === "plus") {
         // when input field is NaN(empty), the condition will apply
@@ -21,24 +19,6 @@ const MenProductDetails = ({product} : {product : Product}) => {
         setorderQuantity(prev => (prev > 1 && !Number.isNaN(prev) ? --prev : 1));
       }
     }
-
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-    //  Loads quantity of products based on size
-    useEffect(() => {
-       fetch(`${baseUrl}/api/getQuantityOfItemsForEachSizes`,{
-          cache:"no-store",
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            subCategory: product?.subCategory,
-            targetAudience: product?.targetAudience,
-           })
-      })
-       .then((res) => res.json())
-         .then((data) => setQuantityOfSizes(data))
-         .catch((err) => console.log("err", err));
-    },[])
-
 
     return (
       <section className="py-5 px-1">
@@ -68,11 +48,9 @@ const MenProductDetails = ({product} : {product : Product}) => {
               <option value="" disabled className="text-gray-400">
                 Select...
               </option>
-              {quantityOfSizes?.map((size, id) => (
-                <option key={id} value={size?._id}>
-                  {size?._id}
-                </option>
-              ))}
+                {product?.size?.map((size , id)=> 
+                  <option key={id} value={size}>{size}</option>
+                )}
             </select>
           </div>
         </div>
@@ -102,4 +80,4 @@ const MenProductDetails = ({product} : {product : Product}) => {
     );
 };
 
-export default MenProductDetails;
+export default ProductDetails;

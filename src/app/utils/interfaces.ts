@@ -7,13 +7,14 @@ export interface Product {
   brand: string;
   subCategory: string;
   targetAudience: string;
-  size: string | string[];
+  size: string[];
   price: number;
   inStock: string | number | boolean;
   rating: string | number | boolean;
   image: string;
   color: string;
   ageGroup?: string
+  dateAdded: Date;
 }
 
 export interface SubCategoriesType  {

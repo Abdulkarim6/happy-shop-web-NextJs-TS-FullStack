@@ -7,13 +7,13 @@ const CustomerBenefits = () => {
    
   return (
       //Full container
-      <section className="w-full flex flex-col items-center justify-center p-2 my-2">
+      <section className="w-full flex flex-col items-center justify-center p-2 my-2 md:my-5">
         <h1 className={`text-2xl md:text-3xl lg:text-4xl font-semibold ${poppins.className}`} >
           -WHY BUY FROM US-
         </h1>
 
         {/* Cards parent container [controlled cards container]*/}
-        <div className="w-full flex flex-col lg:flex-row lg:justify-around mt-2 md:mt-5">
+        <div className="w-full flex flex-col lg:flex-row lg:justify-around mt-3 md:mt-5">
          
           {/* Cards container [controlled individual card] */}
           <div className={classFor_sm_md_Device}>

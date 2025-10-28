@@ -17,12 +17,16 @@ const page = async ({ params }: PageProps) => {
     <section>
        <div className="px-2 md:px-24 rounded-none bg-slate-100 pt-3 md:pt-5 flex flex-col md:flex-row justify-around gap-3 w-full">
          <div className="w-full md:w-1/2">
-           <Image
-             alt="" quality={100}
-             src={product?.image}
-             height={800} width={500}
-             className="rounded"
-           />
+           {product?.image && (
+            <Image
+              alt="product"
+              quality={100}
+              src={product.image}
+              height={800}
+              width={500}
+              priority
+            />
+           )}
          </div>
      
          <div className="w-full md:w-1/2">

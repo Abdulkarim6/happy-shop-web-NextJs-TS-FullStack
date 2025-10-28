@@ -17,7 +17,7 @@ const Categories = async () => {
   return (
     <section className="flex flex-col justify-center items-center">
       <h2 className={`text-2xl md:text-3xl lg:text-4xl font-semibold ${poppins.className}`}>-SHOP BY-</h2>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-1">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-1 mt-3 lg:mt-5">
         {categoriesOfGenders.map((categoryOfGenders: CategoriesType) => (
         <Link href={`/categories/${categoryOfGenders?.targetAudience}`} key={categoryOfGenders?._id}>
           <Card className="w-full py-0 gap-0 rounded-lg" >

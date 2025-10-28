@@ -1,6 +1,7 @@
 import Banner from "./components/homeComponents/Banner/Banner";
 import Categories from "./components/homeComponents/Categories/Categories";
 import CustomerBenefits from "./components/homeComponents/CustomerBenefits/CustomerBenefits";
+import NewArrivals from "./components/homeComponents/NewArrivals/NewArrivals";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <Banner />
       <CustomerBenefits />
       <Categories />
+      <NewArrivals/>
 
       <h1 className="my-5"> ed cum dolore ipsa fuga doloribus deserunt impedit quibusdam earum perferendis inventore obcaecati omnis minus? Sequi culpa harum nulla nisi qui non.
       Veritatis tempora dolorepe vel adipisci quasi atque necessitatibus inventore suscipit officiis eligendi impedit! Perspiciatis, assumenda eaque consequatur eius veritatis quibusdam quidem odio excepturi alias laborum.

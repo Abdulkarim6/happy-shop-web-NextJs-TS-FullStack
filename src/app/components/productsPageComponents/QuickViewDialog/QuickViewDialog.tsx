@@ -10,9 +10,8 @@ import { useState } from "react";
 
 type propsTypes = {
   product: Product;
-  quantityOfSizes: { _id: string, quantity: number }[]
 };
-const QuickViewDialog = ({product , quantityOfSizes} : propsTypes) => {
+const QuickViewDialog = ({product} : propsTypes) => {
     const [orderQuantity, setorderQuantity] = useState<number>(1);
     const [selectedSizeOfProduct, setSelectedSizeOfProduct] = useState<string>("");
     // console.log(orderQuantity);
@@ -71,8 +70,8 @@ const QuickViewDialog = ({product , quantityOfSizes} : propsTypes) => {
                            className="py-0 pl-2 h-8 md:h-10 font-semibold text-lg border-gray-400 border-2"
                           >
                             <option value="" disabled className="text-gray-400">Select...</option>
-                            {quantityOfSizes?.map((size , id)=> 
-                               <option key={id} value={size?._id}>{size?._id}</option>
+                            {product?.size?.map((size , id)=> 
+                               <option key={id} value={size}>{size}</option>
                             )}
                           </select>
                         </div>

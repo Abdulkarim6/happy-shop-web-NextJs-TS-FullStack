@@ -1,11 +1,9 @@
 "use client"
 import { CategoriesType, Product } from "@/app/utils/interfaces";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { Cross, Delete, Eye, ListFilter, ListFilterIcon, Menu, Minus, Plus, Ruler, SlidersHorizontal, Trash2, X } from "lucide-react";
-import Image from "next/image";
+import { Delete, ListFilter, Menu, Minus, Plus, Ruler, Trash2, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import QuickViewDialog from "../QuickViewDialog/QuickViewDialog";
+import DisplayProducts from "./DisplayProducts";
 
 type GroupPropsTypes = {
   dataBySubcategory : Product[];
@@ -15,7 +13,7 @@ type GroupPropsTypes = {
 
 type filterAreaKey = "price" | "size" | "inStock" | "color";
 
-const MenProducts = ({dataBySubcategory, categoriesOfAudience, decodedSub_categories} : GroupPropsTypes) => {
+const Products = ({dataBySubcategory, categoriesOfAudience, decodedSub_categories} : GroupPropsTypes) => {
   const urlPathe = decodedSub_categories.join("/");
   const [filterArea, setFilterArea] = useState<Record<filterAreaKey, boolean>>({
       price:true, size:true, inStock:false, color:true
@@ -316,42 +314,13 @@ const MenProducts = ({dataBySubcategory, categoriesOfAudience, decodedSub_catego
 
          {/* products display area */}
          <div className="w-full md:w-4/5 px-1 z-10">
-           <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
-           {filteredProducts?.map((product: Product) => (
-             <div key={product?._id}>
-                <div className="relative group overflow-hidden">
-                  <Link
-                    href={`/productDetails/${product?.subCategory?.split(" ").join("-")}/${product?._id}`}
-                  >
-                     <Image
-                       src={product?.image}
-                       alt="Picture of the author" width={450} height={550}
-                       className=" hover:scale-105 transition-transform opacity-90"
-                     />
-                  </Link>
-                  <QuickViewDialog 
-                    product={product}
-                    quantityOfSizes={quantityOfSizes}
-                  ></QuickViewDialog>
-                </div>
-               
-               <Link
-                 href={`/productDetails/${product?.subCategory?.split(" ").join("-")}/${product?._id}`}
-               >
-                 <h3 className="text-sm md:text-xl text-center font-medium my-2">
-                   {product?.name}
-                 </h3>
-               </Link>
-              
-               <p className="text-base">{product?.description}</p>
-               <p className="text-lg font-light">BDT {product?.price} TK</p>
-             </div>
-           ))}
-           </div>
+           <DisplayProducts
+             filteredProducts={filteredProducts}
+           />
          </div>
       </div>
       </section>
     );
 };
 
-export default MenProducts;
+export default Products;
