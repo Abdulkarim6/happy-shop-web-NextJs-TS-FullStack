@@ -2,7 +2,6 @@ import Link from "next/link";
 //import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle, } from "@/components/ui/navigation-menu";
 import { SubCategoriesType, CategoriesType, Product } from "@/app/utils/interfaces";
 import Image from "next/image";
-import { getAllProducts } from "@/app/actions/products/getAllProducts";
 import { decodeParams } from "@/app/utils/decodeParams";
 import { filteredDataBySubcategory } from "@/app/utils/filteredDataBySubcategory";
 import BannerTitleComponent from "@/app/shared/BannerTitleComponent/BannerTitleComponent";
@@ -21,7 +20,6 @@ const imageStyle = {
 };
 
 const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }) => {
-  //const allProductsOfCategories: Product[] = await getAllProducts(); // loaded all products via server action
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
    const response = await fetch(`${baseUrl}/api/allProducts`, {cache: "force-cache"});

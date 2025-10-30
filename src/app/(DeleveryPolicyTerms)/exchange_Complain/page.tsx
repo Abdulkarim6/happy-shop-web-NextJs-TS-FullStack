@@ -1,4 +1,4 @@
-import Exchange_Complain from "@/app/deleveryPolicy_TermsComponents/Exchange_Complain/Exchange_Complain";
+import Exchange_Complain from "@/app/components/deleveryPolicy_TermsComponents/Exchange_Complain/Exchange_Complain";
 
 const page = () => {
     return (

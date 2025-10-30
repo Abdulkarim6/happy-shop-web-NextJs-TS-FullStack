@@ -14,7 +14,7 @@ export interface Product {
   image: string;
   color: string;
   ageGroup?: string
-  dateAdded: Date;
+  DateAdded: string;
 }
 
 export interface SubCategoriesType  {
@@ -34,6 +34,15 @@ export interface CategoriesType {
   accessories?: SubCategoriesType[];
 };
 
+export interface ReviewType {
+  _id: string;
+  customer: string;
+  location: string;
+  review: string;
+  profile: string;
+  rating: number;
+  date: string;
+};
 
 export const Toast = Swal.mixin({
   toast: true,

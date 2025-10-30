@@ -1,6 +1,6 @@
 import getProduct from "@/app/actions/products/getProduct";
+import DeleveryPolicy_Terms from "@/app/components/deleveryPolicy_TermsComponents/DeleveryPolicy_Terms/DeleveryPolicy_Terms";
 import CustomerBenefits from "@/app/components/homeComponents/CustomerBenefits/CustomerBenefits";
-import DeleveryPolicy_Terms from "@/app/deleveryPolicy_TermsComponents/DeleveryPolicy_Terms/DeleveryPolicy_Terms";
 import ProductDetails from "@/app/components/productsPageComponents/ProductDetails/ProductDetails";
 import { Product } from "@/app/utils/interfaces";
 import Image from "next/image";
@@ -19,11 +19,9 @@ const page = async ({ params }: PageProps) => {
          <div className="w-full md:w-1/2">
            {product?.image && (
             <Image
-              alt="product"
-              quality={100}
+              alt="product" quality={100}
               src={product.image}
-              height={800}
-              width={500}
+              height={800} width={500}
               priority
             />
            )}

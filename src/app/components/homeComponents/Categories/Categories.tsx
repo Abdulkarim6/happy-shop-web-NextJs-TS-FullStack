@@ -24,9 +24,7 @@ const Categories = async () => {
             <CardContent className="p-1 md:p-2">
               <Image
                 src={categoryOfGenders?.thumbnail}
-                alt="Picture of the author"
-                width={500}
-                height={500}
+                alt="Picture of the author" width={500} height={500}
                 className="rounded-md hover:rounded-lg overflow-hidden hover:scale-105 transition-transform opacity-90"
               />
             </CardContent>

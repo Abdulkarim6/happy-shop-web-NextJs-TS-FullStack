@@ -6,13 +6,6 @@ export async function GET(request: Request){
         const collection = dbConnect("categories");
         const data = await collection.find({}).toArray();
 
-        // const data = {
-        //     name:"karim",
-        //     roll:"100010023",
-        //     dep:"CSE",
-        //     cgpa:"3.71"
-        // }
-
         return Response.json({data})
 
     } catch (error) {

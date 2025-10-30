@@ -1,14 +1,10 @@
-
-import { getCategories } from "@/app/actions/products/getCategories";
 import NavberClient from "./NavberClient";
 import { CategoriesType } from "@/app/utils/interfaces";
 
 export const revalidate = 3600; // cache সময় — ১ ঘণ্টা
 
 const Navber = async () => {
-  // const categoriesOfGenders: CategoriesType[] = await getCategories(); // ✅ render এর বাইরে fetch
-
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
    const res = await fetch(`${baseUrl}/api/categories`,{cache: "force-cache"});
    const resJson = await res.json(); 

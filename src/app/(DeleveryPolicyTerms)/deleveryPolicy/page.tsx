@@ -1,5 +1,4 @@
-import DeleveryPolicy from "@/app/deleveryPolicy_TermsComponents/DeleveryPolicy/DeleveryPolicy";
-
+import DeleveryPolicy from "@/app/components/deleveryPolicy_TermsComponents/DeleveryPolicy/DeleveryPolicy";
 
 const page = () => {
     return (
