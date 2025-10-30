@@ -1,4 +1,4 @@
-export const dynamic = "auto";
+export const dynamic = "force-dynamic";
 import dbConnect from "@/lib/dbConnect";
 
 export async function GET(request: Request) {
@@ -10,8 +10,6 @@ export async function GET(request: Request) {
   } 
   catch (error) {
     console.log(error);
-    return Response.json(
-      { error: "Failed to fetch reviews" }
-    );
+    return Response.json({ error: "Failed to fetch reviews" }, { status: 500 });
   }
 }

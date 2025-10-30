@@ -1,5 +1,4 @@
 import Link from "next/link";
-//import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle, } from "@/components/ui/navigation-menu";
 import { SubCategoriesType, CategoriesType, Product } from "@/app/utils/interfaces";
 import Image from "next/image";
 import { decodeParams } from "@/app/utils/decodeParams";

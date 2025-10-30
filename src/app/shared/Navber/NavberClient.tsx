@@ -1,10 +1,9 @@
 "use client"
-
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle, } from "@/components/ui/navigation-menu";
 import { AlignJustify, ChevronDownIcon, CircleUserRound, Search, X, } from "lucide-react";
 import Link from "next/link";
 import { Poppins } from "next/font/google";
-import { SubCategoriesType, CategoriesType, Product } from "@/app/utils/interfaces";
+import { SubCategoriesType, CategoriesType} from "@/app/utils/interfaces";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import MobileView from "./MobileView";
@@ -24,17 +23,12 @@ type TypeOfGenders = {
   categoriesOfkids : CategoriesType | undefined;
   categoriesOfaccessories : CategoriesType | undefined;
 }
-// const NavberClient = ({categoriesOfGenders}: {categoriesOfGenders: CategoriesType[]}) => {
+
 const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, categoriesOfaccessories}: TypeOfGenders) => {
     const { data: session } = useSession();
     const [searchProduct, setSearchProduct] = useState<string>("");
     const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
     const [width, setWidth] = useState<number>(0);
-
-    // const categoriesOfMan = categoriesOfGenders?.find(categoriesOfGender => categoriesOfGender.men);
-    // const categoriesOfwomen = categoriesOfGenders?.find(categoriesOfGender => categoriesOfGender.women);
-    // const categoriesOfkids = categoriesOfGenders?.find(categoriesOfGender => categoriesOfGender.kids);
-    // const categoriesOfaccessories = categoriesOfGenders?.find(categoriesOfGender => categoriesOfGender.accessories);
 
     useEffect(() => {
       const handleResize = () => setWidth(window.innerWidth);
@@ -44,10 +38,6 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
     }, []);
 
     const navigationMenuLink = `text-base lg:text-lg font-medium !px-2 !py-1 lg:!px-4 lg:!py-2`;
-
-  //  console.log("categoriesOfGenders", categoriesOfGenders);
-  //  console.log("categoriesOfMan", categoriesOfMan);
-  //  {categoriesOfMan?.men?.map((subCategory => console.log(subCategory?.subCategory)))}
 
     return (
         <section className="flex items-center relative p-2 !pr-2 md:!pr-10">
