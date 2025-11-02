@@ -1,16 +1,10 @@
 "use client";
-import { Heart } from "lucide-react";
 import React, { useState } from "react";
 import { Rating as ReactRating} from "react-simple-star-rating";
 
 export function Rating({rating}:{rating:number}) {
   // const [rating, setRating] = useState(2.5);
-  console.log(rating);
-  
-  // const handleRating = (rate: number) => {
-  //   setRating(rate);
 
-  // };
  let fillColor;
  if (rating >= 1 && rating <= 2) {
    fillColor = "#ff0000";

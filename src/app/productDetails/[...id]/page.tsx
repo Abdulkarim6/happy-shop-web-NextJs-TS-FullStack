@@ -1,5 +1,5 @@
 import getProduct from "@/app/actions/products/getProduct";
-import DeleveryPolicy_Terms from "@/app/components/deleveryPolicy_TermsComponents/DeleveryPolicy_Terms/DeleveryPolicy_Terms";
+import DeleveryPolicy_Terms from "@/app/components/deleveryPolicy_TermsComponents/DeleveryPolicy_TermsParent/DeleveryPolicy_TermsParent";
 import CustomerBenefits from "@/app/components/homeComponents/CustomerBenefits/CustomerBenefits";
 import ProductDetails from "@/app/components/productsPageComponents/ProductDetails/ProductDetails";
 import { Product } from "@/app/utils/interfaces";
