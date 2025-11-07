@@ -8,7 +8,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const NewArrivalsClient = ({arrivalsProducts}:{arrivalsProducts: Product[]}) => {
     return (
-        <Carousel className="w-full px-8 md:px-12 mt-3 md:mt-5"
+        <Carousel className="w-full px-8 md:px-12"
          plugins={[
          Autoplay({
           delay: 1800, stopOnInteraction: false, stopOnMouseEnter: true,
@@ -23,7 +23,7 @@ const NewArrivalsClient = ({arrivalsProducts}:{arrivalsProducts: Product[]}) => 
               <CarouselItem key={index} className="pl-1 md:basis-1/3 lg:basis-1/4">
                 <div className="p-0">
                   <Card className="p-0 rounded-none">
-                    <CardContent className="flex aspect-square items-center justify-center p-1">
+                    <CardContent className="flex aspect-3/2 items-center justify-center p-1">
                       <Image
                         src={product?.image}
                         alt="Picture of the author" width={450} height={550}

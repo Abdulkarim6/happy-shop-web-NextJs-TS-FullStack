@@ -14,8 +14,8 @@ import { poppins } from "@/app/layout";
 
 const imageStyle = {
   border: "1px solid #fff",
-  width: "100%",
-  height: "550px",
+ // width: "100%",
+ // height: "auto",
 };
 
 const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }) => {
@@ -51,8 +51,8 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
       <section>
         <div>
          {/* --Banner for men page-- */}
-          <figure className="relative">
-            <Image src={man} style={imageStyle} alt="banner" />
+          <figure className="relative w-full h-[350px] md:h-[450px] lg:h-[550px]">
+            <Image src={man} style={imageStyle} alt="banner" fill />
             <div className="absolute top-0 w-full h-full flex justify-end bg-r-overlay ">
               <BannerTitleComponent
                 title="Men"
