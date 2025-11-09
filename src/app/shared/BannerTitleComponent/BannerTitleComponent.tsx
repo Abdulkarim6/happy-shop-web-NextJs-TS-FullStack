@@ -1,5 +1,4 @@
 "use client";
-
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -14,8 +13,7 @@ type Props = {
 };
 
 const BannerTitleComponent = ({ title, subTitle }: Props) => {
-  const container = useRef<HTMLDivElement | null>(null);
-  const p = usePathname(); //like: /categories/men
+  const path = usePathname(); //like: /categories/men
   
 
   useGSAP(() => {
@@ -42,10 +40,10 @@ const BannerTitleComponent = ({ title, subTitle }: Props) => {
   return (
     <div className="flex items-center w-1/2 h-full ">
 
-      <div className={`flex flex-col justify-center w-full h-full ${p.includes("kids")  ? "ps-[25%]" : "pr-[25%]" }`}>
-        <h2 className="text-white font-bold title text-4xl">{title}</h2>
+      <div className={`flex flex-col justify-center w-full h-full ${path?.includes("kids")  ? "ps-[25%]" : "pr-[25%]" }`}>
+        <h2 className="text-white font-bold title text-2xl md:text-3xl lg:text-4xl">{title}</h2>
 
-        <p className="text-white sub-title text-xl">{subTitle}</p>
+        <p className="text-white sub-title text-base md:text-lg lg:text-xl">{subTitle}</p>
       </div>
 
     </div>

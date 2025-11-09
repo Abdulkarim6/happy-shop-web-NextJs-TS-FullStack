@@ -51,7 +51,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
       <section>
         <div>
          {/* --Banner for men page-- */}
-          <figure className="relative w-full h-[350px] md:h-[450px] lg:h-[550px]">
+          <figure className="relative w-full h-[330px] md:h-[450px] lg:h-[550px]">
             <Image src={man} style={imageStyle} alt="banner" fill />
             <div className="absolute top-0 w-full h-full flex justify-end bg-r-overlay ">
               <BannerTitleComponent
@@ -64,8 +64,8 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
         
         <div>
           {/* --Categories for men page-- */}
-          <h3 className="text-4xl font-semibold text-center my-3 md:my-5">SHOP BY CATEGORIES</h3>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+          <h3 className="text-2xl md:text-4xl font-semibold text-center my-3 md:my-5">SHOP BY CATEGORIES</h3>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 w-full mx-auto p-2">
             {categoriesOfMan?.men?.map((subCategory: SubCategoriesType, id:number) => (
               <Link
                 key={id}
@@ -73,7 +73,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
               >
                 <Image
                   src={subCategory?.image} alt="Picture of the author" width={450} height={500}
-                  className="rounded-md hover:rounded-lg overflow-hidden hover:scale-105 transition-transform opacity-90"
+                  className="rounded hover:rounded-md overflow-hidden hover:scale-105 transition-transform opacity-90"
                 />
                 <div className={`my-2 ${poppins.className}`}>
                   <h3 className="text-sm md:text-3xl text-center leading-none font-medium my-2">
@@ -93,8 +93,8 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
     content = <section>
        <div>
          {/* --Banner for women page-- */}
-          <figure className="relative">
-            <Image src={woman} style={imageStyle} alt="banner" />
+          <figure className="relative w-full h-[330px] md:h-[450px] lg:h-[550px]">
+            <Image src={woman} style={imageStyle} alt="banner" fill/>
             <div className="absolute top-0 w-full h-full flex justify-end bg-r-overlay ">
               <BannerTitleComponent
                 title="Women"
@@ -106,8 +106,8 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
 
         <div>
           {/* --Categories for women page-- */}
-          <h3 className="text-4xl font-semibold text-center my-3 md:my-5">SHOP BY CATEGORIES</h3>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+          <h3 className="text-2xl md:text-4xl font-semibold text-center my-3 md:my-5">SHOP BY CATEGORIES</h3>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 w-full mx-auto p-2">
             {categoriesOfwomen?.women?.map((subCategory: SubCategoriesType, id:number) => (
               <Link
                 key={id}
@@ -115,7 +115,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
               >
                 <Image
                   src={subCategory?.image} alt="Picture of the author" width={400} height={450}
-                  className="rounded-md hover:rounded-lg overflow-hidden hover:scale-105 transition-transform opacity-90"
+                  className="rounded hover:rounded-md overflow-hidden hover:scale-105 transition-transform opacity-90"
                 />
                 <div className={`my-2 ${poppins.className}`}>
                   <h3 className="text-sm md:text-3xl text-center leading-none font-medium my-2">
@@ -136,8 +136,8 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
       <section>
         <div>
           {/* --Banner for kids page-- */}
-          <figure className="relative">
-            <Image src={kids} style={imageStyle} alt="banner" />
+          <figure className="relative w-full h-[330px] md:h-[450px] lg:h-[550px]">
+            <Image src={kids} style={imageStyle} alt="banner" fill/>
             <div className="absolute top-0 w-full h-full bg-l-overlay">
               <BannerTitleComponent
                 title="KIDS"
@@ -149,8 +149,8 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
 
         <div>
           {/* --Categories for kids page-- */}
-          <h3 className="text-4xl font-semibold text-center my-3 md:my-5"> SHOP BY CATEGORIES </h3>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+          <h3 className="text-2xl md:text-4xl font-semibold text-center my-3 md:my-5"> SHOP BY CATEGORIES </h3>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 w-full mx-auto p-2">
             {categoriesOfkids?.kids?.map((subCategory: SubCategoriesType, id:number) => (
                 <Link
                   key={id}
@@ -158,7 +158,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
                 >
                   <Image
                     src={subCategory?.image} alt="Picture of the author" width={400} height={450}
-                    className="rounded-md hover:rounded-lg overflow-hidden hover:scale-105 transition-transform opacity-90"
+                    className="rounded hover:rounded-md overflow-hidden hover:scale-105 transition-transform opacity-90"
                   />
                   <div className={`my-2 ${poppins.className}`}>
                     <h3 className="text-sm md:text-3xl text-center leading-none font-medium my-2">
@@ -180,8 +180,8 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
     content = <section>
       <div>
          {/* --Banner for accessories page-- */}
-          <figure className="relative">
-            <Image src={accessories} style={imageStyle} alt="banner" />
+          <figure className="relative w-full h-[330px] md:h-[450px] lg:h-[550px]">
+            <Image src={accessories} style={imageStyle} alt="banner" fill/>
             <div className="absolute top-0 w-full h-full flex justify-end bg-r-overlay ">
               <BannerTitleComponent
                 title="Accessories"
@@ -193,8 +193,8 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
 
       <div>
           {/* --Categories for accessories page-- */}
-          <h3 className="text-4xl font-semibold text-center my-3 md:my-5">SHOP BY CATEGORIES</h3>
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
+          <h3 className="text-2xl md:text-4xl font-semibold text-center my-3 md:my-5">SHOP BY CATEGORIES</h3>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-4 w-full mx-auto p-2">
             {categoriesOfaccessories?.accessories?.map((subCategory: SubCategoriesType, id:number) => (
               <Link
                 key={id}
@@ -202,7 +202,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
               >
                 <Image
                   src={subCategory?.image} alt="Picture of the author" width={400} height={450}
-                  className="rounded-md hover:rounded-lg overflow-hidden hover:scale-105 transition-transform opacity-90"
+                  className="rounded hover:rounded-md overflow-hidden hover:scale-105 transition-transform opacity-90"
                 />
                 <div className={`my-2 ${poppins.className}`}>
                   <h3 className="text-sm md:text-3xl text-center leading-none font-medium my-2">
