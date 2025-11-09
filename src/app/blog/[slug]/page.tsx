@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { articles } from "../blog";
+import Link from "next/link";
 
 const page = async ({params}:{params: Promise<{slug:string}>}) => {
     const { slug:id } = await params;
@@ -9,16 +10,40 @@ const page = async ({params}:{params: Promise<{slug:string}>}) => {
    // console.log(blog);
    
     return (
-      <section className="w-full flex">
-        <div className="w-1/5 flex justify-center">
-          <h2>Side bar</h2>
+      <section className="w-full md:w-[90%] lg:w-[80%] p-0.5 lg:p-3 flex flex-col-reverse lg:flex-row mx-auto">
+        {/* Side Navber */}
+        <div className="w-full lg:w-3/10">
+          <h3 className="text-lg font-medium mb-1.5">Related Blogs:</h3>
+          <div className="flex flex-col gap-3">
+            {
+              articles?.map(article => 
+              <div key={article?.id}>
+                <div className="flex gap-2">
+                  {
+                    article && 
+                    <Image
+                     src={article?.image}
+                     width={100} height={150} alt={article?.title}
+                     />
+                  }
+                   <Link href={article?.link}>
+                   <h2 className="text-lg font-medium underline underline-offset-1">{article?.title}</h2>
+                   </Link>
+                 </div>
+                <div className="w-full border border-gray-400 my-2 pr-2"></div>
+              </div>
+              )
+            }
+          </div>
         </div>
-        <div className="w-4/5 flex flex-col items-center justify-center">
+  
+        {/* Blog Area */}
+        <div className="w-full lg:w-7/10 flex flex-col items-center justify-center">
           {blog && (
             <Image
               src={blog?.image}
               alt={blog.title}
-              width={650}
+              width={400}
               height={550}
             />
           )}
@@ -26,7 +51,7 @@ const page = async ({params}:{params: Promise<{slug:string}>}) => {
          {
           blog && 
 
-          <article className="max-w-2xl mx-auto p-6 font-sans">
+          <article className="max-w-2xl mx-auto px-2 md:px-3 lg:px-6 py-2 font-sans">
             {blog?.blog?.map((block, index) => {
               switch (block.type) {
                 case "h1":

@@ -25,7 +25,7 @@ const Testimonials = async() => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 px-3 md:px-5">
         {
           reviews?.map((review : ReviewType) => 
-            <div key={review?._id} className="shadow-lg border border-white rounded-xl px-2 py-5 md:py-8 ">
+            <div key={review?._id} className="shadow-lg hover:shadow-xl border-2 border-white rounded-xl px-2 py-5 md:py-8 ">
              <div>
                 <h3>{review?.customer}</h3>
                 <p>{new Date(review?.date).toLocaleDateString("en-US", dateOptions)}</p>
@@ -39,7 +39,7 @@ const Testimonials = async() => {
         }
         </div>
         <div className="flex justify-center mt-3 md:mt-5">
-         <Link href="/testimonials"><Button variant="destructive" className="text-black hover:text-white bg-inherit hover:bg-orange-400 border border-black">Show More...</Button></Link>
+         <Link href="/testimonials"><Button variant="destructive" className="text-black hover:text-white bg-inherit hover:bg-orange-400 border border-black rounded">Show More...</Button></Link>
         </div>
       </section>
     );

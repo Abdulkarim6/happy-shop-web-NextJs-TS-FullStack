@@ -29,10 +29,10 @@ const OurBlog = () => {
                 <p className="text-gray-600 text-sm mb-3">{article?.blog?.find(a => a.type === 'p')?.text?.slice(0, 80)}...</p>
                 <Link
                   href={`/blog/${article?.link}`}
-                  className="group relative z-20 text-blue-600 hover:text-blue-800 font-medium"
+                  className="group relative z-20 text-blue-600 hover:text-blue-800 font-medium flex items-center"
                 >
                   <span className='text-base'>Read More</span>
-                  <span className='static md:absolute z-0 text-sm left-16 group-hover:left-[88px] opacity-0 group-hover:opacity-100 transition-all duration-150 ease-in'> <MoveRight/> </span>
+                  <span className='static lg:absolute z-0 text-sm lg:left-16 group-hover:left-[88px] lg:opacity-0 group-hover:opacity-100 transition-all duration-150 ease-in'> <MoveRight/> </span>
                 </Link>
               </div>
             </div>
