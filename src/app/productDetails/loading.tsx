@@ -1,11 +1,7 @@
-import React from 'react';
+import Loader from '../shared/Loader/Loader';
 
 const loading = () => {
-    return (
-        <div>
-            <h1 className='text-4xl'>Lodaong............</h1>
-        </div>
-    );
+    return <Loader/> 
 };
 
 export default loading;
