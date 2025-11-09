@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from 'next/link';
 
 const NewArrivalsClient = ({arrivalsProducts}:{arrivalsProducts: Product[]}) => {
     return (
@@ -21,6 +22,9 @@ const NewArrivalsClient = ({arrivalsProducts}:{arrivalsProducts: Product[]}) => 
           <CarouselContent className="">
             {arrivalsProducts?.map((product, index) => (
               <CarouselItem key={index} className="pl-1 md:basis-1/3 lg:basis-1/4">
+                <Link
+                     href={`/productDetails/${product?.subCategory?.split(" ").join("-")}/${product?._id}`}
+                >
                 <div className="p-0">
                   <Card className="p-0 rounded-none">
                     <CardContent className="flex aspect-3/2 items-center justify-center p-1">
@@ -32,6 +36,7 @@ const NewArrivalsClient = ({arrivalsProducts}:{arrivalsProducts: Product[]}) => 
                     </CardContent>
                   </Card>
                 </div>
+                </Link>
               </CarouselItem>
             ))}
           </CarouselContent>

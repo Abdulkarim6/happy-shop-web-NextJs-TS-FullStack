@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Minus, Plus } from "lucide-react";
 
 const ProductDetails = ({product} : {product : Product}) => {
-    console.log(product);
+   // console.log(product);
     
     const [orderQuantity, setorderQuantity] = useState<number>(1);
     const [selectedSizeOfProduct, setSelectedSizeOfProduct] = useState<string>("");

@@ -11,6 +11,7 @@ import woman from "../../../../../public/productsPageBannerImages/122063.jpg";
 import kids from "../../../../../public/productsPageBannerImages/k.jpeg";
 import accessories from "../../../../../public/productsPageBannerImages/acc.png";
 import { poppins } from "@/app/layout";
+import CustomerBenefits from "@/app/components/homeComponents/CustomerBenefits/CustomerBenefits";
 
 const imageStyle = {
   border: "1px solid #fff",
@@ -45,7 +46,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
   const urlPathe = decodedSub_categories.join("/");
   
   let content;
-
+// start To show categories of specific targetAudience
   if (urlPathe === "men") {
     content = 
       <section>
@@ -87,6 +88,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
             ))}
           </div>
         </div>
+        <CustomerBenefits/>
       </section>
   } 
   else if(urlPathe === "women"){
@@ -129,6 +131,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
             ))}
           </div>
         </div>
+        <CustomerBenefits/>
     </section>
   }
   else if(urlPathe === "kids"){
@@ -173,6 +176,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
             )}
           </div>
         </div>
+        <CustomerBenefits/>
       </section>
     );
   }
@@ -216,10 +220,11 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
             ))}
           </div>
         </div>
+        <CustomerBenefits/>
     </section>
   }
 
-
+// start To show products of specific category
   if (urlPathe.startsWith("men/")) {
    const dataBySubcategory = 
      allProductsOfCategories?.filter((allProductsOfCategory:Product) => 
