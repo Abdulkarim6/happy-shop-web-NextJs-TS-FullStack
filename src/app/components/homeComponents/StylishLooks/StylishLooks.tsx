@@ -27,6 +27,7 @@ const StylishLooks = () => {
             src={img.src}
             alt="Look 4"
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover absolute inset-0 group-hover:scale-125 transition-transform duration-700 ease-in-out"
           />
           <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-white text-lg font-semibold transition-all">

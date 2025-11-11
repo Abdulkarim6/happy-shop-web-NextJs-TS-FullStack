@@ -15,7 +15,7 @@ export default function Home() {
       <NewArrivals/>
       <StylishLooks/>
       <Blog/>
-      <Testimonials/>
+      <Testimonials path="homePage"/>
 
 
     </section>

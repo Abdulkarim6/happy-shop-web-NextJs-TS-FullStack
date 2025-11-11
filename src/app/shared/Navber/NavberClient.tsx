@@ -3,12 +3,13 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMe
 import { AlignJustify, ChevronDownIcon, CircleUserRound, Search, X, } from "lucide-react";
 import Link from "next/link";
 import { Poppins } from "next/font/google";
-import { SubCategoriesType, CategoriesType} from "@/app/utils/interfaces";
+import { SubCategoriesType, CategoriesType, Product} from "@/app/utils/interfaces";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import MobileView from "./MobileView";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import DisplaySearchedProducts from "./DisplaySearchedProducts";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,7 +27,8 @@ type TypeOfGenders = {
 
 const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, categoriesOfaccessories}: TypeOfGenders) => {
     const { data: session } = useSession();
-    const [searchProduct, setSearchProduct] = useState<string>("");
+    const [searchForProducts, setSearchForProducts] = useState<string>("");
+
     const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
     const [width, setWidth] = useState<number>(0);
 
@@ -40,7 +42,8 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
     const navigationMenuLink = `text-base lg:text-lg font-medium !px-2 !py-1 lg:!px-4 lg:!py-2`;
 
     return (
-        <section className="flex items-center relative p-2 !pr-2 md:!pr-10">
+        <section className="relative">
+        <div className="flex items-center p-2 !pr-2 md:!pr-10 relative bg-slate-100 z-10">
         {/* toggle Hamburger Handle */}
         <div className="md:hidden">
           {toggleHamburger ? (
@@ -183,11 +186,12 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
         </NavigationMenu>
 
         {/* Search bar of product */}
-        <div className="flex w-full items-center mx-2 gap-1">
-          <Search className="hidden lg:flex " />
+        <div className="flex w-full relative items-center mx-2 gap-1">
+          <Search className="hidden lg:flex absolute right-1" size={20} />
           <Input
-            onChange={(e) => setSearchProduct(e.target.value)}
-            className="w-full"
+            value={searchForProducts}
+            onChange={(e) => setSearchForProducts(e.target.value)}
+            className="w-full rounded pl-1"
             type="text"
             placeholder="Search..."
           />
@@ -240,6 +244,13 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
             />
           </div>
         )}
+        </div> 
+
+        {/* showing products by searching */}
+        <DisplaySearchedProducts
+          searchForProducts={searchForProducts}
+          setSearchForProducts={setSearchForProducts}
+        />
       </section>
     );
 };

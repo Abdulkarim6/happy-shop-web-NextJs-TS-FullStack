@@ -4,7 +4,7 @@ import { poppins } from "@/app/layout";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-const Testimonials = async() => {
+const Testimonials = async({path}:{path:string}) => {
     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
     const res = await fetch(`${baseUrl}/api/reviews`, {cache:"force-cache"});
     
@@ -38,9 +38,13 @@ const Testimonials = async() => {
           )
         }
         </div>
-        <div className="flex justify-center mt-3 md:mt-5">
-         <Link href="/testimonials"><Button variant="destructive" className="text-black hover:text-white bg-inherit hover:bg-orange-400 border border-black rounded">Show More...</Button></Link>
-        </div>
+        {
+          path === "homePage" && 
+
+         <div className="flex justify-center mt-3 md:mt-5">
+          <Link href="/testimonials"><Button variant="destructive" className="text-black hover:text-white bg-inherit hover:bg-orange-400 border border-black rounded">Show More...</Button></Link>
+         </div>
+        }
       </section>
     );
 };

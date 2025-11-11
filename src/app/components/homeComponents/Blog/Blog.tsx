@@ -15,13 +15,14 @@ const OurBlog = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-3">
           {articles?.map((article) => (
             <div key={article.id} className="relative h-[500px] w-full overflow-hidden group">
-              <div className="w-full">
+              {/* <div className="w-full"> */}
                 <Image
                   src={article.image}
                   alt={article.title} fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover group-hover:scale-120 transition-transform duration-500"
                 />
-              </div>
+              {/* </div> */}
               <div className="p-5 absolute bottom-0 left-5 md:left-8 bg-white">
                 <h3 className="text-lg font-semibold mb-2 text-gray-800">
                   {article?.title}

@@ -17,7 +17,7 @@ const Navber = async () => {
     const categoriesOfaccessories = categoriesOfGenders?.find((categoriesOfGender: CategoriesType) => categoriesOfGender.accessories);
 
   return (
-    <section className="flex flex-col sticky top-0 bg-slate-100 z-50">
+    <section className="sticky top-0 z-50">
         {/* <NavberClient categoriesOfGenders={categoriesOfGenders}></NavberClient> */}
         <NavberClient 
           categoriesOfMan={categoriesOfMan}
