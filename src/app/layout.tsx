@@ -2,18 +2,18 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navber from "./shared/Navber/Navber";
 import NextAuthSessionProvider from "./providers/NextAuthSessionProvider";
-import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import Footer from "./shared/Footer/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
 
 export const poppins = Poppins({
   subsets: ["latin"],

@@ -11,7 +11,8 @@ export const authOptions = {
       loginEmail: { label: "email", type: "email", placeholder: "Your Email" },
       password: { label: "Password", type: "password" }
     },
-    async authorize(credentials, req) {
+    // async authorize(credentials, req) {
+    async authorize(credentials) {
       if(!credentials){
         throw new Error("No credentials provided"); //Never come credentials type as undefined in this block
       }

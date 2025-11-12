@@ -4,7 +4,7 @@ import { CategoriesType } from "@/app/utils/interfaces";
 
 const Navber = async () => {
    const categoriesOfGenders = await getCategories();
-   console.log(categoriesOfGenders);
+  //  console.log(categoriesOfGenders);
    
    
     const categoriesOfMan = categoriesOfGenders?.find((categoriesOfGender: CategoriesType) => categoriesOfGender.men);

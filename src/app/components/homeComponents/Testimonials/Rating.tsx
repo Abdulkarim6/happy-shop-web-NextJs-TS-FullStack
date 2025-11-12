@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+
 import { Rating as ReactRating} from "react-simple-star-rating";
 
 export function Rating({rating}:{rating:number}) {

@@ -1,15 +1,10 @@
 import Link from "next/link";
-import { SubCategoriesType, CategoriesType, Product } from "@/app/utils/interfaces";
+import { SubCategoriesType, CategoriesType} from "@/app/utils/interfaces";
 import Image from "next/image";
 import { decodeParams } from "@/app/utils/decodeParams";
-import { filteredDataBySubcategory } from "@/app/utils/filteredDataBySubcategory";
 import BannerTitleComponent from "@/app/shared/BannerTitleComponent/BannerTitleComponent";
 import Products from "@/app/components/productsPageComponents/Products/Products";
 
-import man from "../../../../../public/productsPageBannerImages/man.jpg";
-import woman from "../../../../../public/productsPageBannerImages/girl.jpg";
-import kids from "../../../../../public/productsPageBannerImages/kids.jpeg";
-import accessories from "../../../../../public/productsPageBannerImages/acce.png";
 import { poppins } from "@/app/layout";
 import CustomerBenefits from "@/app/components/homeComponents/CustomerBenefits/CustomerBenefits";
 import { getCategories } from "@/app/utils/getCategories";
@@ -21,24 +16,8 @@ const imageStyle = {
 };
 
 const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }) => {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-
-   const response = await fetch(`${baseUrl}/api/allProducts`, {cache: "force-cache"});
-   if(!response.ok){
-     throw new Error("Failed to fetch all Products");
-    }
-   const allProductsOfCategories = await response.json(); // loads all products via api route
-
-  const categoriesOfGenders = await getCategories(); // loads all categories via api route
+  const categoriesOfGenders = await getCategories(); 
   
-  // const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-
-    // const res = await fetch(`${baseUrl}/api/categories`,{cache: "force-cache"});
-    //  if (!res.ok) {
-    //    throw new Error("Failed to fetch categories");
-    //  }
-    //  const categoriesOfGenders = await res.json();
-
   const categoriesOfMan = categoriesOfGenders?.find((categoriesOfGender: CategoriesType) => categoriesOfGender.men);
   const categoriesOfwomen = categoriesOfGenders?.find((categoriesOfGender:CategoriesType) => categoriesOfGender.women);
   const categoriesOfkids = categoriesOfGenders?.find((categoriesOfGender:CategoriesType) => categoriesOfGender.kids);
@@ -50,6 +29,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
   const urlPathe = decodedSub_categories.join("/");
   
   let content;
+
 // start To show categories of specific targetAudience
   if (urlPathe === "men") {
     content = 
@@ -228,45 +208,19 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
     </section>
   }
 
-// start To show products of specific category
-  if (urlPathe.startsWith("men/")) {
-   const dataBySubcategory = 
-     allProductsOfCategories?.filter((allProductsOfCategory:Product) => 
-     filteredDataBySubcategory(allProductsOfCategory, decodedSub_categories));
-    // console.log(dataBySubcategory);
-     
-    content = <Products dataBySubcategory={dataBySubcategory} 
-            categoriesOfAudience={categoriesOfMan} decodedSub_categories={decodedSub_categories}/>;
-  } 
-  else if(urlPathe.startsWith("women/") ) {
-    const dataBySubcategory = 
-      allProductsOfCategories?.filter((allProductsOfCategory:Product) => 
-      filteredDataBySubcategory(allProductsOfCategory, decodedSub_categories));
-
-    content = <Products dataBySubcategory={dataBySubcategory} 
-            categoriesOfAudience={categoriesOfwomen} decodedSub_categories={decodedSub_categories}/>
-  }
-  else if(urlPathe.startsWith("kids/") ) {
-    const dataBySubcategory = 
-      allProductsOfCategories?.filter((allProductsOfCategory:Product) => 
-      filteredDataBySubcategory(allProductsOfCategory, decodedSub_categories));
-
-      content = <Products dataBySubcategory={dataBySubcategory} 
-           categoriesOfAudience={categoriesOfkids} decodedSub_categories={decodedSub_categories}/>;
-  }
-  else if(urlPathe.startsWith("accessories/") ) {
-    const dataBySubcategory = 
-      allProductsOfCategories?.filter((allProductsOfCategory:Product) => 
-      filteredDataBySubcategory(allProductsOfCategory, decodedSub_categories));
+  if(urlPathe.startsWith("men/") ||
+    urlPathe.startsWith("women/") ||
+    urlPathe.startsWith("kids/") ||
+    urlPathe.startsWith("accessories/")){
       
-      content = <Products dataBySubcategory={dataBySubcategory} 
-           categoriesOfAudience={categoriesOfaccessories} decodedSub_categories={decodedSub_categories}/>;
+    // start To show products of specific category
+    content = <Products urlPathe={urlPathe} 
+            decodedSub_categories={decodedSub_categories}/>;
   }
-
 
   return (
     <div className="md:px-3 mt-0 md:mt-2">
-     {content}
+      {content}
     </div>
   );
 };
