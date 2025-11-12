@@ -6,7 +6,8 @@ export async function GET(request: Request) {
     const collection = dbConnect("categories");
     const data = await collection.find({}).toArray();
 
-    return Response.json({ data: data || []});
+    return Response.json({data});
+    
   } catch (error) {
     console.log(17, error);
     return Response.json({ error: "Failed to fetch" }, { status: 500 });

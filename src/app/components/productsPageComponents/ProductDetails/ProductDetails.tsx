@@ -75,7 +75,7 @@ const ProductDetails = ({product} : {product : Product}) => {
             <span>Rating:</span>
             <span>{product?.rating}</span>
         </div>
-        <Button buttonSize="sm" type="submit" className="w-full rounded-none text-black hover:text-white bg-inherit hover:bg-orange-400 p-4 border-[1px] border-solid border-black mt-2">ADD TO CART</Button>
+        <Button buttonSize="sm" type="submit" className="w-full rounded-none text-black hover:text-white bg-inherit hover:bg-orange-400 p-4 border-[1px] border-solid border-black mt-2">ADD TO BAG</Button>
       </section>
     );
 };

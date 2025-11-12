@@ -6,12 +6,13 @@ import { filteredDataBySubcategory } from "@/app/utils/filteredDataBySubcategory
 import BannerTitleComponent from "@/app/shared/BannerTitleComponent/BannerTitleComponent";
 import Products from "@/app/components/productsPageComponents/Products/Products";
 
-import man from "../../../../../public/productsPageBannerImages/162770 (2).jpg";
-import woman from "../../../../../public/productsPageBannerImages/122063.jpg";
-import kids from "../../../../../public/productsPageBannerImages/k.jpeg";
-import accessories from "../../../../../public/productsPageBannerImages/acc.png";
+import man from "../../../../../public/productsPageBannerImages/man.jpg";
+import woman from "../../../../../public/productsPageBannerImages/girl.jpg";
+import kids from "../../../../../public/productsPageBannerImages/kids.jpeg";
+import accessories from "../../../../../public/productsPageBannerImages/acce.png";
 import { poppins } from "@/app/layout";
 import CustomerBenefits from "@/app/components/homeComponents/CustomerBenefits/CustomerBenefits";
+import { getCategories } from "@/app/utils/getCategories";
 
 const imageStyle = {
   border: "1px solid #fff",
@@ -28,13 +29,16 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
     }
    const allProductsOfCategories = await response.json(); // loads all products via api route
 
-   const res = await fetch(`${baseUrl}/api/categories`,{cache: "force-cache"});
-   const resJson = await res.json(); 
-   if(!res.ok){
-    throw new Error("Failed to fetch categories"); 
-   }
-   const categoriesOfGenders = await resJson?.data; // loads all categories via api route
+  const categoriesOfGenders = await getCategories(); // loads all categories via api route
   
+  // const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
+    // const res = await fetch(`${baseUrl}/api/categories`,{cache: "force-cache"});
+    //  if (!res.ok) {
+    //    throw new Error("Failed to fetch categories");
+    //  }
+    //  const categoriesOfGenders = await res.json();
+
   const categoriesOfMan = categoriesOfGenders?.find((categoriesOfGender: CategoriesType) => categoriesOfGender.men);
   const categoriesOfwomen = categoriesOfGenders?.find((categoriesOfGender:CategoriesType) => categoriesOfGender.women);
   const categoriesOfkids = categoriesOfGenders?.find((categoriesOfGender:CategoriesType) => categoriesOfGender.kids);
@@ -53,7 +57,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
         <div>
          {/* --Banner for men page-- */}
           <figure className="relative w-full h-[330px] md:h-[450px] lg:h-[550px]">
-            <Image src={man} style={imageStyle} alt="banner" fill />
+            <Image src="/productsPageBannerImages/man.jpg" style={imageStyle} alt="banner" fill />
             <div className="absolute top-0 w-full h-full flex justify-end bg-r-overlay ">
               <BannerTitleComponent
                 title="Men"
@@ -96,7 +100,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
        <div>
          {/* --Banner for women page-- */}
           <figure className="relative w-full h-[330px] md:h-[450px] lg:h-[550px]">
-            <Image src={woman} style={imageStyle} alt="banner" fill/>
+            <Image src="/productsPageBannerImages/girl.jpg" style={imageStyle} alt="banner" fill/>
             <div className="absolute top-0 w-full h-full flex justify-end bg-r-overlay ">
               <BannerTitleComponent
                 title="Women"
@@ -140,7 +144,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
         <div>
           {/* --Banner for kids page-- */}
           <figure className="relative w-full h-[330px] md:h-[450px] lg:h-[550px]">
-            <Image src={kids} style={imageStyle} alt="banner" fill/>
+            <Image src="/productsPageBannerImages/kids.jpeg" style={imageStyle} alt="banner" fill/>
             <div className="absolute top-0 w-full h-full bg-l-overlay">
               <BannerTitleComponent
                 title="KIDS"
@@ -185,7 +189,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
       <div>
          {/* --Banner for accessories page-- */}
           <figure className="relative w-full h-[330px] md:h-[450px] lg:h-[550px]">
-            <Image src={accessories} style={imageStyle} alt="banner" fill/>
+            <Image src="/productsPageBannerImages/acce.png" style={imageStyle} alt="banner" fill/>
             <div className="absolute top-0 w-full h-full flex justify-end bg-r-overlay ">
               <BannerTitleComponent
                 title="Accessories"

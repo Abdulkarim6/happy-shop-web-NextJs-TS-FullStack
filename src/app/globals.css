@@ -11,29 +11,15 @@
   cursor: pointer;
 }    */
 
-/* ১. কন্টেইনার (Wrapper) সেটআপ */
-.input-container {
-  position: relative; /* আইকনটিকে এর সাপেক্ষে পজিশন করা হবে */
-  width: 100%; /* বা আপনার পছন্দমতো প্রস্থ */
-}
-
-/* ২. আইকন স্টাইল (মূল অংশ) */
-.icon {
-  position: absolute; /* কন্টেইনারের উপর ভাসমান থাকবে */
-  left: 10px; /* বাম দিক থেকে ১০ পিক্সেল দূরে */
-  top: 50%; /* উপর থেকে মাঝ বরাবর */
-  transform: translateY(-50%); /* আইকনটিকে উল্লম্বভাবে ঠিক মাঝখানে আনে */
-  color: #888; /* আইকনের রং */
-}
-
-/* ৩. ইনপুট ফিল্ড স্টাইল */
-.input-field {
-  width: 100%;
-  padding: 10px; /* সাধারণ প্যাডিং */
-  padding-left: 35px; /* মূল কাজ: আইকনের জন্য বাম দিকে জায়গা তৈরি করা */
-  box-sizing: border-box; /* প্যাডিং যেন প্রস্থের বাইরে না যায় */
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.title:hover::after {
+  content:"My Bag";
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  text-wrap: nowrap;
+  background: #ffff;
+  padding: 3px;
+  border-radius: 2px;
 }
 
 .bg-l-overlay{
