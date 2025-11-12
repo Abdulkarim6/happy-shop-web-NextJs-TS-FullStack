@@ -21,7 +21,8 @@ const DisplaySearchedProducts = ({searchForProducts, setSearchForProducts}:Param
       .then(res => res.json())
       .then(data => setSearchedProducts(data))
       .finally(() => setSearchedProductsLoading(false))
-    }, [searchForProducts])
+    }, [searchForProducts, baseUrl]);
+    
     return (
         <div className={`w-full md:w-[96%] mx-auto absolute bg-white left-0 right-0 px-1 md:px-3 py-2
           ${searchForProducts ? "top-full h-[calc(100svh-100px)] overflow-y-scroll":"bottom-0 z-0"} transition-all duration-300

@@ -42,7 +42,7 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
     const navigationMenuLink = `text-base lg:text-lg font-medium !px-2 !py-1 lg:!px-4 lg:!py-2`;
 
     return (
-        <section className="relative">
+        <div className="relative">
         <div className="flex items-center p-2 !pr-2 md:!pr-10 relative bg-slate-100 z-10">
         {/* toggle Hamburger Handle */}
         <div className="md:hidden">
@@ -257,7 +257,7 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
           searchForProducts={searchForProducts}
           setSearchForProducts={setSearchForProducts}
         />
-      </section>
+      </div>
     );
 };
 

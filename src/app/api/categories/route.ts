@@ -1,7 +1,7 @@
 export const dynamic = "force-static";
 import dbConnect from "@/lib/dbConnect";
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const collection = dbConnect("categories");
     const data = await collection.find({}).toArray();

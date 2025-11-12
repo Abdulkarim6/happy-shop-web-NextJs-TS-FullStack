@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Product } from "@/app/utils/interfaces";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus } from "lucide-react";

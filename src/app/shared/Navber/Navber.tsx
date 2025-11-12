@@ -4,7 +4,7 @@ import { CategoriesType } from "@/app/utils/interfaces";
 
 const Navber = async () => {
    const categoriesOfGenders = await getCategories();
-   console.log(categoriesOfGenders);
+  //  console.log(categoriesOfGenders);
    
    
     const categoriesOfMan = categoriesOfGenders?.find((categoriesOfGender: CategoriesType) => categoriesOfGender.men);
@@ -13,14 +13,14 @@ const Navber = async () => {
     const categoriesOfaccessories = categoriesOfGenders?.find((categoriesOfGender: CategoriesType) => categoriesOfGender.accessories);
 
   return (
-    <section className="sticky top-0 z-50">
+    <div className="sticky top-0 z-50">
         <NavberClient 
           categoriesOfMan={categoriesOfMan}
           categoriesOfwomen={categoriesOfwomen}
           categoriesOfkids={categoriesOfkids}
           categoriesOfaccessories={categoriesOfaccessories}
         />
-    </section>
+    </div>
   );
 };
 

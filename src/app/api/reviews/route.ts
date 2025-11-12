@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 import dbConnect from "@/lib/dbConnect";
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const collection = dbConnect("reviews");
     const data = await collection.find({}).toArray();
@@ -9,7 +9,7 @@ export async function GET(request: Request) {
 
   } 
   catch (error) {
-    console.log(error);
+    console.error(error);
     return Response.json({ error: "Failed to fetch reviews" }, { status: 500 });
   }
 }

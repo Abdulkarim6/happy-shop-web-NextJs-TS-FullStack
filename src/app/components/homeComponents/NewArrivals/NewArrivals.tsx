@@ -1,14 +1,12 @@
-import { Product } from "@/app/utils/interfaces";
 import NewArrivalsClient from "./NewArrivalsClient";
+import { getNewArrivals } from "@/app/utils/getNewArrivals";
 
 const NewArrivals = async() => {
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+    const arrivalsProducts = await getNewArrivals();
 
-      const res = await fetch(`${baseUrl}/api/getNewArrivals`,{cache: "force-cache"});
-     if (!res.ok) {
-       throw new Error("Failed to fetch getNewArrivals");
-      }
-      const arrivalsProducts: Product[] = await res.json();
+    if (!arrivalsProducts) {
+      return <p>No Found any new product</p>
+    }
 
     return (
       <section className="w-full flex flex-col justify-center items-center my-5 md:my-10">

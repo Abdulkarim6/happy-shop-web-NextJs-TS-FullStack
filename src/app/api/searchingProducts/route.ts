@@ -22,6 +22,7 @@ export async function GET(request: NextRequest) {
     }
       
     } catch (error) {
+      console.log(error);
       return Response.json({ error: "Failed to fetch reviews" }, { status: 500 });
   }
 }
