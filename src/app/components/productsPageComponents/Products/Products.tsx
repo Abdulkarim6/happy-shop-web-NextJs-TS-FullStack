@@ -14,13 +14,18 @@ type GroupPropsTypes = {
 const Products = async({ decodedSub_categories, urlPathe} : GroupPropsTypes) => {
   let dataBySubcategory;
   const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-  console.log("baseUrl from Products component:", baseUrl);
   
-   const response = await fetch(`${baseUrl}/api/allProducts`, {next:{tags:["allProducts"]}});
+   const response = await fetch(`${baseUrl}/api/allProducts`, 
+    { 
+      next:{tags:["allProducts"]},      
+      cache:"force-cache"   
+    });
+
    if(!response.ok){
      throw new Error("Failed to fetch all Products");
     }
    const allProductsOfCategories = await response.json();
+   
 
   if (urlPathe.startsWith("men/")) {
     dataBySubcategory = 
