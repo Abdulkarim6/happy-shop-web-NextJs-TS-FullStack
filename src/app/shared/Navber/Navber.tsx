@@ -6,7 +6,6 @@ const Navber = async () => {
    const categoriesOfGenders = await getCategories();
   //  console.log(categoriesOfGenders);
    
-   
     const categoriesOfMan = categoriesOfGenders?.find((categoriesOfGender: CategoriesType) => categoriesOfGender.men);
     const categoriesOfwomen = categoriesOfGenders?.find((categoriesOfGender: CategoriesType) => categoriesOfGender.women);
     const categoriesOfkids = categoriesOfGenders?.find((categoriesOfGender: CategoriesType) => categoriesOfGender.kids);

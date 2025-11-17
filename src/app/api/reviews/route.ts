@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 import dbConnect from "@/lib/dbConnect";
 
 export async function GET() {

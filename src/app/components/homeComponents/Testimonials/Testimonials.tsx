@@ -6,7 +6,10 @@ import { Button } from "@/components/ui/button";
 
 const Testimonials = async({path}:{path:string}) => {
     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-    const res = await fetch(`${baseUrl}/api/reviews`, {cache:"force-cache"});
+    const res = await fetch(`${baseUrl}/api/reviews`, {
+      next: { tags: ["reviews"] },
+      cache: "force-cache",
+    });
     
     if (!res.ok) throw new Error("Failed to fetch reviews");
     

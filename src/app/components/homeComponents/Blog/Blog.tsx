@@ -27,6 +27,7 @@ const OurBlog = () => {
                 <h3 className="text-lg font-semibold mb-2 text-gray-800">
                   {article?.title}
                 </h3>
+                {/* holds first p tag */}
                 <p className="text-gray-600 text-sm mb-3">{article?.blog?.find(a => a.type === 'p')?.text?.slice(0, 80)}...</p>
                 <Link
                   href={`/blog/${article?.link}`}
