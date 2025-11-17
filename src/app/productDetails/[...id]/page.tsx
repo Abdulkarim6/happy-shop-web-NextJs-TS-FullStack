@@ -1,4 +1,4 @@
-import { preloadProduct } from "@/app/actions/products/getProduct";
+import { preloadProduct } from "@/app/actions/getProduct";
 import DeleveryPolicy_Terms from "@/app/components/deleveryPolicy_TermsComponents/DeleveryPolicy_TermsParent/DeleveryPolicy_TermsParent";
 import CustomerBenefits from "@/app/components/homeComponents/CustomerBenefits/CustomerBenefits";
 import ProductBlock from "./ProductBlock";

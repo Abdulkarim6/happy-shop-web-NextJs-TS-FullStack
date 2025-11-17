@@ -16,6 +16,9 @@ const Testimonials = async({path}:{path:string}) => {
     const resJson = await res.json();
     const reviews = await resJson?.data; 
 
+    console.log("length:", reviews?.length);
+    
+
     const dateOptions: Intl.DateTimeFormatOptions = {
       year:"numeric",
       month:"long",
@@ -48,6 +51,7 @@ const Testimonials = async({path}:{path:string}) => {
           <Link href="/testimonials"><Button variant="destructive" className="text-black hover:text-white bg-inherit hover:bg-orange-400 border border-black rounded">Show More...</Button></Link>
          </div>
         }
+
       </section>
     );
 };

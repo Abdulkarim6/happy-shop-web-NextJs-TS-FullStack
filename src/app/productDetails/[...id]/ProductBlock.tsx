@@ -1,4 +1,4 @@
-import { getProduct } from '@/app/actions/products/getProduct';
+import { getProduct } from '@/app/actions/getProduct';
 import ProductDetails from '@/app/components/productsPageComponents/ProductDetails/ProductDetails';
 import { Product } from '@/app/utils/interfaces';
 import Image from 'next/image';

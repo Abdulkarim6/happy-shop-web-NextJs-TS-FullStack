@@ -11,7 +11,7 @@ const page = async ({params}:{params: Promise<{slug:string}>}) => {
    
     return (
       <section className="w-full md:w-[90%] lg:w-[80%] p-0.5 lg:p-3 flex flex-col-reverse lg:flex-row mx-auto">
-        {/* Side Navber */}
+        {/* Side Navber for all blog*/}
         <div className="w-full lg:w-3/10">
           <h3 className="text-lg font-medium mb-1.5">Related Blogs:</h3>
           <div className="flex flex-col gap-3">
