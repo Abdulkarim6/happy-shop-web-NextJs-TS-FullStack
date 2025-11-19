@@ -5,6 +5,7 @@ import ProductsPageStatesContextProvider from "@/app/contexts/productsPageStates
 import DrawerOpenButton from "./DrawerOpenButton";
 import { filteredDataBySubcategory } from "@/app/utils/filteredDataBySubcategory";
 import { notFound } from "next/navigation";
+import { getAllProducts } from "@/app/utils/getAllProducts";
 
 type GroupPropsTypes = {
   urlPathe:string;
@@ -13,19 +14,8 @@ type GroupPropsTypes = {
 
 const Products = async({ decodedSub_categories, urlPathe} : GroupPropsTypes) => {
   let dataBySubcategory;
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
   
-   const response = await fetch(`${baseUrl}/api/allProducts`, 
-    { 
-      next:{tags:["allProducts"]},      
-      cache:"force-cache"   
-    });
-
-   if(!response.ok){
-     throw new Error("Failed to fetch all Products");
-    }
-   const allProductsOfCategories = await response.json();
-   
+  const allProductsOfCategories = await getAllProducts();
 
   if (urlPathe.startsWith("men/")) {
     dataBySubcategory = 
