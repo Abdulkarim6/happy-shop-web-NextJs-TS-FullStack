@@ -3,7 +3,7 @@ import DeleveryPolicy_Terms from "@/app/components/deleveryPolicy_TermsComponent
 import CustomerBenefits from "@/app/components/homeComponents/CustomerBenefits/CustomerBenefits";
 import ProductBlock from "./ProductBlock";
 import { Suspense } from "react";
-import LoadingSection from "./LoadingSection";
+import LoadingSkeleton from "./ProductLoadingSkeleton";
 
 type PageProps = {
   params: Promise<{ id: string[] }>;
@@ -15,7 +15,7 @@ const page = async ({ params }: PageProps) => {
 
   return (
     <section>
-      <Suspense fallback={<LoadingSection/>}>
+      <Suspense fallback={<LoadingSkeleton/>}>
        <ProductBlock id={p?.id[1]}/>
       </Suspense>
 
