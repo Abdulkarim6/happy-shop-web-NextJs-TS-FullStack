@@ -182,6 +182,14 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
+            <NavigationMenuItem>
+              <NavigationMenuLink
+                asChild
+                className={`${navigationMenuTriggerStyle()} ${navigationMenuLink}`}
+              >
+                <Link href="/dashboard">Dashboard</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
 

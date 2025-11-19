@@ -16,9 +16,6 @@ const Testimonials = async({path}:{path:string}) => {
     const resJson = await res.json();
     const reviews = await resJson?.data; 
 
-    console.log("length:", reviews?.length);
-    
-
     const dateOptions: Intl.DateTimeFormatOptions = {
       year:"numeric",
       month:"long",
