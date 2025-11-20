@@ -17,6 +17,7 @@ const Footer = () => {
         <li><Link href="/deleveryPolicy" className="rounded-sm underline hover:text-blue-600">DELEVERY POLICY</Link></li>
         <li><Link href="/return_RefundPolicy" className="rounded-sm underline hover:text-blue-600">RETURN & REFUND POLICY</Link></li>
         <li><Link href="/exchange_Complain" className="rounded-sm underline hover:text-blue-600">EXCHANGE & COMPLAIN</Link></li>
+        <li><Link href="/testimonials" className="rounded-sm underline hover:text-blue-600">WHAT OUR CUSTOMERS SAY</Link></li>
       </ul>
 
       <nav className="flex flex-col justify-center items-center">

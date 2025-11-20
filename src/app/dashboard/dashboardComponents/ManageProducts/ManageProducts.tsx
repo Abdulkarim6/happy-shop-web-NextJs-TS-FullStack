@@ -1,7 +1,6 @@
 import { getAllProducts } from '@/app/utils/getAllProducts';
 import { Product } from '@/app/utils/interfaces';
-import { Button } from '@/components/ui/button';
-import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
 import Image from 'next/image';
 
 const ManageProducts = async() => {

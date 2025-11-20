@@ -86,6 +86,7 @@ const Form = () => {
             }}
            />
           </div>
+          {/* isRegisterPage means the feild see only new user */}
       <Card className={`overflow-hidden bg-slate-100 opacity-90 ${ isRegisterPage ? "mt-5" : "mt-7"} mx-auto w-full max-w-sm`}>
         <CardContent className="p-0">
          <form onSubmit={handleSubmit} className="p-6 md:p-8">
