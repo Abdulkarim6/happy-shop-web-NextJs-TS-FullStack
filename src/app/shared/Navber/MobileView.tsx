@@ -1,6 +1,6 @@
 import { CategoriesType, SubCategoriesType } from "@/app/utils/interfaces";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/components/ui/accordion";
-import { Home, Minus, Plus } from "lucide-react";
+import { Home, LayoutDashboard, Minus, Plus } from "lucide-react";
 import Link from "next/link";
 
 type TypeOfGenders = {
@@ -114,6 +114,15 @@ const MobileView = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, categ
               ))}
             </ul>
           </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="dashboard">
+          <Link href="/dashboard" className="flex items-center justify-between group pt-2 pb-0">
+            <span className="text-lg font-medium">dashboard</span>
+            <span className="ml-2">
+              <LayoutDashboard className="h-5 w-5 transition-all duration-200 group-data-[state=open]:hidden" />
+            </span>
+          </Link>
         </AccordionItem>
 
       </Accordion>

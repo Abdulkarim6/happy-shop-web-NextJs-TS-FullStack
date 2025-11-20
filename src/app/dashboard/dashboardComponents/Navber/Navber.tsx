@@ -1,5 +1,5 @@
 "use client"
-import { Menu } from 'lucide-react';
+import { SquareMenu, SquareX } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
@@ -11,13 +11,8 @@ const Navber = () => {
 
     return (
         <>
-         {/* <nav className="w-3/10 overflow-hidden bg-green-400 p-3"> */}
-        {/* <nav className={`w-0 md:w-3/10 absolute md:static overflow-hidden 
-        bg-green-400 p-0 transition-all duration-200 text-nowrap ease-in
-         group-hover:w-[300px]`}> */}
-
         <nav className={`absolute md:static overflow-hidden 
-        bg-green-400 p-0 transition-all duration-200 text-nowrap ease-linear
+        border-r-2 border-r-white p-0 md:p-2 transition-all duration-200 text-nowrap ease-linear
           ${drawerState ? "w-[300px]" : "w-0"} z-20`}>
 
           <ul className="flex flex-col space-y-1">
@@ -26,8 +21,13 @@ const Navber = () => {
           </ul>
         </nav>
             
-        <div className="absolute top-5 right-0 rounded-l bg-orange-400 cursor-pointer z-30">
-         <Menu onClick={() => setDrawerState(!drawerState)} size={30}/>
+        <div className="fixed top-20 right-0 rounded-l bg-slate-100 cursor-pointer z-30">
+          {
+            drawerState ?
+            <SquareX onClick={() => setDrawerState(!drawerState)} size={35}/>
+            :
+            <SquareMenu onClick={() => setDrawerState(!drawerState)} size={35}/>
+          }
         </div>
         </>
     );

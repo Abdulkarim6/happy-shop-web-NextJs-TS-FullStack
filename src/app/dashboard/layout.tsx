@@ -6,7 +6,7 @@ const layout = ({children}:{children:React.ReactNode}) => {
       <div className="w-full relative flex gap-5 px-2 md:px-5 group">
         <Navber/>
 
-        <div className="bg-blue-400 w-full h-fit p-3 z-10"> 
+        <div className=" w-full h-fit p-3 z-10"> 
           {children}
         </div>
       </div>
