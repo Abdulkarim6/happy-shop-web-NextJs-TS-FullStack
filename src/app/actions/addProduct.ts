@@ -1,9 +1,33 @@
 "use server"
 
-import dbConnect from "@/lib/dbConnect"
+import dbConnect from "@/lib/dbConnect";
+import { UploadApiResponse, v2 as cloudinary } from "cloudinary";
 
-export const addProduct = async(formData : FormData) =>{
+cloudinary.config({
+  cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
+  api_key:process.env.CLOUDINARY_API_KEY,
+  api_secret:process.env.CLOUDINARY_API_SECRET
+})
+type InitialStateType = { message: string, acknowledged: boolean | string, insertedId: string | null };
+
+export const addProduct = async(prevState:InitialStateType, formData : FormData) =>{
     try {
+      const today = new Date();
+      const file = formData.get("image") as File;
+
+      const arrayBuffer = await file.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+
+      const imageUrl = await new Promise<UploadApiResponse | undefined>((resolve, reject) => {
+        cloudinary.uploader.upload_stream(
+          {folder:"fromHappyShop"},
+          (err, res) =>{
+            if(err) reject(err);
+            else resolve(res);
+          }
+        ).end(buffer);
+      })
+
         const rawData = {
           name: formData.get("name") as string,
           description: formData.get("description") as string,
@@ -33,22 +57,31 @@ export const addProduct = async(formData : FormData) =>{
             return v;
           })(),
 
-          image: formData.get("image") as string,
+          image: imageUrl?.url as string,
           color: formData.get("color") as string,
 
           ageGroup: formData.get("ageGroup") as string | null,
 
-          DateAdded: formData.get("DateAdded") as string,
+          DateAdded: today as Date,
         };
-  console.log(rawData);
-  
         
-    //     const collection = dbConnect("products");
-    //     const res = await collection.insertOne({});
+        
+        const collection = dbConnect("products");
+        const res = await collection.insertOne(rawData);
+        console.log(66, res);
 
-    // return res;
+    return {
+      acknowledged: res?.acknowledged  === true ? "success" : "",
+      insertedId: res?.insertedId.toString(),
+      message:"Added Successfully"
+    }
 
     } catch (error) {
-        
+      console.error(error);
+      return {
+      acknowledged: "failed",
+      insertedId: null,
+      message:"Failed to add Product"
+    }
     }
 }
