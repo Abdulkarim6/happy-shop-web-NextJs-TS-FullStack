@@ -176,7 +176,7 @@ const AddProduct = ({allCategories}:{allCategories: CategoriesType[]}) => {
         </div>
         
         <div className="space-y-2 mb-2">
-          <Label htmlFor="ageGroup">Age Group (optional)</Label>
+          <Label htmlFor="ageGroup">Age Group</Label>
           <Input name="ageGroup" id="ageGroup" type="text" placeholder="Age Group" className='border-slate-500' required />
         </div>
 
@@ -185,7 +185,7 @@ const AddProduct = ({allCategories}:{allCategories: CategoriesType[]}) => {
         <button type='submit' className='block bg-sky-500 mx-auto p-2 rounded w-fit text-lg font-medium'>
           {
            isPanding ? 
-            <span className='flex justify-center items-center'><Spinner className='size-7'/> Pending...</span>
+            <span className='flex justify-center items-center'><Spinner className='size-4'/> Pending...</span>
            :
            "SUBMIT"
           }

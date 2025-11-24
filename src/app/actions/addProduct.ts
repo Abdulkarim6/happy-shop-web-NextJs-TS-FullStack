@@ -2,6 +2,7 @@
 
 import dbConnect from "@/lib/dbConnect";
 import { UploadApiResponse, v2 as cloudinary } from "cloudinary";
+import { revalidateTag } from "next/cache";
 
 cloudinary.config({
   cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
@@ -57,7 +58,7 @@ export const addProduct = async(prevState:InitialStateType, formData : FormData)
             return v;
           })(),
 
-          image: imageUrl?.url as string,
+          image: imageUrl?.secure_url as string,
           color: formData.get("color") as string,
 
           ageGroup: formData.get("ageGroup") as string | null,
@@ -68,7 +69,10 @@ export const addProduct = async(prevState:InitialStateType, formData : FormData)
         
         const collection = dbConnect("products");
         const res = await collection.insertOne(rawData);
-        console.log(66, res);
+        if(res.acknowledged){
+          revalidateTag("allProducts");
+        }
+        console.log(66, imageUrl);
 
     return {
       acknowledged: res?.acknowledged  === true ? "success" : "",
