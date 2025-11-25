@@ -1,65 +1,86 @@
 "use client"
-import { Product } from '@/app/utils/interfaces';
-import { Button } from '@/components/ui/button';
+import { CategoriesType, Product } from '@/app/utils/interfaces';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import Image from 'next/image';
-import { useState } from 'react';
 
-const ManageProducts = ({allProductsOfCategories}:{allProductsOfCategories : Product[]}) => {
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import Pagination from './Pagination';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+
+const ManageProducts = ({allProductsOfCategories, allCategories}:{allProductsOfCategories : Product[], allCategories:CategoriesType[]}) => {
+    const [audience, setAudience] = useState('');
+    const [selectedSubCategory, setSelectedSubCategory] = useState("");
     const [page, setPage] = useState(1);
+    console.log("audience: ", audience, "selectedCategory: ", selectedSubCategory);
+    
+    useEffect(() =>{
+      setSelectedSubCategory("");
+      setPage(1);
+    },[audience])
     
     const productLimit = 30;
-    const products = allProductsOfCategories?.slice((page-1)*productLimit, ((page-1)*productLimit +productLimit));
-    const totalPage = Math.ceil(allProductsOfCategories?.length / productLimit);
-
-    let pages: (number | "...")[] = [];
+    const filteredProducts = allProductsOfCategories?.filter(item => {
+      const matchAudience = audience ? item.targetAudience?.toLowerCase() === audience?.toLowerCase() : true;
+      const matchSubCategory = selectedSubCategory ? item.subCategory?.toLowerCase() === selectedSubCategory?.toLowerCase() : true;
     
-    // If total <= 5, show all pages
-    if (totalPage <= 5) {
-     Array.from({ length: totalPage }, (_, i) => pages.push(i + 1));
+      return matchAudience && matchSubCategory;
+    })
+    const productsPerPage = filteredProducts.slice((page-1)*productLimit, ((page-1)*productLimit +productLimit));
+    const totalPage = Math.ceil(filteredProducts?.length / productLimit);
+   
+    let subcategory;
+    if (audience === "men") {
+       subcategory = allCategories[0]?.men;
+      } else if(audience === "women"){
+        subcategory = allCategories[1]?.women;
+      } else if(audience === "kids"){
+        subcategory = allCategories[2]?.kids;
+      } else if(audience === "accessories"){
+        subcategory = allCategories[3]?.accessories;
     }
-    // CASE 1: Current near the start (1,2,3)
-   else if (page <= 3) {
-    pages =  [1, 2, 3, 4, "...", totalPage];
-   }
-   // CASE 2: Current near the end
-   else if (page >= totalPage - 2) {
-    pages =  [1, "...", totalPage - 3, totalPage - 2, totalPage - 1, totalPage];
-   }
-   else{
-   // CASE 3: Middle position
-   pages= [1, "...", page - 1, page, page + 1, "...", totalPage];
-   }
     
     return (
       <div className='w-full'>
-        <div className='w-full flex justify-end items-center gap-3 px-3'>
+        <div className='w-full flex flex-col md:flex-row md:justify-between items-start md:items-center gap-3 px-3'>
+          <div className='flex space-x-3 items-center'>
+            <h5 className='text-lg md:text-xl font-medium md:font-semibold'>Filters:</h5>
+            <Select name="audience" value={audience} onValueChange={(e) => setAudience(e)}>
+            <SelectTrigger className="w-full border-slate-500" size='sm'>
+             <SelectValue placeholder="Select a option" />
+            </SelectTrigger>
+            <SelectContent >
+             <SelectGroup>
+              <SelectLabel>Audience</SelectLabel>
+              {["men", "women", "kids", "accessories"]?.map((single, i) =>(
+                <SelectItem key={i} value={single}>{single}</SelectItem>
+              ))}
+             </SelectGroup>
+            </SelectContent>
+           </Select>
 
-        <Button variant="outline" disabled={page === 1}
-         onClick={() => setPage(page - 1)}
-          > Prev
-        </Button>
+           <Select name="subCategory" value={selectedSubCategory} disabled={!audience} onValueChange={(e) => setSelectedSubCategory(e)}>
+            <SelectTrigger className="w-full border-slate-500" size='sm'>
+             <SelectValue placeholder="Select a option" />
+            </SelectTrigger>
+            <SelectContent >
+             <SelectGroup>
+              <SelectLabel>Sub Category</SelectLabel>
+              {subcategory?.map((single, i) =>(
+                <SelectItem key={i} value={single?.subCategory}>{single?.subCategory}</SelectItem>
+              ))}
+            </SelectGroup>
+            </SelectContent>
+           </Select>
+          </div>
 
-        {pages.map((p, i) =>
-          p === "..." ? (
-            <span key={i} className="px-2">…</span>
-          ) : (
-            <Button
-              key={i}
-              variant={p === page ? "default" : "outline"}
-              onClick={() => setPage(p)}
-            >
-              {p}
-            </Button>
-          )
-        )}
-  
-        <Button variant="outline" disabled={page === totalPage}
-          onClick={() => setPage(page + 1)}
-          > Next
-        </Button>
-      </div>
+          <div className='w-fit flex items-center space-x-2'>
+            <Pagination
+             page={page}
+             setPage={setPage}
+             totalPage={totalPage}
+            />
+          </div>
+       </div>
 
         <Table>
           <TableHeader>
@@ -74,13 +95,13 @@ const ManageProducts = ({allProductsOfCategories}:{allProductsOfCategories : Pro
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.map((product: Product) => (
+            {productsPerPage.map((product: Product) => (
               <TableRow key={product._id}>
                 <TableCell>
                   <Image
                    alt={product.name}
                    src={product.image}
-                   height={50} width={50}
+                   height={70} width={50}
                   />
                 </TableCell>
                 <TableCell className="font-medium">{product.name}</TableCell>
