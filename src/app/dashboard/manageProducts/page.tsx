@@ -1,12 +1,14 @@
 import React from 'react';
 import ManageProducts from '../dashboardComponents/ManageProducts/ManageProducts';
+import { getAllProducts } from '@/app/utils/getAllProducts';
 
-const page = () => {
-    return (
-        <div>
-            <ManageProducts/>
-        </div>
-    );
+const page = async () => {
+  const allProductsOfCategories = await getAllProducts();
+  return (
+    <div>
+      <ManageProducts allProductsOfCategories={allProductsOfCategories}/>
+    </div>
+  );
 };
 
 export default page;

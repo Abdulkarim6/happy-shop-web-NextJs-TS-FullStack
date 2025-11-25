@@ -72,7 +72,7 @@ export const addProduct = async(prevState:InitialStateType, formData : FormData)
         if(res.acknowledged){
           revalidateTag("allProducts");
         }
-        console.log(66, imageUrl);
+        console.log(66, rawData);
 
     return {
       acknowledged: res?.acknowledged  === true ? "success" : "",
