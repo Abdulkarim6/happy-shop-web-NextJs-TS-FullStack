@@ -3,7 +3,7 @@ import DeleveryPolicy_Terms from "@/app/components/deleveryPolicy_TermsComponent
 import CustomerBenefits from "@/app/components/homeComponents/CustomerBenefits/CustomerBenefits";
 import ProductBlock from "./ProductBlock";
 import { Suspense } from "react";
-import LoadingSkeleton from "./ProductLoadingSkeleton";
+import LoadingSkeleton from "../../Skeletons/ProductLoadingSkeleton";
 
 type PageProps = {
   params: Promise<{ id: string[] }>;

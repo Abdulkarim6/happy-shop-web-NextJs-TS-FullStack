@@ -8,8 +8,9 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { useActionState, useEffect, useState } from 'react';
 import { CategoriesType, Toast } from '@/app/utils/interfaces';
 import { Spinner } from '@/components/ui/spinner';
+import { getAllProducts } from '@/app/utils/getAllProducts';
 
-const AddProduct = ({allCategories}:{allCategories: CategoriesType[]}) => {
+const AddProductCient = ({allCategories}:{allCategories: CategoriesType[]}) => {
     const [targetAudience, setTargetAudience] = useState("");
     const [selectedSubCategory, setSelectedSubCategory] = useState("");
     
@@ -64,6 +65,7 @@ const AddProduct = ({allCategories}:{allCategories: CategoriesType[]}) => {
         });
         setTargetAudience("");
         setSelectedSubCategory("");
+        void getAllProducts();
       }
       if(state?.acknowledged === "failed"){
         Toast.fire({
@@ -92,7 +94,7 @@ const AddProduct = ({allCategories}:{allCategories: CategoriesType[]}) => {
         
         <div className="space-y-2 mb-2">
           <Label htmlFor="targetAudience">Target Audience</Label>
-          <Select name="targetAudience" onValueChange={(e) => setTargetAudience(e)}>
+          <Select name="targetAudience" onValueChange={(e) => setTargetAudience(e)} required>
             <SelectTrigger className="w-full border-slate-500">
              <SelectValue placeholder="Select a option" />
             </SelectTrigger>
@@ -108,7 +110,7 @@ const AddProduct = ({allCategories}:{allCategories: CategoriesType[]}) => {
 
         <div className="space-y-2 mb-2">
           <Label htmlFor="subCategory">Sub Category: Enable after select for audience</Label>
-          <Select name="subCategory" disabled={!targetAudience} onValueChange={(e) => setSelectedSubCategory(e)}>
+          <Select name="subCategory" disabled={!targetAudience} onValueChange={(e) => setSelectedSubCategory(e)} required>
             <SelectTrigger className="w-full border-slate-500">
              <SelectValue placeholder="Select a option" />
             </SelectTrigger>
@@ -121,10 +123,12 @@ const AddProduct = ({allCategories}:{allCategories: CategoriesType[]}) => {
           </SelectContent>
          </Select>
         </div>
-        
+        {
+          targetAudience != "accessories" &&
+
         <div className="space-y-2 mb-2">
           <Label htmlFor="size">Size: Enable after select a Sub Category</Label>
-          <Select name="size" disabled={!selectedSubCategory}>
+          <Select name="size" disabled={!selectedSubCategory} required>
             <SelectTrigger className="w-full border-slate-500">
              <SelectValue placeholder="Select a option" />
             </SelectTrigger>
@@ -137,6 +141,7 @@ const AddProduct = ({allCategories}:{allCategories: CategoriesType[]}) => {
           </SelectContent>
          </Select>
         </div>
+        }
 
         <div className="space-y-2 mb-2">
           <Label htmlFor="description">Description</Label>
@@ -194,4 +199,4 @@ const AddProduct = ({allCategories}:{allCategories: CategoriesType[]}) => {
     );
 };
 
-export default AddProduct;
+export default AddProductCient;

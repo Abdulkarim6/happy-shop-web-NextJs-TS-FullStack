@@ -1,12 +1,10 @@
+import AddProduct from "@/app/dashboardComponents/AddProduct/AddProduct";
 
-import { getCategories } from '@/app/utils/getCategories';
-import AddProduct from '../dashboardComponents/AddProduct/AddProduct';
-
-const page = async() => {
-    const allCategories = await getCategories();
+const page = () => {
+    
     return (
         <div>
-           <AddProduct allCategories={allCategories}/> 
+           <AddProduct/> 
         </div>
     );
 };

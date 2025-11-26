@@ -71,8 +71,9 @@ export const addProduct = async(prevState:InitialStateType, formData : FormData)
         const res = await collection.insertOne(rawData);
         if(res.acknowledged){
           revalidateTag("allProducts");
+          revalidateTag("newArrivals");
         }
-        console.log(66, rawData);
+        // console.log(66, rawData);
 
     return {
       acknowledged: res?.acknowledged  === true ? "success" : "",

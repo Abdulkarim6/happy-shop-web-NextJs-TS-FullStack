@@ -1,5 +1,5 @@
-import React from 'react';
-import Users from './dashboardComponents/Users/Users';
+import Users from "../dashboardComponents/Users/Users";
+
 
 const page = () => {
     return (

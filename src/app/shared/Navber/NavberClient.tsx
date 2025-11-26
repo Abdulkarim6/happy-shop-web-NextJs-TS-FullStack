@@ -194,7 +194,7 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
         </NavigationMenu>
 
         {/* Search bar of product */}
-        <div className="flex w-full relative items-center mx-2 gap-1">
+        {/* <div className="flex w-full relative items-center mx-2 gap-1">
           <Search className="hidden lg:flex absolute right-1" size={20} />
           <Input
             value={searchForProducts}
@@ -203,7 +203,7 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
             type="text"
             placeholder="Search..."
           />
-        </div>
+        </div> */}
         
         <div className="relative">
           <div className="title">

@@ -1,15 +1,17 @@
-import React from 'react';
-import ManageProducts from '../dashboardComponents/ManageProducts/ManageProducts';
-import { getAllProducts } from '@/app/utils/getAllProducts';
-import { getCategories } from '@/app/utils/getCategories';
+// export const dynamic = 'force-dynamic';
+import ProductsManageSkeleton from "@/app/Skeletons/ProductsManageSkeleton";
+import ManageProducts from "@/app/dashboardComponents/ManageProducts/ManageProducts";
+import { getAllProducts } from "@/app/utils/getAllProducts";
+import { Suspense } from "react";
 
-const page = async () => {
-  const allProductsOfCategories = await getAllProducts();
-  const allCategories = await getCategories();
+const page = () => {
+  
+  void getAllProducts();
+
   return (
-    <div>
-      <ManageProducts allProductsOfCategories={allProductsOfCategories} allCategories={allCategories}/>
-    </div>
+    <Suspense fallback={<ProductsManageSkeleton/>}>
+      <ManageProducts />
+    </Suspense>
   );
 };
 

@@ -1,13 +1,14 @@
 "use client"
-import { CategoriesType, Product } from '@/app/utils/interfaces';
+import { CategoriesType, Product, Toast } from '@/app/utils/interfaces';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
 
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import Pagination from './Pagination';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { deleteProduct } from '@/app/actions/deleteProduct';
 
-const ManageProducts = ({allProductsOfCategories, allCategories}:{allProductsOfCategories : Product[], allCategories:CategoriesType[]}) => {
+const ManageProductsClient = ({allProductsOfCategories, allCategories}:{allProductsOfCategories : Product[], allCategories:CategoriesType[]}) => {
     const [audience, setAudience] = useState('');
     const [selectedSubCategory, setSelectedSubCategory] = useState("");
     const [page, setPage] = useState(1);
@@ -38,9 +39,24 @@ const ManageProducts = ({allProductsOfCategories, allCategories}:{allProductsOfC
       } else if(audience === "accessories"){
         subcategory = allCategories[3]?.accessories;
     }
+
+    const handleDelete = async(id:string) => {
+     const res = await deleteProduct(id);
+     if(res?.acknowledged){
+        Toast.fire({
+          icon:"success",
+          title:res?.message
+        });
+      }else{
+        Toast.fire({
+          icon:"error",
+          title:res?.message
+        })
+      }
+    }
     
     return (
-      <div className='w-full'>
+         <div className='w-full'>
         <div className='w-full flex flex-col md:flex-row md:justify-between items-start md:items-center gap-3 px-3'>
           <div className='flex space-x-3 items-center'>
             <h5 className='text-lg md:text-xl font-medium md:font-semibold'>Filters:</h5>
@@ -116,6 +132,7 @@ const ManageProducts = ({allProductsOfCategories, allCategories}:{allProductsOfC
                 <TableCell>{product.price} TK</TableCell>
                 <TableCell className='p-1'><button className='border-2 border-blue-500 text-blue-700 rounded p-1'>Update</button></TableCell>
                 <TableCell className='p-1'><button className='border-2 border-red-500 text-red-700 rounded p-1'>Delete</button></TableCell>
+                {/* <TableCell onClick={() => handleDelete(product?._id)} className='p-1'><button className='border-2 border-red-500 text-red-700 rounded p-1'>Delete</button></TableCell> */}
               </TableRow>
             ))}
           </TableBody>
@@ -124,4 +141,4 @@ const ManageProducts = ({allProductsOfCategories, allCategories}:{allProductsOfC
     );
 };
 
-export default ManageProducts;
+export default ManageProductsClient;

@@ -19,7 +19,7 @@ const NewArrivalsClient = ({arrivalsProducts}:{arrivalsProducts: Product[]}) => 
         align: "start", loop: true, containScroll: "trimSnaps",
       }}
         >
-          <CarouselContent className="">
+          <CarouselContent className="h-[350px]">
             {arrivalsProducts?.map((product, index) => (
               <CarouselItem key={index} className="pl-1 md:basis-1/3 lg:basis-1/4">
                 <Link
@@ -30,7 +30,7 @@ const NewArrivalsClient = ({arrivalsProducts}:{arrivalsProducts: Product[]}) => 
                     <CardContent className="flex aspect-3/2 items-center justify-center p-1">
                       <Image
                         src={product?.image}
-                        alt="Picture of the author" width={450} height={550}
+                        alt="Picture of the author" width={300} height={350}
                         className=" hover:scale-105 transition-transform opacity-90"
                       />
                     </CardContent>
