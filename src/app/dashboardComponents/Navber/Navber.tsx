@@ -11,16 +11,16 @@ const Navber = () => {
 
     return (
         <>
-        <nav className={`absolute md:static overflow-hidden bg-slate-100 w-[300px]
-        md:border-r-3 md:border-b-3 border-white  transition-all duration-200 text-nowrap ease-linear
-          ${drawerState ? "translate-x-0 border-r-3 border-b-3 p-0 md:p-2" : "-translate-x-full border-0"} z-20`}>
+        <div className={`absolute md:static overflow-hidden bg-slate-100
+          border-white  transition-all duration-200 text-nowrap ease-linear
+          ${drawerState ? "w-[300px] border-r-3 border-b-3 p-0 md:p-2" : "w-0 border-0"} z-20`}>
 
-          <ul className="flex flex-col space-y-1">
+          <nav className="flex flex-col space-y-1">
             <Link prefetch={true} href="/dashboard" className={linkClass}>All Users</Link>
             <Link prefetch={true} href="/dashboard/manageProducts" className={linkClass}>Manage Products</Link>
             <Link prefetch={true} href="/dashboard/addProduct" className={linkClass}>Add Product</Link>
-          </ul>
-        </nav>
+          </nav>
+        </div>
             
         <div className="fixed top-[132px] !mr-2 right-0 rounded-l bg-slate-100 cursor-pointer z-30">
           {

@@ -22,7 +22,7 @@ export default function ProductsManageSkeleton () {
        
         <div className=''>
           {/* {Array.from({length: 8}).map((_, id) => ( */}
-          {[...Array(3)].map((_, id) => (
+          {[...Array(6)].map((_, id) => (
             <div key={id} className='h-16 pt-7 w-full flex justify-evenly items-center'>
               <Skeleton className="h-9 w-[150px] bg-slate-300" />
               <Skeleton className="h-9 w-[200px] bg-slate-300" />

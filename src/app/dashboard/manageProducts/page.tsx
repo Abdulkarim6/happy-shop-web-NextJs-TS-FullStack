@@ -1,17 +1,13 @@
-// export const dynamic = 'force-dynamic';
-import ProductsManageSkeleton from "@/app/Skeletons/ProductsManageSkeleton";
+// export const dynamic = "auto";
 import ManageProducts from "@/app/dashboardComponents/ManageProducts/ManageProducts";
 import { getAllProducts } from "@/app/utils/getAllProducts";
-import { Suspense } from "react";
 
 const page = () => {
   
   void getAllProducts();
 
   return (
-    <Suspense fallback={<ProductsManageSkeleton/>}>
       <ManageProducts />
-    </Suspense>
   );
 };
 

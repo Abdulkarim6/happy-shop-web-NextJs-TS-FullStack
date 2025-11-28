@@ -3,6 +3,7 @@
 import dbConnect from "@/lib/dbConnect";
 import { UploadApiResponse, v2 as cloudinary } from "cloudinary";
 import { revalidateTag } from "next/cache";
+import { getAllProducts } from "../utils/getAllProducts";
 
 cloudinary.config({
   cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
@@ -16,6 +17,8 @@ export const addProduct = async(prevState:InitialStateType, formData : FormData)
       const today = new Date();
       const file = formData.get("image") as File;
 
+      // console.log("entry: ",new Date().getTime());
+      
       const arrayBuffer = await file.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
 
@@ -72,6 +75,7 @@ export const addProduct = async(prevState:InitialStateType, formData : FormData)
         if(res.acknowledged){
           revalidateTag("allProducts");
           revalidateTag("newArrivals");
+          void getAllProducts();
         }
         // console.log(66, rawData);
 
