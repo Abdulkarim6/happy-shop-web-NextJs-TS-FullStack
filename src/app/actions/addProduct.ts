@@ -72,6 +72,7 @@ export const addProduct = async(prevState:InitialStateType, formData : FormData)
         
         const collection = dbConnect("products");
         const res = await collection.insertOne(rawData);
+        
         if(res.acknowledged){
           revalidateTag("allProducts");
           revalidateTag("newArrivals");

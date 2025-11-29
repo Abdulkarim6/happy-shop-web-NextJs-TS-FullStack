@@ -54,8 +54,8 @@ const AddProductCient = ({allCategories}:{allCategories: CategoriesType[]}) => {
      
     const initialState = { message: "", acknowledged: "", insertedId: "" };
     const [state, formAction, isPanding] = useActionState(addProduct, initialState);
-    console.log("state: ", state);
-    console.log("ispanding: ", isPanding);
+    // console.log("state: ", state);
+    // console.log("ispanding: ", isPanding);
 
     useEffect(() => {
       if(state?.acknowledged === "success"){
