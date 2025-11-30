@@ -4,20 +4,20 @@ import dbConnect from "@/lib/dbConnect";
 import { UploadApiResponse, v2 as cloudinary } from "cloudinary";
 import { revalidateTag } from "next/cache";
 import { getAllProducts } from "../utils/getAllProducts";
+import { getNewArrivals } from "../utils/getNewArrivals";
 
 cloudinary.config({
   cloud_name:process.env.CLOUDINARY_CLOUD_NAME,
   api_key:process.env.CLOUDINARY_API_KEY,
   api_secret:process.env.CLOUDINARY_API_SECRET
-})
+});
+
 type InitialStateType = { message: string, acknowledged: boolean | string, insertedId: string | null };
 
 export const addProduct = async(prevState:InitialStateType, formData : FormData) =>{
     try {
       const today = new Date();
       const file = formData.get("image") as File;
-
-      // console.log("entry: ",new Date().getTime());
       
       const arrayBuffer = await file.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
@@ -33,16 +33,15 @@ export const addProduct = async(prevState:InitialStateType, formData : FormData)
       })
 
         const rawData = {
-          name: formData.get("name") as string,
-          description: formData.get("description") as string,
-          brand: formData.get("brand") as string,
-          subCategory: formData.get("subCategory") as string,
-          targetAudience: formData.get("targetAudience") as string,
+          name: formData.get("name"),
+          description: formData.get("description"),
+          brand: formData.get("brand"),
+          subCategory: formData.get("subCategory"),
+          targetAudience: formData.get("targetAudience"),
 
           // size array → comma separated input ধরে split
           size: (formData.get("size") as string)
-            ?.split(",")
-            .map((s) => s.trim()),
+            ?.split(",") .map((s) => s.trim()),
 
           price: Number(formData.get("price")),
 
@@ -52,31 +51,27 @@ export const addProduct = async(prevState:InitialStateType, formData : FormData)
             if (v === "true") return true;
             if (v === "false") return false;
             if (!isNaN(Number(v))) return Number(v);
-            return v;
           })(),
 
-          rating: (() => {
-            const v = formData.get("rating") as string;
-            if (!isNaN(Number(v))) return Number(v);
-            return v;
-          })(),
-
-          image: imageUrl?.secure_url as string,
-          color: formData.get("color") as string,
-
+          image: imageUrl?.secure_url,
+          color: formData.get("color"),
           ageGroup: formData.get("ageGroup") as string | null,
-
           DateAdded: today as Date,
         };
         
         
         const collection = dbConnect("products");
         const res = await collection.insertOne(rawData);
-        
         if(res.acknowledged){
-          revalidateTag("allProducts");
-          revalidateTag("newArrivals");
-          void getAllProducts();
+          void Promise.all([
+            revalidateTag("allProducts"),
+            revalidateTag("newArrivals"),
+          ]);
+
+          void Promise.all([
+            getAllProducts(),
+            getNewArrivals()
+          ]);
         }
         // console.log(66, rawData);
 

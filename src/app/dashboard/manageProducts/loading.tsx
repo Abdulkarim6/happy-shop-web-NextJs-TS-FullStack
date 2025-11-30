@@ -1,4 +1,4 @@
-"use client"
+
 import ProductsManageSkeleton from "@/app/Skeletons/ProductsManageSkeleton";
 
 const loading = () => {

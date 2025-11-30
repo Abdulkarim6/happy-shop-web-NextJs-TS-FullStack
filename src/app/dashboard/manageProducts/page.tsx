@@ -4,11 +4,9 @@ import { getAllProducts } from "@/app/utils/getAllProducts";
 
 const page = () => {
   
-  void getAllProducts();
+  const allProductsOfCategoriesPromise = getAllProducts();
 
-  return (
-      <ManageProducts />
-  );
+  return <ManageProducts allProductsOfCategoriesPromise={allProductsOfCategoriesPromise} />;
 };
 
 export default page;

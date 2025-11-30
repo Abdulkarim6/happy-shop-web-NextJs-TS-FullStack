@@ -65,7 +65,6 @@ const AddProductCient = ({allCategories}:{allCategories: CategoriesType[]}) => {
         });
         setTargetAudience("");
         setSelectedSubCategory("");
-        void getAllProducts();
       }
       if(state?.acknowledged === "failed"){
         Toast.fire({
@@ -94,7 +93,7 @@ const AddProductCient = ({allCategories}:{allCategories: CategoriesType[]}) => {
         
         <div className="space-y-2 mb-2">
           <Label htmlFor="targetAudience">Target Audience</Label>
-          <Select name="targetAudience" onValueChange={(e) => setTargetAudience(e)} required>
+          <Select name="targetAudience" value={targetAudience}  onValueChange={(e) => setTargetAudience(e)} required>
             <SelectTrigger className="w-full border-slate-500">
              <SelectValue placeholder="Select a option" />
             </SelectTrigger>
@@ -110,7 +109,7 @@ const AddProductCient = ({allCategories}:{allCategories: CategoriesType[]}) => {
 
         <div className="space-y-2 mb-2">
           <Label htmlFor="subCategory">Sub Category: Enable after select for audience</Label>
-          <Select name="subCategory" disabled={!targetAudience} onValueChange={(e) => setSelectedSubCategory(e)} required>
+          <Select name="subCategory" value={selectedSubCategory} disabled={!targetAudience} onValueChange={(e) => setSelectedSubCategory(e)} required>
             <SelectTrigger className="w-full border-slate-500">
              <SelectValue placeholder="Select a option" />
             </SelectTrigger>
