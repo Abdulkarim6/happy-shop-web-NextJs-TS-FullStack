@@ -1,10 +1,12 @@
 import Users from "../dashboardComponents/Users/Users";
+import { getUsers } from "../utils/getUsers";
 
 
 const page = () => {
+    const promise = getUsers();
     return (
         <div>
-            <Users/>
+            <Users usersCallsPromise={promise}/>
         </div>
     );
 };

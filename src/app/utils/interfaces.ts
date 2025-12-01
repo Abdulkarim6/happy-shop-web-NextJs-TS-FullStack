@@ -44,6 +44,13 @@ export interface ReviewType {
   date: string;
 };
 
+export interface UserType{
+  _id:string;
+  name:string;
+  email:string;
+  password:string;
+}
+
 export const Toast = Swal.mixin({
   toast: true,
   position: "top-end",
