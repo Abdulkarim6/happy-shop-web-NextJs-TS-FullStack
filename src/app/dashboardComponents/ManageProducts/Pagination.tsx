@@ -1,12 +1,13 @@
+"use client";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-type ParamsType = {
- page:number,
- totalPage:number,
- setPage: React.Dispatch<React.SetStateAction<number>>
-}
-const Pagination = ({page, totalPage, setPage}:ParamsType) => {
+import { useManegePageContext } from '@/app/contexts/managePageStatesContext/useManegePageContext';
+
+const Pagination = () => {
+    const {page,setPage,totalPage} = useManegePageContext();
+    console.log("from pagi", totalPage);
     
+
     let pages: (number | "...")[] = [];
     
     // If total <= 5, show all pages

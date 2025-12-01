@@ -193,7 +193,7 @@ const AddProductCient = ({allCategories}:{allCategories: CategoriesType[]}) => {
            :
            "SUBMIT"
           }
-          </button>
+        </button>
     </Form>  
     );
 };

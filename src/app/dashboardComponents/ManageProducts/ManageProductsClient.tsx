@@ -90,11 +90,11 @@ const ManageProductsClient = ({allProductsOfCategories, allCategories}:{allProdu
           </div>
 
           <div className='w-fit flex items-center space-x-2'>
-            <Pagination
+            {/* <Pagination
              page={page}
              setPage={setPage}
              totalPage={totalPage}
-            />
+            /> */}
           </div>
        </div>
 

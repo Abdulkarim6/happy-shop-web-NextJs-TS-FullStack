@@ -5,10 +5,10 @@ import React, { useState } from 'react';
 
 const Navber = () => {
     const linkClass= "text-lg font-medium hover:bg-slate-200 rounded py-1 px-2";
-    const [drawerState, setDrawerState] = useState(false);
+    const [drawerState, setDrawerState] = useState(true);
     // console.log(drawerState);
     const [active, setActive] = useState(false);
-    console.log(active);
+    // console.log(active);
     
 
     return (
@@ -19,18 +19,18 @@ const Navber = () => {
 
           <nav className="flex flex-col space-y-1">
             <Link 
-            prefetch={active ? true : false}
-            onMouseEnter={() => setActive(true)}
+            // prefetch={active ? true : false}
+            // onMouseEnter={() => setActive(true)}
             href="/dashboard" className={linkClass}>All Users</Link>
            
             <Link
-            prefetch={active ? true : false}
-            onMouseEnter={() => setActive(true)}
+            // prefetch={active ? true : false}
+            // onMouseEnter={() => setActive(true)}
             href="/dashboard/manageProducts" className={linkClass}>Manage Products</Link>
             
             <Link 
-            prefetch={active ? true : false}
-            onMouseEnter={() => setActive(true)}
+            // prefetch={active ? true : false}
+            // onMouseEnter={() => setActive(true)}
             href="/dashboard/addProduct" className={linkClass}>Add Product</Link>
           </nav>
         </div>

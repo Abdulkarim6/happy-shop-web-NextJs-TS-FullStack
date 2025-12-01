@@ -1,4 +1,4 @@
-// export const dynamic = "auto";
+// export const dynamic = "force-dynamic";
 import ManageProducts from "@/app/dashboardComponents/ManageProducts/ManageProducts";
 import { getAllProducts } from "@/app/utils/getAllProducts";
 
