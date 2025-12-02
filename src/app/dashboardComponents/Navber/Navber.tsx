@@ -19,18 +19,18 @@ const Navber = () => {
 
           <nav className="flex flex-col space-y-1">
             <Link 
-            // prefetch={active ? true : false}
-            // onMouseEnter={() => setActive(true)}
+            prefetch={active ? true : true}
+            onMouseEnter={() => setActive(true)}
             href="/dashboard" className={linkClass}>All Users</Link>
            
             <Link
-            // prefetch={active ? true : false}
-            // onMouseEnter={() => setActive(true)}
+            prefetch={active ? true : true}
+            onMouseEnter={() => setActive(true)}
             href="/dashboard/manageProducts" className={linkClass}>Manage Products</Link>
             
             <Link 
-            // prefetch={active ? true : false}
-            // onMouseEnter={() => setActive(true)}
+            prefetch={active ? true : true}
+            onMouseEnter={() => setActive(true)}
             href="/dashboard/addProduct" className={linkClass}>Add Product</Link>
           </nav>
         </div>

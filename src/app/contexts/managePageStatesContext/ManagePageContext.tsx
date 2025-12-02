@@ -12,7 +12,3 @@ interface stateType {
     setTotalPage:React.Dispatch<React.SetStateAction<number>>;
 }
 export const ManagePageContext = createContext<stateType|undefined>(undefined);
-
-//  const [audience, setAudience] = useState('');
-//     const [selectedSubCategory, setSelectedSubCategory] = useState("");
-//     const [page, setPage] = useState(1);
