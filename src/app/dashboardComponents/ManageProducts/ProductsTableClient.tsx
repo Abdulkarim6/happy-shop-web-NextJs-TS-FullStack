@@ -1,13 +1,14 @@
 "use client";
 import { deleteProduct } from "@/app/actions/deleteProduct";
 import { useManegePageContext } from "@/app/contexts/managePageStatesContext/useManegePageContext";
-import { Product, Toast } from "@/app/utils/interfaces";
+import { Product } from "@/app/utils/interfaces";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
 import Image from "next/image";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 const ProductsTableClient = ({allProductsOfCategories}:{allProductsOfCategories : Product[]}) => {
-const {audience,selectedSubCategory,page,setTotalPage} = useManegePageContext();
+  const {audience,selectedSubCategory,page,setTotalPage} = useManegePageContext();
 
     const productLimit = 30;
     const filteredProducts = allProductsOfCategories?.filter(item => {
@@ -16,29 +17,33 @@ const {audience,selectedSubCategory,page,setTotalPage} = useManegePageContext();
     
       return matchAudience && matchSubCategory;
     });
-    console.log("fP", filteredProducts?.length);
     
     const productsPerPage = filteredProducts.slice((page-1)*productLimit, ((page-1)*productLimit +productLimit));
     const totalPage = Math.ceil(filteredProducts?.length / productLimit);
-    console.log('from table', totalPage);
     
     useEffect(() => {
     setTotalPage(totalPage);
     },[totalPage, setTotalPage]);
 
-    const handleDelete = async(id:string) => {
-     const res = await deleteProduct(id);
-     if(res?.acknowledged){
-        Toast.fire({
-          icon:"success",
-          title:res?.message
-        });
-      }else{
-        Toast.fire({
-          icon:"error",
-          title:res?.message
-        })
+    const handleDelete = async(productId:string) => {
+    Swal.fire({
+      title: "Are you sure?", text: "You won't be able to revert this!", icon: "warning",
+      showCancelButton: true, confirmButtonColor: "#3085d6", cancelButtonColor: "#d33", confirmButtonText: "Yes, delete it!",
+      showLoaderOnConfirm:true,
+      preConfirm: async () => {
+      try {
+      const response = await deleteProduct(productId);
+      return response;
+      } catch (error) {
+        return {
+          message : "Failed to deleted!"
+        }
+     }},
+    }).then((result) => {
+      if (result.value?.acknowledged) {
+        Swal.fire(result.value.message, "", "success");
       }
+    });
     }
 
     return (
@@ -80,12 +85,11 @@ const {audience,selectedSubCategory,page,setTotalPage} = useManegePageContext();
                   Update
                 </button>
               </TableCell>
-              <TableCell className="p-1">
-                <button className="border-2 border-red-500 text-red-700 rounded p-1">
+              <TableCell onClick={() => handleDelete(product?._id)} className='p-1'>
+                <button className='border-2 border-red-500 text-red-700 rounded py-1 px-2'>
                   Delete
                 </button>
               </TableCell>
-              {/* <TableCell onClick={() => handleDelete(product?._id)} className='p-1'><button className='border-2 border-red-500 text-red-700 rounded p-1'>Delete</button></TableCell> */}
             </TableRow>
           ))}
         </TableBody>
