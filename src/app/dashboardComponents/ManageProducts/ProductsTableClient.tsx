@@ -4,6 +4,7 @@ import { useManegePageContext } from "@/app/contexts/managePageStatesContext/use
 import { Product } from "@/app/utils/interfaces";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 
@@ -44,7 +45,7 @@ const ProductsTableClient = ({allProductsOfCategories}:{allProductsOfCategories 
         Swal.fire(result.value.message, "", "success");
       }
     });
-    }
+    };
 
     return (
       <Table>
@@ -81,9 +82,11 @@ const ProductsTableClient = ({allProductsOfCategories}:{allProductsOfCategories 
               </TableCell>
               <TableCell>{product.price} TK</TableCell>
               <TableCell className="p-1">
-                <button className="border-2 border-blue-500 text-blue-700 rounded p-1">
-                  Update
-                </button>
+               <Link href={`/dashboard/updateProduct/${product?._id}`}>
+                 <button className="border-2 border-blue-500 text-blue-700 rounded p-1">
+                   Update
+                 </button>
+               </Link>
               </TableCell>
               <TableCell onClick={() => handleDelete(product?._id)} className='p-1'>
                 <button className='border-2 border-red-500 text-red-700 rounded py-1 px-2'>
