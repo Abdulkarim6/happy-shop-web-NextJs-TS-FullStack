@@ -15,6 +15,7 @@ export interface Product {
   color: string;
   ageGroup?: string
   DateAdded: string;
+  isAdmin?:boolean;
 }
 
 export interface SubCategoriesType  {

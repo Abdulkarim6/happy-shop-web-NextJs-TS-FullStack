@@ -12,11 +12,14 @@ cloudinary.config({
 });
 
 type InitialStateType = {
-    productid?:string,  message?: string, acknowledged?: boolean | string, date?:Date,
+    productid?:string,  message?: string, acknowledged?: boolean | string,
     modifiedCount?: number, upsertedId?: string | null, upsertedCount?: number, matchedCount?:number
  };
 export const updateProduct = async(prevState:InitialStateType, formData : FormData) => {
     try {
+      const todayDate = new Date();
+      console.log(todayDate);
+      
       const file = formData.get("image") as File;
       
       let imageUrl;
@@ -75,16 +78,11 @@ export const updateProduct = async(prevState:InitialStateType, formData : FormDa
       const query = {_id : new ObjectId(prevState.productid)}
       const updateFieldsAndDate = {
         ...updateFields,
-        DateAdded: prevState?.date as Date,
+        DateAdded: todayDate as Date,
       };
-      console.log(updateFields);
       
-      const payload = {
-        $set: updateFieldsAndDate,
-      };
-      const options = {
-          upsert : true
-      }
+      const payload = { $set: updateFieldsAndDate, };
+      const options = { upsert : true }
       const res = await collection.updateOne(query, payload, options);
       if(res?.acknowledged) revalidateTag(`allProducts`);
 
@@ -93,8 +91,6 @@ export const updateProduct = async(prevState:InitialStateType, formData : FormDa
         message: "Modified Product Successfully",
         acknowledged: res?.acknowledged === true ? "success" : "",
         modifiedCount: res?.modifiedCount,
-        upsertedId: res?.upsertedId?.toString() || null,
-        upsertedCount: res?.upsertedCount,
         matchedCount: res?.matchedCount,
       };
     } catch (error) {

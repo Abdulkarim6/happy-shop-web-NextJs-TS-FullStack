@@ -2,29 +2,20 @@ import { getAllProducts } from '@/app/utils/getAllProducts';
 import { Product } from '@/app/utils/interfaces';
 import Image from 'next/image';
 import React from 'react';
+import DateTime from './DateTime';
 
 const ProductInfo = async({productid}:{productid:string}) => {
     const product:Product = await getAllProducts()?.then(it => 
       it?.find((product:Product) => product?._id === productid));
-    
-    const dateOptions: Intl.DateTimeFormatOptions = {
-      year:"numeric",
-      month:"long",
-      day:"2-digit"
-    }
-
+  
     return (
     <div className='px-2 md:px-24 rounded-none pt-3 md:pt-5 w-full'>
       <div className="flex flex-col md:flex-row justify-around gap-3 w-full">
         <div className="w-full md:w-1/2">
           {product?.image && (
             <Image
-              alt="product"
-              quality={100}
-              src={product.image}
-              height={800}
-              width={500}
-              priority
+              alt="product" quality={100} src={product.image}
+              height={800} width={500} priority
             />
           )}
         </div>
@@ -73,7 +64,7 @@ const ProductInfo = async({productid}:{productid:string}) => {
         <h4 className="text-lg">Sub Category:{` `+ product?.subCategory}</h4>
         <h4 className="text-lg">Target Audience:{` `+ product?.targetAudience}</h4>
        <h4 className="text-lg">Colors:{` `+ product?.color}</h4>
-       <h4 className="text-lg">Date:{new Date(product?.DateAdded).toLocaleDateString("en-US", dateOptions)}</h4>
+       <DateTime date={product.DateAdded.toString()}/>
       </div>
     </div>
     );

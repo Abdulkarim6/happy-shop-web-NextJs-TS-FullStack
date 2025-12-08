@@ -5,7 +5,6 @@ import { CategoriesType, Toast } from "@/app/utils/interfaces";
 import { Spinner } from "@/components/ui/spinner";
 import Form from "next/form";
 import { useRouter } from "next/navigation";
-import { Router } from "next/router";
 import { useActionState, useEffect, useState } from "react";
 
 type ParamsType = {
@@ -13,10 +12,8 @@ type ParamsType = {
   productid: string;
 };
 const UpdateProductClient = ({allCategories,productid}:ParamsType) => {
-    const today = new Date().toLocaleString();
-   
     const initialState = {
-     productid:productid,  message: "", acknowledged: "", date:today,
+     productid:productid,  message: "", acknowledged: "",
      modifiedCount: 0, upsertedId: "", upsertedCount: 0, matchedCount:0
     };
     const [state, formAction, ispending] = useActionState(updateProduct, initialState);
