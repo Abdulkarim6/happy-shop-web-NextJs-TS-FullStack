@@ -5,6 +5,7 @@ import { Product, Toast } from "@/app/utils/interfaces";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus } from "lucide-react";
 import { addToBag } from "@/app/actions/addProductToBag";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const ProductDetails = ({product} : {product : Product}) => {
    // console.log(product);
@@ -21,34 +22,32 @@ const ProductDetails = ({product} : {product : Product}) => {
       }
     }
 
-    const handleAddToBag = async(product:Product) =>{
-      setLoading(true);
-      const orderedData = {
-        productId: product?._id,
-        productQuantity: orderQuantity,
-        productQsize: selectedSizeOfProduct,
-        productPrice: product?.price,
-      };
+    // Access the client
+    const queryClient = useQueryClient()
+    // Mutations
+    const mutation = useMutation({
+      mutationFn: addToBag,
+      onSuccess: (data, variables, context) => {
+        if (data?.acknowledged) {
+          Toast.fire({
+            icon: "success",
+            title: "Succesfully added to the Bag",
+          });
+        } else {
+          Toast.fire({
+            icon: "error",
+            title: "Faild to add to the Bag",
+          });
+        }
+        // Invalidate and refetch
+        queryClient.invalidateQueries({ queryKey: ["orders"] });
+      },
+    });
 
-      const res = await addToBag(orderedData);  
-      if(res?.acknowledged){
-        Toast.fire({
-          icon:"success",
-          title:"Succesfully added to the Bag"
-        });
-      }
-      else{
-        Toast.fire({
-          icon:"error",
-          title:"Faild to add to the Bag"
-        });
-      }
-
-      setLoading(false);
-    }
-
+    const {isPending} = mutation;
+    
     return (
-      <section className="py-5 px-1">
+      <div className="py-5 px-1">
         <h2 className="text-2xl">{product?.name}</h2>
         <h4 className="text-lg my-5">TK {product?.price}.00</h4>
         <div className="flex items-center justify-between gap-2 w-full">
@@ -102,10 +101,19 @@ const ProductDetails = ({product} : {product : Product}) => {
             <span>Rating:</span>
             <span>{product?.rating}</span>
         </div>
-        <Button disabled={loading} onClick={() => handleAddToBag(product)} buttonSize="sm" type="submit" className="w-full rounded-none text-black hover:text-white bg-inherit hover:bg-orange-400 p-4 border-[1px] border-solid border-black mt-2">
+        <Button disabled={isPending} 
+           onClick={() => {
+             mutation.mutate({
+               productId: product?._id,
+               productQuantity: orderQuantity,
+               productQsize: selectedSizeOfProduct,
+               productPrice: product?.price,
+             });
+           }}
+          buttonSize="sm" type="submit" className="w-full rounded-none text-black hover:text-white bg-inherit hover:bg-orange-400 p-4 border-[1px] border-solid border-black mt-2">
           ADD TO BAG
         </Button>
-      </section>
+      </div>
     );
 };
 

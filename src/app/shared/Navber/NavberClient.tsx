@@ -10,6 +10,8 @@ import MobileView from "./MobileView";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import DisplaySearchedProducts from "./DisplaySearchedProducts";
+import { useQuery } from "@tanstack/react-query";
+import { getUsers } from "@/app/utils/getUsers";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -24,6 +26,17 @@ type TypeOfGenders = {
   categoriesOfkids : CategoriesType | undefined;
   categoriesOfaccessories : CategoriesType | undefined;
 }
+
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+function useOrders(){
+  return useQuery({
+    queryKey:["orders"],
+    queryFn: async() => {
+      const res = await fetch(`${baseUrl}/api/getOrderedProducts`);
+      return await res.json();
+    }
+  })
+};
 
 const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, categoriesOfaccessories}: TypeOfGenders) => {
     const { data: session } = useSession();
@@ -40,6 +53,10 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
     }, []);
 
     const navigationMenuLink = `text-base lg:text-lg font-medium !px-2 !py-1 lg:!px-4 lg:!py-2`;
+
+    const { status, data, error, isFetching } = useOrders();
+    console.log(data?.length);
+    
 
     return (
         <div className="relative">
@@ -207,9 +224,13 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
         
         {/* Shopping Bag */}
         <div className="relative">
-          <div className="title">
+          <div className="title z-30">
            <ShoppingBag className="size-7 mr-2 cursor-pointer"/>
           </div>
+          {
+            data && 
+          <p className="absolute bottom-3 left-3 text-sm font-medium z-10 bg-black text-white py-1 px-2 rounded-full">{data?.length}</p>
+          }
         </div>
 
         {/* Authentication related Menu */}

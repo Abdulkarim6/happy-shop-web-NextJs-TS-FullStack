@@ -4,6 +4,7 @@ import Navber from "./shared/Navber/Navber";
 import NextAuthSessionProvider from "./providers/NextAuthSessionProvider";
 import { Poppins } from "next/font/google";
 import Footer from "./shared/Footer/Footer";
+import QueryProvider from "./providers/QueryProvider";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -31,15 +32,17 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
   return (
     <html lang="en">
       <head><link rel="icon" href="/favicon.ico" /></head>
-      <NextAuthSessionProvider>
-         <body className={`${poppins.className} antialiased w-max-[1440px] mx-auto min-h-screen bg-slate-100`} >
-          <main>
-            <Navber/>
-            {children}
-          </main>
-          <Footer/>
-         </body>
-      </NextAuthSessionProvider>
+      <QueryProvider>
+        <NextAuthSessionProvider>
+           <body className={`${poppins.className} antialiased w-max-[1440px] mx-auto min-h-screen bg-slate-100`} >
+            <main>
+              <Navber/>
+              {children}
+            </main>
+            <Footer/>
+           </body>
+        </NextAuthSessionProvider>
+      </QueryProvider>
     </html>
   );
 }
