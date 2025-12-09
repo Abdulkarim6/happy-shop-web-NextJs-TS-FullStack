@@ -8,10 +8,12 @@ import Swal from "sweetalert2";
 export default function UsersTable({ users }: { users: UserType[] }) {
   const { query } = useUsersContext();
 
-  const filtered = users
-    .filter((u) =>
-      (u.name + u.email).toLowerCase().includes(query.toLowerCase())
-    );
+  const filteredUsers = users?.filter((u:UserType) =>{
+    const name = u.name?.toLowerCase().includes(query?.toLowerCase());
+    const email = u.email?.toLowerCase().includes(query?.toLowerCase());
+
+    return name && email;
+  });
 
     const handleDelete = async(userId:string) => {
     Swal.fire({
@@ -57,7 +59,7 @@ export default function UsersTable({ users }: { users: UserType[] }) {
 
   return (
     <tbody>
-      {filtered?.map((u, i) => (
+      {filteredUsers?.map((u, i) => (
         <tr className="border-b" key={i}>
           <td className="p-2">{u.name}</td>
           <td className="p-2">{u.email}</td>

@@ -43,7 +43,7 @@ const AddProductCient = ({allCategories}:{allCategories: CategoriesType[]}) => {
        targetAudience={targetAudience}
        setTargetAudience={setTargetAudience}
       />
-        <button type='submit' className='block bg-sky-500 mx-auto p-2 rounded w-fit text-lg font-medium'>
+        <button type='submit' className='block hover:bg-sky-600 bg-sky-500 mx-auto p-2 rounded w-[80%] text-lg font-medium'>
           {
            isPanding ? 
             <span className='flex justify-center items-center'><Spinner className='size-4'/> Pending...</span>

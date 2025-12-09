@@ -1,13 +1,14 @@
 "use client"
 
 import { useState } from "react";
-import { Product } from "@/app/utils/interfaces";
+import { Product, Toast } from "@/app/utils/interfaces";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus } from "lucide-react";
+import { addToBag } from "@/app/actions/addProductToBag";
 
 const ProductDetails = ({product} : {product : Product}) => {
    // console.log(product);
-    
+    const [loading, setLoading] = useState(false);
     const [orderQuantity, setorderQuantity] = useState<number>(1);
     const [selectedSizeOfProduct, setSelectedSizeOfProduct] = useState<string>("");
      const handleOrderQuantityControll = (param : "plus" | "minus") =>{
@@ -18,6 +19,32 @@ const ProductDetails = ({product} : {product : Product}) => {
       if (param === "minus") {
         setorderQuantity(prev => (prev > 1 && !Number.isNaN(prev) ? --prev : 1));
       }
+    }
+
+    const handleAddToBag = async(product:Product) =>{
+      setLoading(true);
+      const orderedData = {
+        productId: product?._id,
+        productQuantity: orderQuantity,
+        productQsize: selectedSizeOfProduct,
+        productPrice: product?.price,
+      };
+
+      const res = await addToBag(orderedData);  
+      if(res?.acknowledged){
+        Toast.fire({
+          icon:"success",
+          title:"Succesfully added to the Bag"
+        });
+      }
+      else{
+        Toast.fire({
+          icon:"error",
+          title:"Faild to add to the Bag"
+        });
+      }
+
+      setLoading(false);
     }
 
     return (
@@ -75,7 +102,9 @@ const ProductDetails = ({product} : {product : Product}) => {
             <span>Rating:</span>
             <span>{product?.rating}</span>
         </div>
-        <Button buttonSize="sm" type="submit" className="w-full rounded-none text-black hover:text-white bg-inherit hover:bg-orange-400 p-4 border-[1px] border-solid border-black mt-2">ADD TO BAG</Button>
+        <Button disabled={loading} onClick={() => handleAddToBag(product)} buttonSize="sm" type="submit" className="w-full rounded-none text-black hover:text-white bg-inherit hover:bg-orange-400 p-4 border-[1px] border-solid border-black mt-2">
+          ADD TO BAG
+        </Button>
       </section>
     );
 };

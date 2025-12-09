@@ -205,6 +205,7 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
           />
         </div> */}
         
+        {/* Shopping Bag */}
         <div className="relative">
           <div className="title">
            <ShoppingBag className="size-7 mr-2 cursor-pointer"/>
