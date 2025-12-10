@@ -53,6 +53,16 @@ export interface UserType{
   isAdmin?:string;
 }
 
+export type OrderedDataype = {
+  productId: string;
+  productName: string;
+  productImg: string;
+  productQuantity: number;
+  productQsize: string;
+  productPrice: number;
+  buyerEmail?:string
+};
+
 export const Toast = Swal.mixin({
   toast: true,
   position: "top-end",

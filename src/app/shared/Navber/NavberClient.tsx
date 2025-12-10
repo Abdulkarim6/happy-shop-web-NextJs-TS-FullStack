@@ -11,7 +11,7 @@ import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import DisplaySearchedProducts from "./DisplaySearchedProducts";
 import { useQuery } from "@tanstack/react-query";
-import { getUsers } from "@/app/utils/getUsers";
+import CartNavber from "./CartNavber";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -44,6 +44,7 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
 
     const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
     const [width, setWidth] = useState<number>(0);
+    const [isCartOpen, setIsCartOpen] = useState(false);
 
     useEffect(() => {
       const handleResize = () => setWidth(window.innerWidth);
@@ -55,11 +56,9 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
     const navigationMenuLink = `text-base lg:text-lg font-medium !px-2 !py-1 lg:!px-4 lg:!py-2`;
 
     const { status, data, error, isFetching } = useOrders();
-    console.log(data?.length);
-    
 
     return (
-        <div className="relative">
+        <div className="relative w-full">
         <div className="flex items-center p-2 !pr-2 md:!pr-10 relative bg-slate-100 z-10">
         {/* toggle Hamburger Handle */}
         <div className="md:hidden">
@@ -223,14 +222,14 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
         </div> */}
         
         {/* Shopping Bag */}
-        <div className="relative">
-          <div className="title z-30">
-           <ShoppingBag className="size-7 mr-2 cursor-pointer"/>
-          </div>
-          {
-            data && 
-          <p className="absolute bottom-3 left-3 text-sm font-medium z-10 bg-black text-white py-1 px-2 rounded-full">{data?.length}</p>
-          }
+        <div 
+        onClick={() => setIsCartOpen(!isCartOpen)}
+        className="relative title z-30 cursor-pointer">
+         <ShoppingBag className="size-7 mr-2 cursor-pointer"/>
+         {
+           data && 
+         <p className="absolute bottom-3 left-3 text-sm font-medium z-10 bg-black text-white py-1 px-2 rounded-full">{data?.length}</p>
+         }
         </div>
 
         {/* Authentication related Menu */}
@@ -287,6 +286,16 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
           searchForProducts={searchForProducts}
           setSearchForProducts={setSearchForProducts}
         />
+
+        <div className={`bg-slate-100 h-screen w-[80%] md:w-[35%] fixed top-0 right-0 z-50 rounded transform 
+        transition-transform duration-300 ${isCartOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}>
+          <CartNavber orders={data} setIsCartOpen={setIsCartOpen}/>
+        </div>
+        {
+          isCartOpen &&
+        <div className="fixed w-full h-full bg-black/90 opacity-50"></div>
+        }
       </div>
     );
 };

@@ -2,19 +2,15 @@
 import { authOptions } from "@/lib/authOptions";
 import dbConnect from "@/lib/dbConnect";
 import { getServerSession } from "next-auth";
-type OrderedDataype = {
-    productId :string;
-    productQuantity:number;
-    productQsize:string;
-    productPrice:number;
-}
+import { OrderedDataype } from "../utils/interfaces";
+
 export const addToBag = async (orderedData:OrderedDataype) => {
   try {
     const session = await getServerSession(authOptions);
 
     const payload = {
       ...orderedData,
-      buyer: session?.user?.email,
+      buyerEmail: session?.user?.email,
     };
 
     const collection = dbConnect("orders");

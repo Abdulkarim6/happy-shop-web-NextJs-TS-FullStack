@@ -8,8 +8,6 @@ import { addToBag } from "@/app/actions/addProductToBag";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const ProductDetails = ({product} : {product : Product}) => {
-   // console.log(product);
-    const [loading, setLoading] = useState(false);
     const [orderQuantity, setorderQuantity] = useState<number>(1);
     const [selectedSizeOfProduct, setSelectedSizeOfProduct] = useState<string>("");
      const handleOrderQuantityControll = (param : "plus" | "minus") =>{
@@ -25,7 +23,7 @@ const ProductDetails = ({product} : {product : Product}) => {
     // Access the client
     const queryClient = useQueryClient()
     // Mutations
-    const mutation = useMutation({
+    const {isPending, mutate} = useMutation({
       mutationFn: addToBag,
       onSuccess: (data, variables, context) => {
         if (data?.acknowledged) {
@@ -43,8 +41,6 @@ const ProductDetails = ({product} : {product : Product}) => {
         queryClient.invalidateQueries({ queryKey: ["orders"] });
       },
     });
-
-    const {isPending} = mutation;
     
     return (
       <div className="py-5 px-1">
@@ -103,8 +99,10 @@ const ProductDetails = ({product} : {product : Product}) => {
         </div>
         <Button disabled={isPending} 
            onClick={() => {
-             mutation.mutate({
+              mutate({
                productId: product?._id,
+               productName: product?.name,
+               productImg:product?.image,
                productQuantity: orderQuantity,
                productQsize: selectedSizeOfProduct,
                productPrice: product?.price,
