@@ -10,8 +10,6 @@ import MobileView from "./MobileView";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import DisplaySearchedProducts from "./DisplaySearchedProducts";
-import { useQuery } from "@tanstack/react-query";
-import CartNavber from "./CartNavber";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,25 +24,13 @@ type TypeOfGenders = {
   categoriesOfkids : CategoriesType | undefined;
   categoriesOfaccessories : CategoriesType | undefined;
 }
-
-const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-function useOrders(){
-  return useQuery({
-    queryKey:["orders"],
-    queryFn: async() => {
-      const res = await fetch(`${baseUrl}/api/getOrderedProducts`);
-      return await res.json();
-    }
-  })
-};
-
 const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, categoriesOfaccessories}: TypeOfGenders) => {
+
     const { data: session } = useSession();
     const [searchForProducts, setSearchForProducts] = useState<string>("");
 
     const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
     const [width, setWidth] = useState<number>(0);
-    const [isCartOpen, setIsCartOpen] = useState(false);
 
     useEffect(() => {
       const handleResize = () => setWidth(window.innerWidth);
@@ -54,12 +40,10 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
     }, []);
 
     const navigationMenuLink = `text-base lg:text-lg font-medium !px-2 !py-1 lg:!px-4 lg:!py-2`;
-
-    const { status, data, error, isFetching } = useOrders();
-
+    
     return (
-        <div className="relative w-full">
-        <div className="flex items-center p-2 !pr-2 md:!pr-10 relative bg-slate-100 z-10">
+        <div className="relative w-[92%]">
+        <div className="flex items-center p-2 !pr-2 relative bg-slate-100 z-20">
         {/* toggle Hamburger Handle */}
         <div className="md:hidden">
           {toggleHamburger ? (
@@ -210,7 +194,7 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
         </NavigationMenu>
 
         {/* Search bar of product */}
-        {/* <div className="flex w-full relative items-center mx-2 gap-1">
+        <div className="flex w-full relative items-center mx-2 gap-1">
           <Search className="hidden lg:flex absolute right-1" size={20} />
           <Input
             value={searchForProducts}
@@ -219,17 +203,6 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
             type="text"
             placeholder="Search..."
           />
-        </div> */}
-        
-        {/* Shopping Bag */}
-        <div 
-        onClick={() => setIsCartOpen(!isCartOpen)}
-        className="relative title z-30 cursor-pointer">
-         <ShoppingBag className="size-7 mr-2 cursor-pointer"/>
-         {
-           data && 
-         <p className="absolute bottom-3 left-3 text-sm font-medium z-10 bg-black text-white py-1 px-2 rounded-full">{data?.length}</p>
-         }
         </div>
 
         {/* Authentication related Menu */}
@@ -287,15 +260,6 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
           setSearchForProducts={setSearchForProducts}
         />
 
-        <div className={`bg-slate-100 h-screen w-[80%] md:w-[35%] fixed top-0 right-0 z-50 rounded transform 
-        transition-transform duration-300 ${isCartOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}>
-          <CartNavber orders={data} setIsCartOpen={setIsCartOpen}/>
-        </div>
-        {
-          isCartOpen &&
-        <div className="fixed w-full h-full bg-black/90 opacity-50"></div>
-        }
       </div>
     );
 };

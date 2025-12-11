@@ -5,9 +5,9 @@ import { Product, Toast } from "@/app/utils/interfaces";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus } from "lucide-react";
 import { addToBag } from "@/app/actions/addProductToBag";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const ProductDetails = ({product} : {product : Product}) => {
+    const [addToBagProcessing, setAddToBagProcessing] = useState<boolean>(false);
     const [orderQuantity, setorderQuantity] = useState<number>(1);
     const [selectedSizeOfProduct, setSelectedSizeOfProduct] = useState<string>("");
      const handleOrderQuantityControll = (param : "plus" | "minus") =>{
@@ -18,29 +18,34 @@ const ProductDetails = ({product} : {product : Product}) => {
       if (param === "minus") {
         setorderQuantity(prev => (prev > 1 && !Number.isNaN(prev) ? --prev : 1));
       }
-    }
+    };
 
-    // Access the client
-    const queryClient = useQueryClient()
-    // Mutations
-    const {isPending, mutate} = useMutation({
-      mutationFn: addToBag,
-      onSuccess: (data, variables, context) => {
-        if (data?.acknowledged) {
-          Toast.fire({
-            icon: "success",
-            title: "Succesfully added to the Bag",
-          });
-        } else {
-          Toast.fire({
-            icon: "error",
-            title: "Faild to add to the Bag",
-          });
-        }
-        // Invalidate and refetch
-        queryClient.invalidateQueries({ queryKey: ["orders"] });
-      },
-    });
+    const handleAddToBag = async(product:Product) =>{
+      setAddToBagProcessing(true);
+      const payload = {
+       productId: product?._id,
+       productName: product?.name,
+       productImg:product?.image,
+       productQuantity: orderQuantity,
+       productQsize: selectedSizeOfProduct,
+       productPrice: product?.price,
+      };
+
+      const res = await addToBag(payload);
+
+      if (res?.acknowledged) {
+        Toast.fire({
+          icon: "success",
+          title: "Succesfully added to the Bag",
+        });
+      } else {
+        Toast.fire({
+          icon: "error",
+          title: "Faild to add to the Bag",
+        });
+      }
+      setAddToBagProcessing(false);
+    }
     
     return (
       <div className="py-5 px-1">
@@ -97,17 +102,8 @@ const ProductDetails = ({product} : {product : Product}) => {
             <span>Rating:</span>
             <span>{product?.rating}</span>
         </div>
-        <Button disabled={isPending} 
-           onClick={() => {
-              mutate({
-               productId: product?._id,
-               productName: product?.name,
-               productImg:product?.image,
-               productQuantity: orderQuantity,
-               productQsize: selectedSizeOfProduct,
-               productPrice: product?.price,
-             });
-           }}
+        <Button disabled={addToBagProcessing} 
+          onClick={() => handleAddToBag(product)}
           buttonSize="sm" type="submit" className="w-full rounded-none text-black hover:text-white bg-inherit hover:bg-orange-400 p-4 border-[1px] border-solid border-black mt-2">
           ADD TO BAG
         </Button>

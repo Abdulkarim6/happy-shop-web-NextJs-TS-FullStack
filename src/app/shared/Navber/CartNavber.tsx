@@ -1,86 +1,27 @@
-"use client";
-import { deleteOrder } from "@/app/actions/deleteOrder";
-import { OrderedDataype, Toast } from "@/app/utils/interfaces";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Trash2, X } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
-import Loader from "../Loader/Loader";
-import { Spinner } from "@/components/ui/spinner";
+import { CartTogglerProvider } from '@/app/contexts/cartTogglerStatesContext/CartTogglerProvider';
+import { OrderedDataype } from '@/app/utils/interfaces';
+import { ShoppingBag } from 'lucide-react';
+import CartTogglerButton from './CartTogglerButton';
+import CartNavberClient from './CartNavberClient';
+
 type ParamsType = {
-  orders: OrderedDataype[];
-  setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  orderedProductsPromise : Promise<OrderedDataype[]>;
 };
-const CartNavber = ({ orders, setIsCartOpen }: ParamsType) => {
-  const [active, setActive] = useState(false);
 
-  // Access the client
-    const queryClient = useQueryClient()
-    // Mutations
-    const {isPending, mutate} = useMutation({
-      mutationFn: deleteOrder,
-      onSuccess: (data, variables, context) => {
-        if (data?.acknowledged) {
-          Toast.fire({
-            icon: "success",
-            title: "Succesfully delete the order",
-          });
-        } else {
-          Toast.fire({
-            icon: "error",
-            title: "Faild to delete",
-          });
-        }
-        // Invalidate and refetch
-        queryClient.invalidateQueries({ queryKey: ["orders"] });
-      },
-    });
-    
-
+const CartNavber = async ({orderedProductsPromise }: ParamsType) => {
+  const orderedProducts = await orderedProductsPromise;
   return (
-   <div className="relative pt-10 pl-2">
-    <div className="divide-y-3 divide-solid divide-blue-500">
-      {
-       orders?.map((order, i) => 
-      <div key={i} className="flex py-3">
-        <Image
-           alt={order?.productName}
-           src={order?.productImg}
-           height={150}
-           width={120}
-        />
-        <div className="ml-3">
-          <Link 
-            prefetch={active ? true : true}
-            onMouseEnter={() => setActive(true)}
-            onClick={() => setIsCartOpen(false)}
-            href={`/productDetails/-/${order?.productId}`}
-          >
-          <h3 className="text-base md:text-lg hover:underline">{order?.productName}</h3>
-          </Link>
-          <span>Size: {order?.productQsize}</span>
-          <p>TK: {order?.productPrice} x {order?.productQuantity}</p>
-
-          {
-            isPending ?
-            <Spinner className="m-2 p-0.5 border-2 border-solid border-red-500 hover:bg-red-200 rounded cursor-pointer"/>
-            :
-          <Trash2
-          onClick={() => { mutate(order); }}
-          size={30} color="#e70808"
-          className="m-2 p-0.5 border-2 border-solid border-red-500 hover:bg-red-200 rounded cursor-pointer"
-          />
-          }
-
-        </div>
-      </div>    
-      )}
-    </div>
-     
-    <X onClick={() => setIsCartOpen(false)} size={30} className="border-2 border-solid border-black rounded absolute top-2 left-2 font-bold cursor-pointer" />
-    
-   </div>
+    <CartTogglerProvider>
+      <CartTogglerButton>
+        <ShoppingBag className="size-7 mr-2 cursor-pointer" />
+        {orderedProducts && (
+          <p className="absolute bottom-3 left-3 text-sm font-medium z-30 bg-black text-white py-1 px-2 rounded-full">
+            {orderedProducts?.length | 0}
+          </p>
+        )}
+      </CartTogglerButton>
+      <CartNavberClient orderedProducts={orderedProducts}/>
+    </CartTogglerProvider>
   );
 };
 

@@ -65,9 +65,9 @@ export type OrderedDataype = {
 
 export const Toast = Swal.mixin({
   toast: true,
-  position: "top-end",
+  position: "top-start",
   showConfirmButton: false,
-  timer: 2000,
+  timer: 1500,
   padding:"10px 10px",
   customClass:{
      title:'mx' 
