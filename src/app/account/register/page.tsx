@@ -5,7 +5,7 @@ import Form from "@/app/components/Form/Form";
 const registerFromPage = () => {
     return (
       <div>
-       <Form></Form>
+       {/* <Form /> */}
       </div>
     );
 };

@@ -10,6 +10,7 @@ type ParamsType = {
 
 const CartNavber = async ({orderedProductsPromise }: ParamsType) => {
   const orderedProducts = await orderedProductsPromise;
+  
   return (
     <CartTogglerProvider>
       <CartTogglerButton>

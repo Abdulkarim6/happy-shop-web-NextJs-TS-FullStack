@@ -10,6 +10,7 @@ import MobileView from "./MobileView";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import DisplaySearchedProducts from "./DisplaySearchedProducts";
+import { Session } from "next-auth";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -19,14 +20,13 @@ const poppins = Poppins({
 });
 
 type TypeOfGenders = {
+  session: Session | null;
   categoriesOfMan : CategoriesType | undefined;
   categoriesOfwomen : CategoriesType | undefined;
   categoriesOfkids : CategoriesType | undefined;
   categoriesOfaccessories : CategoriesType | undefined;
 }
-const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, categoriesOfaccessories}: TypeOfGenders) => {
-
-    const { data: session } = useSession();
+const NavberClient = ({session, categoriesOfMan, categoriesOfwomen, categoriesOfkids, categoriesOfaccessories}: TypeOfGenders) => {
     const [searchForProducts, setSearchForProducts] = useState<string>("");
 
     const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
@@ -194,7 +194,7 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
         </NavigationMenu>
 
         {/* Search bar of product */}
-        <div className="flex w-full relative items-center mx-2 gap-1">
+        {/* <div className="flex w-full relative items-center mx-2 gap-1">
           <Search className="hidden lg:flex absolute right-1" size={20} />
           <Input
             value={searchForProducts}
@@ -203,7 +203,7 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
             type="text"
             placeholder="Search..."
           />
-        </div>
+        </div> */}
 
         {/* Authentication related Menu */}
         <NavigationMenu viewport={false} className="">
@@ -218,12 +218,12 @@ const NavberClient = ({categoriesOfMan, categoriesOfwomen, categoriesOfkids, cat
               </NavigationMenuTrigger>
               <NavigationMenuContent className="!absolute w-auto -left-6 md:left-0">
                 <ul className="grid gap-1">
-                  <Link href="/account/register">
+                  <Link href="/account/auth?mode=register">
                     <Button variant="ghost" className="text-base lg:text-lg py-1 px-2" >
                       Register
                     </Button>
                   </Link>
-                  <Link href="/account/login">
+                  <Link href="/account/auth?mode=login">
                     <Button variant="ghost" className="text-base lg:text-lg py-1 px-2" >
                       Login
                     </Button>

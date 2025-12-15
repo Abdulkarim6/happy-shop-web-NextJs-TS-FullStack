@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="border-t-2 border-solid border-t-blue-700 sticky top-[100vh] mt-5 text-neutral-content flex flex-col md:flex-row justify-start md:justify-around items-start md:items-center w-full px-3 md:px-4 py-3 md:py-4 ">
+    <footer className="bg-slate-100 border-t-2 border-solid border-t-blue-700 sticky top-[100vh] mt-5 text-neutral-content flex flex-col md:flex-row justify-start md:justify-around items-start md:items-center w-full px-3 md:px-4 py-3 md:py-4 ">
       <aside className="flex items-center">
         <svg
           width="36" height="36" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd" className="fill-current mr-2"

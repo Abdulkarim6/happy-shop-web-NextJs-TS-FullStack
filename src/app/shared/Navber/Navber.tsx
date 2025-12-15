@@ -3,8 +3,10 @@ import NavberClient from "./NavberClient";
 import { CategoriesType } from "@/app/utils/interfaces";
 import getOrderedProducts from "@/app/utils/getOrderedProducts";
 import CartNavber from "./CartNavber";
+import { auth } from "@/auth";
 
 const Navber = async () => {
+   const session = await auth();
    const categoriesOfGenders = await getCategories();
    const orderedProductsPromise = getOrderedProducts();
    
@@ -16,6 +18,7 @@ const Navber = async () => {
   return (
     <div className="sticky top-0 z-50 flex items-center bg-slate-100">
       <NavberClient
+        session={session}
         categoriesOfMan={categoriesOfMan}
         categoriesOfwomen={categoriesOfwomen}
         categoriesOfkids={categoriesOfkids}

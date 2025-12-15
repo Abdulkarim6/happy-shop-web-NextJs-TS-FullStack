@@ -1,13 +1,12 @@
 "use server"
-import { authOptions } from "@/lib/authOptions";
 import dbConnect from "@/lib/dbConnect";
-import { getServerSession } from "next-auth";
 import { OrderedDataype } from "../utils/interfaces";
 import { revalidateTag } from "next/cache";
+import { auth } from "@/auth";
 
 export const addToBag = async (orderedData:OrderedDataype) => {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await auth();
 
     const payload = {
       ...orderedData,
