@@ -19,9 +19,8 @@ export const authFormSubmit = async (prevState:InitialStateType, formData : Form
       password: formData.get("password") as string,
     };
     
-if (prevState?.isRegisterPage) {
+  if(prevState?.isRegisterPage) {
     {/**New user data send in database */}
-    // setLoading(true);
     const res = await postNewRegisterUser(payload);
 
     return {
@@ -29,14 +28,12 @@ if (prevState?.isRegisterPage) {
       insertedId: res.insertedId,
       message: res?.message
     };
-}
+  }
 
+ // IF user exist in login page and the user not logged in 
  if (!prevState?.isRegisterPage && !session?.user) {
-  //  setLoading(true);
    const res = await signIn("credentials", formData);
-
    console.log(37, res);
-   
  }
 
   return {

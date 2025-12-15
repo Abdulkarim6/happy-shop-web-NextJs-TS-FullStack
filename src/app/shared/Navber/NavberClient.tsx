@@ -7,7 +7,6 @@ import { SubCategoriesType, CategoriesType} from "@/app/utils/interfaces";
 import { Input } from "@/components/ui/input";
 import { useEffect, useState } from "react";
 import MobileView from "./MobileView";
-import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import DisplaySearchedProducts from "./DisplaySearchedProducts";
 import { Session } from "next-auth";
@@ -235,9 +234,9 @@ const NavberClient = ({session, categoriesOfMan, categoriesOfwomen, categoriesOf
         </NavigationMenu>
 
         {/* NavigationMenu for only mobile view */}
-        {width <= 767 && (
+        {/* {width <= 767 && ( */}
           <div
-            className={`absolute top-full left-0 overflow-x-hidden 
+            className={`absolute md:hidden top-full left-0 overflow-x-hidden 
                transition-all duration-200 ease-in-out ${
                  toggleHamburger
                    ? "w-3/5 translate-x-0"
@@ -251,7 +250,7 @@ const NavberClient = ({session, categoriesOfMan, categoriesOfwomen, categoriesOf
              categoriesOfaccessories={categoriesOfaccessories}
             />
           </div>
-        )}
+        {/* )} */}
         </div> 
 
         {/* showing products by searching */}

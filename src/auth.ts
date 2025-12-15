@@ -6,6 +6,7 @@ import type { Provider } from "next-auth/providers";
 import dbConnect from "./lib/dbConnect";
 import bcrypt from "bcrypt";
 
+// Initialized providers
 const providers: Provider[] = [
   Credentials({
     credentials: {
@@ -31,7 +32,7 @@ const providers: Provider[] = [
         email: isExistsUser?.email
       }; 
 
-      if (isPasswordOk) {
+      if (isExistsUser && isPasswordOk) {
         return user;
       } else {
         return null
@@ -42,16 +43,15 @@ const providers: Provider[] = [
   Google,  GitHub, 
 ];
 
+
+// Ignoor credentials for OAuth login Buttons(social)
 export const providerMap = providers?.map(provider => {
-    if(typeof(provider) === "function"){
-      const providerData = provider();
-      return { id: providerData.id, name: providerData.name };
-    } else {
-        return { id: provider.id, name: provider.name };
-    }
+  const providerType = typeof provider === "function" ? provider() : provider;
+  return { id: providerType.id, name: providerType.name };
 })?.filter((provider) => provider?.id !== "credentials")
 
 
+// Export NextAuth
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers,
   pages: {
