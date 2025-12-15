@@ -1,82 +1,56 @@
 "use server";
 
 import { auth, signIn } from "@/auth";
-import { UserData, postNewRegisterUser } from "./auth/postNewRegisterUser";
+import { UserData, postNewRegisterUser } from "./postNewRegisterUser";
+import { AuthError } from "next-auth";
 
-export type InitialStateType = {
-  isRegisterPage?:boolean;
-  message?: string;
-  acknowledged?: boolean | string;
-  insertedId?: string | null;
-};
-
-export const authFormSubmit = async (prevState:InitialStateType, formData : FormData) => {
+export const authFormSubmit = async ( mode: "login" | "register", formData: FormData ) => {
   const session = await auth();
 
+    // 1. If user loggedIn, return from here
+    if (session?.user) 
+    return { 
+      // isRegisterPage: prevState?.isRegisterPage,
+      acknowledged: "false", 
+      message: "You are already logged in."
+    };
+
+
+    // make user object
+    const name = formData.get("name") as string;
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
     const payload: UserData = {
-      name: formData.get("name") as string,
-      email: formData.get("email") as string,
-      password: formData.get("password") as string,
+      name: name, email: email, password: password,
     };
-    
-  if(prevState?.isRegisterPage) {
-    {/**New user data send in database */}
-    const res = await postNewRegisterUser(payload);
 
-    return {
-      acknowledged: res.acknowledged,
-      insertedId: res.insertedId,
-      message: res?.message
+
+    // 3. Register user logic
+    if (mode === "register") {
+        const res = await postNewRegisterUser(payload);
+         console.log("log from server inside the new user stored:", res, "time:", new Date().toLocaleString());
+        
+        return {
+          acknowledged: res?.acknowledged,
+          insertedId: res?.insertedId,
+          message: res?.message,
+          error: res?.error,
+        };
     };
-  }
 
- // IF user exist in login page and the user not logged in 
- if (!prevState?.isRegisterPage && !session?.user) {
-   const res = await signIn("credentials", formData);
-   console.log(37, res);
- }
 
-  return {
-    acknowledged: true,
-    message: "",
-  };
-
-//   if (isRegisterPage) {
-//     {/**New user data send in database */}
-//     // setLoading(true);
-//     const res = await postNewRegisterUser(payload);
-
-//      if(res?.acknowledged){
-//        Toast.fire({
-//          icon: "success",
-//          title: "You created account successfully",
-//        });
-//      }
-//      if(res?.message){
-//        Toast.fire({
-//          icon: "info",
-//          title: `${res?.message}`,
-//        });
-//      }
-//     form.reset();
-//     // setLoading(false);
-//   }
-
-//   if (isLoginPage) {
-//   //  setLoading(true);
-//    const res = await signIn("credentials", {redirect: false, loginEmail: payload?.email, password: payload?.password});
-//    if(res?.ok){
-//        Toast.fire({
-//          icon: "success",
-//          title: "Login successfully",
-//        });
-//     }else{
-//        Toast.fire({
-//         icon: "error",
-//         title: "Invalid credentials",
-//        });
-//     }
-//    form.reset();
-//   //  setLoading(false);
-//   }
+    // 4. Login user logic
+    if (mode === "login" && !session?.user?.email) {
+      try {
+        await signIn("credentials", { email, password, redirectTo: "/", });
+      } catch (error) {
+        if (error instanceof AuthError) {
+          return { error: error?.type };
+        }
+        // executes the throw if signIn action success or not
+        // redirectTo function executes from the block with "throw"
+        throw error; 
+      }
+    };
 };
+

@@ -19,7 +19,8 @@
   text-wrap: nowrap;
   background: #ffff;
   padding: 3px;
-  border-radius: 2px;
+  border-radius: 5px;
+  box-shadow: 0 3px 4px 3px #e4dddd;
 }
 
 .bg-l-overlay{

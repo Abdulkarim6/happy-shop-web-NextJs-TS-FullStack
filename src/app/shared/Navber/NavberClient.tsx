@@ -26,29 +26,22 @@ type TypeOfGenders = {
   categoriesOfaccessories : CategoriesType | undefined;
 }
 const NavberClient = ({session, categoriesOfMan, categoriesOfwomen, categoriesOfkids, categoriesOfaccessories}: TypeOfGenders) => {
-    const [searchForProducts, setSearchForProducts] = useState<string>("");
+  // console.log("NavberClient", session);
+  const [searchForProducts, setSearchForProducts] = useState<string>("");
 
     const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
-    const [width, setWidth] = useState<number>(0);
-
-    useEffect(() => {
-      const handleResize = () => setWidth(window.innerWidth);
-      handleResize();
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }, []);
 
     const navigationMenuLink = `text-base lg:text-lg font-medium !px-2 !py-1 lg:!px-4 lg:!py-2`;
     
     return (
-        <div className="relative w-[92%]">
+        <div className="relative w-full">
         <div className="flex items-center p-2 !pr-2 relative bg-slate-100 z-20">
         {/* toggle Hamburger Handle */}
         <div className="md:hidden">
           {toggleHamburger ? (
-            <> <X onClick={() => setToggleHamburger(!toggleHamburger)} size={30} className="mx-2" /> </>
+            <X onClick={() => setToggleHamburger(!toggleHamburger)} size={30} className="mx-2" />
           ) : (
-            <> <AlignJustify onClick={() => setToggleHamburger(!toggleHamburger)} size={30} className="mx-2" /> </>
+            <AlignJustify onClick={() => setToggleHamburger(!toggleHamburger)} size={30} className="mx-2" />
           )}
         </div>
 
@@ -57,7 +50,6 @@ const NavberClient = ({session, categoriesOfMan, categoriesOfwomen, categoriesOf
           className={`cursor-default shrink-0 text-base md:text-xl lg:text-3xl font-semibold mr-4 md:mr-10 lg:mr-14 ${poppins.className}`}
         >
           {/* Happy Shop */}
-
           {session?.user?.name}
         </button>
 
@@ -205,43 +197,16 @@ const NavberClient = ({session, categoriesOfMan, categoriesOfwomen, categoriesOf
         </div> */}
 
         {/* Authentication related Menu */}
-        <NavigationMenu viewport={false} className="">
-          <NavigationMenuList>
-            <NavigationMenuItem className="">
-              <NavigationMenuTrigger className={navigationMenuLink}>
-                <CircleUserRound />
-                <ChevronDownIcon
-                  className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-                  aria-hidden="true"
-                />
-              </NavigationMenuTrigger>
-              <NavigationMenuContent className="!absolute w-auto -left-6 md:left-0">
-                <ul className="grid gap-1">
-                  <Link href="/account/auth?mode=register">
-                    <Button variant="ghost" className="text-base lg:text-lg py-1 px-2" >
-                      Register
-                    </Button>
-                  </Link>
-                  <Link href="/account/auth?mode=login">
-                    <Button variant="ghost" className="text-base lg:text-lg py-1 px-2" >
-                      Login
-                    </Button>
-                  </Link>
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
+        
 
         {/* NavigationMenu for only mobile view */}
-        {/* {width <= 767 && ( */}
           <div
             className={`absolute md:hidden top-full left-0 overflow-x-hidden 
                transition-all duration-200 ease-in-out ${
                  toggleHamburger
                    ? "w-3/5 translate-x-0"
                    : "w-0 -translate-x-full"
-               } `}
+               }`}
           >
             <MobileView 
              categoriesOfMan={categoriesOfMan}
@@ -250,7 +215,6 @@ const NavberClient = ({session, categoriesOfMan, categoriesOfwomen, categoriesOf
              categoriesOfaccessories={categoriesOfaccessories}
             />
           </div>
-        {/* )} */}
         </div> 
 
         {/* showing products by searching */}

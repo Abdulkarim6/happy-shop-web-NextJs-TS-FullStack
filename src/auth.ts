@@ -13,34 +13,41 @@ const providers: Provider[] = [
       email: {},
       password: {},
     },
-    async authorize(credentials, req) {
-      if(!credentials){
-        throw new Error("No credentials provided"); //Never come credentials type as undefined in this block
-      }
-      
-      const {email, password} = credentials;   
-      const usersCollection = dbConnect("users");
-      const isExistsUser = await usersCollection.findOne({email : email});
-    
-      const hashedPassword = isExistsUser?.password;
-      
-      const isPasswordOk = await bcrypt.compare(password as string, hashedPassword);
-      
-      const user = { 
-        id: isExistsUser?._id.toString() ?? "" , 
-        name: isExistsUser?.name, 
-        email: isExistsUser?.email
-      }; 
+    async authorize(credentials) {
+      // if return null, the null set an error internally and pass to signIn function
+      if (!credentials) return null;
 
-      if (isExistsUser && isPasswordOk) {
-        return user;
-      } else {
-        return null
+      const { email, password } = credentials;
+
+      if (!email || !password) return null;
+
+      const usersCollection = await dbConnect("users");
+
+      const userFromDb = await usersCollection.findOne({ email });
+
+      if (!userFromDb || !userFromDb.password) {
+        return null;
       }
+
+      const isPasswordOk = await bcrypt.compare(
+        password as string,
+        userFromDb.password
+      );
+
+      if (!isPasswordOk) {
+        return null;
+      }
+
+      return {
+        id: userFromDb._id.toString(),
+        name: userFromDb.name,
+        email: userFromDb.email,
+      };
     },
   }),
 
-  Google,  GitHub, 
+  Google,
+  GitHub,
 ];
 
 

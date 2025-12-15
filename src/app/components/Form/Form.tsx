@@ -5,10 +5,18 @@ import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import authenticateImg from "../../../../public/bannerImages/authenticate.jpg";
 import FormSwitch from "@/app/authFormComponents/FormSwitch";
-import SubmitButton from "@/app/authFormComponents/SubmitButton";
 import SocialLoginButtons from "@/app/authFormComponents/SocialLoginButtons";
+import SubmitButton from "@/app/authFormComponents/SubmitButton";
 
-const Form = async({mode}:{mode:string}) => {
+export type InitialStateType = {
+  isRegisterPage?:boolean;
+  message?: string;
+  acknowledged?: boolean | string;
+  insertedId?: string | null;
+};
+
+
+const Form = async({mode}:{mode:"login" | "register"}) => {
     const isRegisterPage = (mode === "register");
 
     return (
