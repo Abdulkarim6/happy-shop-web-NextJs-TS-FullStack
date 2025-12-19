@@ -26,7 +26,7 @@ type TypeOfGenders = {
   categoriesOfaccessories : CategoriesType | undefined;
 }
 const NavberClient = ({session, categoriesOfMan, categoriesOfwomen, categoriesOfkids, categoriesOfaccessories}: TypeOfGenders) => {
-  // console.log("NavberClient", session);
+  console.log("NavberClient", session);
   const [searchForProducts, setSearchForProducts] = useState<string>("");
 
     const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);

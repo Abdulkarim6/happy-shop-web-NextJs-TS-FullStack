@@ -1,19 +1,11 @@
-import { Button } from "@/components/ui/button";
 import { Card, CardContent} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Image from "next/image";
-import authenticateImg from "../../../../public/bannerImages/authenticate.jpg";
 import FormSwitch from "@/app/authFormComponents/FormSwitch";
 import SocialLoginButtons from "@/app/authFormComponents/SocialLoginButtons";
 import SubmitButton from "@/app/authFormComponents/SubmitButton";
 
-export type InitialStateType = {
-  isRegisterPage?:boolean;
-  message?: string;
-  acknowledged?: boolean | string;
-  insertedId?: string | null;
-};
+import { providerMap } from "@/auth";
 
 
 const Form = async({mode}:{mode:"login" | "register"}) => {
@@ -21,17 +13,8 @@ const Form = async({mode}:{mode:"login" | "register"}) => {
 
     return (
       <div className="flex flex-col gap-6 w-full">
-        <div className="fixed h-screen w-screen overflow-hidden -z-1 opacity-80">
-        <Image
-          alt="Mountains" src={authenticateImg} placeholder="blur"
-          quality={100} fill sizes="100vw"
-          style={{
-            objectFit: "cover",
-          }}
-         />
-        </div>
       {/* isRegisterPage means the feild see only new user */}
-      <Card className={`overflow-hidden bg-slate-100 opacity-90 ${ isRegisterPage ? "mt-5" : "mt-7"} mx-auto w-full max-w-sm`}>
+      <Card className={`overflow-hidden gap-0 bg-slate-100 opacity-90 ${ isRegisterPage ? "mt-5" : "mt-7"} mx-auto w-full max-w-sm`}>
         <CardContent className="p-0">
          <form className="p-6 md:p-8">
               <div className="flex flex-col gap-6">
@@ -73,6 +56,7 @@ const Form = async({mode}:{mode:"login" | "register"}) => {
                 Or continue with
               </span>
             </div>
+            {/* <SocialLoginButtons providerMap={providerMap}/> */}
             <SocialLoginButtons/>
         </CardContent>
       </Card>

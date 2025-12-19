@@ -8,6 +8,7 @@ export interface UserData {
     name: string;
     email:string;
     password:string;
+    role?:string;
 }
 
 export const postNewRegisterUser = async (payload : UserData) => {
@@ -27,7 +28,7 @@ export const postNewRegisterUser = async (payload : UserData) => {
         
         const hashingPassword = await bcrypt.hash(password, 10);
         payload.password = hashingPassword;
-        const promise = await usersCollection.insertOne(payload);
+        const promise = await usersCollection.insertOne({...payload, role:"user"});
 
         const res: AuthActionReturnType = {
           acknowledged: promise?.acknowledged,

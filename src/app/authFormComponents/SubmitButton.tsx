@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { authFormSubmit } from "../actions/authFormSubmit";
 import { Toast } from "../utils/interfaces";
 import { redirect, useRouter } from "next/navigation";
+import { useFormStatus } from "react-dom";
 
 export type AuthActionReturnType = {
   message?: string | null;
@@ -17,14 +18,13 @@ export type AuthActionReturnType = {
 const SubmitButton = ({mode}:{mode:"login" | "register"}) => {
   const isRegisterPage = mode === "register";
   const router = useRouter();
-
+  const { pending } = useFormStatus();
+  
   const formAction = async(formdata : FormData) =>{
       const res = await authFormSubmit(mode, formdata);
-      console.log(res);
 
       // Logic for register page
       if(mode === "register"){
-      console.log("this call from is register block");
         if (res?.acknowledged && res?.message) {
           router.push("/account/auth?mode=login");
           Toast.fire({
@@ -48,8 +48,6 @@ const SubmitButton = ({mode}:{mode:"login" | "register"}) => {
 
     // Logic for login page
     if(mode === "login"){
-      console.log("this call from is login block");
-      
         if (!res?.error) {
           Toast.fire({
             icon: "success",
@@ -85,10 +83,9 @@ const SubmitButton = ({mode}:{mode:"login" | "register"}) => {
     }
   }
 
-    
     return (
     <div>
-      <Button formAction={formAction} disabled={false} className="w-full">
+      <Button formAction={formAction} disabled={pending} className="w-full">
         {isRegisterPage ? "REGISTER" : "LOGIN"}
       </Button>
     </div>

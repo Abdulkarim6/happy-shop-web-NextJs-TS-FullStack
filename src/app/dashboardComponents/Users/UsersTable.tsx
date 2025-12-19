@@ -64,7 +64,7 @@ export default function UsersTable({ users }: { users: UserType[] }) {
           <td className="p-2">{u.name}</td>
           <td className="p-2">{u.email}</td>
           {
-            u?.isAdmin ?
+            u?.role === "admin" ?
 
           <td className="p-2">
             <button className="bg-green-500 text-white px-3 py-1 rounded" disabled>

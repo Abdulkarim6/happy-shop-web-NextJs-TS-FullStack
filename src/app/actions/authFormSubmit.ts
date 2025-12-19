@@ -42,6 +42,7 @@ export const authFormSubmit = async ( mode: "login" | "register", formData: Form
     // 4. Login user logic
     if (mode === "login" && !session?.user?.email) {
       try {
+        console.log("log from server inside the login block.", "time:", new Date().toLocaleString());
         await signIn("credentials", { email, password, redirectTo: "/", });
       } catch (error) {
         if (error instanceof AuthError) {

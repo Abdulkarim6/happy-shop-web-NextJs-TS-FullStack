@@ -50,7 +50,7 @@ export interface UserType{
   name:string;
   email:string;
   password:string;
-  isAdmin?:string;
+  role?:string;
 }
 
 export type OrderedDataype = {

@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google"
+import LinkedIn from "next-auth/providers/linkedin";
 import Credentials from "next-auth/providers/credentials";
 import type { Provider } from "next-auth/providers";
 import dbConnect from "./lib/dbConnect";
@@ -14,6 +15,7 @@ const providers: Provider[] = [
       password: {},
     },
     async authorize(credentials) {
+      // console.log( "log from server inside the auth.ts file", credentials, "time:", new Date().toLocaleString() );
       // if return null, the null set an error internally and pass to signIn function
       if (!credentials) return null;
 
@@ -46,8 +48,18 @@ const providers: Provider[] = [
     },
   }),
 
-  Google,
+  Google({
+    authorization: {
+      params: {
+        prompt: "consent",
+        // prompt: "select_account",
+        access_type: "offline",
+        response_type: "code",
+      },
+    },
+  }),
   GitHub,
+  LinkedIn,
 ];
 
 
@@ -64,4 +76,79 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
     signIn: "/account/login",
   },
+
+  callbacks: {
+    async signIn() {
+     // signIn logics handled by events object for fast OAuth login, 
+     // evants logic executes in background without block OAuth Flow
+    return true;
+    },
+
+    //set extra data from db to token
+    async jwt({token,user,account,session}){
+    if (user && account) {
+      // Credentials user → role already present
+      if (account.provider === "credentials" && !token.role) {
+        token.role = user?.role as string;
+      }
+
+      // OAuth user → fetch role from DB
+      if (account.provider !== "credentials" && !token.role) {
+        const users = dbConnect("users");
+
+        const dbUser = await users.findOne({
+          provider: account.provider,
+          providerAccountId: account.providerAccountId,
+        });
+
+        token.role = dbUser?.role;
+      }
+      token.providerAccountId = account.providerAccountId;
+    }
+    
+    return token;
+    },
+
+    //set extra data from token to session
+    async session({ session, token, user }) {
+    if(token){
+      session.user.role = token?.role as string;
+      session.user.providerAccountId = token?.providerAccountId as string;
+    }
+ 
+    return session
+   }
+  },
+
+  events: {
+    // OAuth providers → first time insert OAuth user data to db and then next times allow to signIn
+  async signIn({ user, account }) {
+       // Credentials → just allow to sugnIn
+       if (account?.provider === "credentials") return; 
+
+       // OAuth providers → first time insert OAuth user data to db and then next times allow to signIn
+       if (account) {
+        console.log( "log from server inside the auth.ts file for signIn entry", "time:", new Date().toLocaleString() );
+         const users = dbConnect("users");
+
+         const existingUser = await users.findOne({
+           provider: account.provider,
+           providerAccountId: account.providerAccountId,
+         });
+
+         if (!existingUser) {
+
+         const payload = {
+           name: user.name, email: user.email, image: user.image,
+           role: "user", provider: account.provider, providerAccountId: account.providerAccountId,
+         };
+
+           await users.insertOne(payload);
+          }
+      console.log( "log from server inside the auth.ts file after signIn complete", "time:", new Date().toLocaleString() );
+          return;
+        }
+  },
+},
+
 });

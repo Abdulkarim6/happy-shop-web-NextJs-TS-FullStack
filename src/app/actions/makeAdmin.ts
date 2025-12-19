@@ -9,7 +9,7 @@ export const makeAdmin = async (id: string) => {
     const collection = dbConnect("users");
     const query = { _id: new ObjectId(id) };
     const payload = {
-        $set:{isAdmin:true}
+        $set:{role:"admin"}
     }
     const options = {
         upsert:true
