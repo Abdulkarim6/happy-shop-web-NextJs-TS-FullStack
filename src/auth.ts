@@ -51,8 +51,8 @@ const providers: Provider[] = [
   Google({
     authorization: {
       params: {
-        prompt: "consent",
-        // prompt: "select_account",
+        // prompt: "consent",
+        prompt: "select_account",
         access_type: "offline",
         response_type: "code",
       },
@@ -62,12 +62,18 @@ const providers: Provider[] = [
     authorization: {
       params: {
         prompt: "consent",
+      },
+    },
+  }),
+  LinkedIn({
+    authorization: {
+      params: {
+        prompt: "login",
         access_type: "offline",
         response_type: "code",
       },
     },
   }),
-  LinkedIn,
 ];
 
 
