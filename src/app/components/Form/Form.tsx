@@ -56,7 +56,6 @@ const Form = async({mode}:{mode:"login" | "register"}) => {
                 Or continue with
               </span>
             </div>
-            {/* <SocialLoginButtons providerMap={providerMap}/> */}
             <SocialLoginButtons/>
         </CardContent>
       </Card>
