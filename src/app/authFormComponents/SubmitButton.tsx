@@ -14,14 +14,20 @@ export type AuthActionReturnType = {
   error?: string | null
 } | undefined;
 
+type PropsType = {
+    mode: "login" | "register";
+    callbackUrl: string | undefined;
+};
 
-const SubmitButton = ({mode}:{mode:"login" | "register"}) => {
+const SubmitButton = ({mode, callbackUrl}:PropsType) => {
+  console.log(callbackUrl);
+  
   const isRegisterPage = mode === "register";
   const router = useRouter();
   const { pending } = useFormStatus();
   
   const formAction = async(formdata : FormData) =>{
-      const res = await authFormSubmit(mode, formdata);
+      const res = await authFormSubmit(mode, callbackUrl, formdata);
 
       // Logic for register page
       if(mode === "register"){
@@ -48,11 +54,16 @@ const SubmitButton = ({mode}:{mode:"login" | "register"}) => {
 
     // Logic for login page
     if(mode === "login"){
-        if (!res?.error) {
+     if (res?.acknowledged) {
+        try {
+          router.refresh()
+        } finally {
           Toast.fire({
             icon: "success",
-            title: `LoggedIn Successfully`,
+            title: `${res?.message}`,
           });
+          redirect(callbackUrl ?? "/");
+        }
         } else {
           let title = "";
 

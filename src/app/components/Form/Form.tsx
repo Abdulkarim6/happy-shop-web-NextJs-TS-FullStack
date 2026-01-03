@@ -5,11 +5,19 @@ import FormSwitch from "@/app/authFormComponents/FormSwitch";
 import SocialLoginButtons from "@/app/authFormComponents/SocialLoginButtons";
 import SubmitButton from "@/app/authFormComponents/SubmitButton";
 
-import { providerMap } from "@/auth";
+type PropsType = {
+  searchParams: Promise<{
+    mode: "login" | "register";
+    callbackUrl: string | undefined;
+  }>;
+};
 
-
-const Form = async({mode}:{mode:"login" | "register"}) => {
-    const isRegisterPage = (mode === "register");
+// const Form = async({props.searchParams}: {props:PropsType}) => {
+const Form = async({props}:{props:PropsType}) => {
+  const {mode, callbackUrl} = await props.searchParams; // login | register & callbackUrl
+  console.log(mode, callbackUrl);
+  
+  const isRegisterPage = (mode === "register");
 
     return (
       <div className="flex flex-col gap-6 w-full">
@@ -40,7 +48,8 @@ const Form = async({mode}:{mode:"login" | "register"}) => {
                 </div>
                 
                 {/* form Submit button with action trigger*/}
-                <SubmitButton mode={mode}/>
+                {/* <SubmitButton mode={mode} callbackUrl={callbackUrl}/> */}
+                <SubmitButton mode={mode} callbackUrl={callbackUrl}/>
 
                 {/* use link to switch form*/}
                 <FormSwitch mode={mode}/>

@@ -5,7 +5,8 @@ import LinkedIn from "next-auth/providers/linkedin";
 import Credentials from "next-auth/providers/credentials";
 import type { Provider } from "next-auth/providers";
 import dbConnect from "./lib/dbConnect";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
+
 
 // Initialized providers
 const providers: Provider[] = [
@@ -44,10 +45,10 @@ const providers: Provider[] = [
         id: userFromDb._id.toString(),
         name: userFromDb.name,
         email: userFromDb.email,
+        role: userFromDb?.role,
       };
     },
   }),
-
   Google({
     authorization: {
       params: {
@@ -92,22 +93,26 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
 
   callbacks: {
-    async signIn() {
+    async signIn({user,account,credentials,profile}) {
+    console.log( "log from callback signIn", "time:", new Date().toLocaleString() );
+    // console.log("u:", user, "a:", account, "c:", credentials, "p:", profile);
      // signIn logics handled by events object for fast OAuth login, 
      // evants logic executes in background without block OAuth Flow
     return true;
     },
 
     //set extra data from db to token
-    async jwt({token,user,account,session}){
+    async jwt({token,user,account}){
+      console.log('log from inside the jwt');
+      
     if (user && account) {
       // Credentials user → role already present
-      if (account.provider === "credentials" && !token.role) {
+      if (account.provider === "credentials") {
         token.role = user?.role as string;
       }
 
       // OAuth user → fetch role from DB
-      if (account.provider !== "credentials" && !token.role) {
+      if (account.provider !== "credentials") {
         const users = dbConnect("users");
 
         const dbUser = await users.findOne({
@@ -115,8 +120,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           providerAccountId: account.providerAccountId,
         });
 
-        token.role = dbUser?.role;
+        token.role = dbUser?.role || "user";
       }
+
       token.providerAccountId = account.providerAccountId;
     }
     
@@ -142,7 +148,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
        // OAuth providers → first time insert OAuth user data to db and then next times allow to signIn
        if (account) {
-        console.log( "log from server inside the auth.ts file for signIn entry", "time:", new Date().toLocaleString() );
+console.log("log from event signIn entry", "time:", new Date().toLocaleString());
          const users = dbConnect("users");
 
          const existingUser = await users.findOne({
@@ -159,7 +165,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
            await users.insertOne(payload);
           }
-      console.log( "log from server inside the auth.ts file after signIn complete", "time:", new Date().toLocaleString() );
+      console.log( "log from event signIn after end", "time:", new Date().toLocaleString() );
           return;
         }
   },

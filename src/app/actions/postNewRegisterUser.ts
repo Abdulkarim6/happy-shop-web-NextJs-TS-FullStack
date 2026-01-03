@@ -1,5 +1,6 @@
 "use server"
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
+
 
 import dbConnect from "@/lib/dbConnect"
 import { AuthActionReturnType } from "../authFormComponents/SubmitButton";

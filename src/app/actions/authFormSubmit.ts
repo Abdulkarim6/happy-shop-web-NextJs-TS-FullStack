@@ -3,8 +3,11 @@
 import { auth, signIn } from "@/auth";
 import { UserData, postNewRegisterUser } from "./postNewRegisterUser";
 import { AuthError } from "next-auth";
+import { redirect } from "next/navigation";
 
-export const authFormSubmit = async ( mode: "login" | "register", formData: FormData ) => {
+export const authFormSubmit = async ( mode: "login" | "register",callbackUrl: string | undefined, formData: FormData ) => {
+  console.log('from server', callbackUrl);
+  
   const session = await auth();
 
     // 1. If user loggedIn, return from here
@@ -43,13 +46,16 @@ export const authFormSubmit = async ( mode: "login" | "register", formData: Form
     if (mode === "login" && !session?.user?.email) {
       try {
         console.log("log from server inside the login block.", "time:", new Date().toLocaleString());
-        await signIn("credentials", { email, password, redirectTo: "/", });
+        //  await signIn("credentials", { email, password, redirectTo: callbackUrl ?? "/" });
+        await signIn("credentials", { email, password, redirect: false });
+        return { acknowledged: true, message: "Login successful" };
+        //redirect(callbackUrl ?? "/")
       } catch (error) {
         if (error instanceof AuthError) {
           return { error: error?.type };
         }
         // executes the throw if signIn action success or not
-        // redirectTo function executes from the block with "throw"
+        // redirectTo function executes from in the block with "throw"
         throw error; 
       }
     };

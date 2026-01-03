@@ -2,14 +2,12 @@ import Form from "@/app/components/Form/Form";
 import Image from "next/image";
 import authenticateImg from "../../../../public/bannerImages/authenticate.jpg";
 
-const page = async({ searchParams, }: { searchParams: Promise<{ mode: "login" | "register" }> }) => {
-    const {mode} = await searchParams; // login | register
-      console.log(
-        "log from server auth page",
-        
-        "time:",
-        new Date().toLocaleString()
-      );
+const page = async(props: {
+  searchParams: Promise<{mode: "login" | "register" , callbackUrl: string | undefined }
+>}) => {
+    
+ // const p = await props?.searchParams; // login | register
+      console.log( "log from server auth page", "time:", new Date().toLocaleString() );
     
     return (
         <div className="w-full">
@@ -22,7 +20,7 @@ const page = async({ searchParams, }: { searchParams: Promise<{ mode: "login" | 
               }}
              />
           </div>
-          <Form mode={mode}/> 
+          <Form props={props}/> 
         </div>
     );
 };

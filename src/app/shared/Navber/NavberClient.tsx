@@ -26,7 +26,7 @@ type TypeOfGenders = {
   categoriesOfaccessories : CategoriesType | undefined;
 }
 const NavberClient = ({session, categoriesOfMan, categoriesOfwomen, categoriesOfkids, categoriesOfaccessories}: TypeOfGenders) => {
-  console.log("NavberClient", session);
+  //console.log("NavberClient", session);
   const [searchForProducts, setSearchForProducts] = useState<string>("");
 
     const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
@@ -173,6 +173,8 @@ const NavberClient = ({session, categoriesOfMan, categoriesOfwomen, categoriesOf
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
+            {
+              session?.user?.role === "admin" &&
             <NavigationMenuItem>
               <NavigationMenuLink
                 asChild
@@ -181,6 +183,7 @@ const NavberClient = ({session, categoriesOfMan, categoriesOfwomen, categoriesOf
                 <Link href="/dashboard">Dashboard</Link>
               </NavigationMenuLink>
             </NavigationMenuItem>
+            }
           </NavigationMenuList>
         </NavigationMenu>
 
@@ -195,8 +198,6 @@ const NavberClient = ({session, categoriesOfMan, categoriesOfwomen, categoriesOf
             placeholder="Search..."
           />
         </div> */}
-
-        {/* Authentication related Menu */}
         
 
         {/* NavigationMenu for only mobile view */}
