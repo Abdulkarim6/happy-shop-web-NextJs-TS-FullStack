@@ -31,7 +31,6 @@ export const authFormSubmit = async ( mode: "login" | "register",callbackUrl: st
     // 3. Register user logic
     if (mode === "register") {
         const res = await postNewRegisterUser(payload);
-         console.log("log from server inside the new user stored:", res, "time:", new Date().toLocaleString());
         
         return {
           acknowledged: res?.acknowledged,

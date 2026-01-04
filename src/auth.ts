@@ -94,7 +94,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
   callbacks: {
     async signIn({user,account,credentials,profile}) {
-    console.log( "log from callback signIn", "time:", new Date().toLocaleString() );
+    //console.log( "log from callback signIn", "time:", new Date().toLocaleString() );
     // console.log("u:", user, "a:", account, "c:", credentials, "p:", profile);
      // signIn logics handled by events object for fast OAuth login, 
      // evants logic executes in background without block OAuth Flow
@@ -103,7 +103,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
     //set extra data from db to token
     async jwt({token,user,account}){
-      console.log('log from inside the jwt');
+     // console.log('log from inside the jwt');
       
     if (user && account) {
       // Credentials user → role already present
@@ -148,7 +148,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
        // OAuth providers → first time insert OAuth user data to db and then next times allow to signIn
        if (account) {
-console.log("log from event signIn entry", "time:", new Date().toLocaleString());
+        //console.log("log from event signIn entry", "time:", new Date().toLocaleString());
          const users = dbConnect("users");
 
          const existingUser = await users.findOne({
@@ -165,7 +165,7 @@ console.log("log from event signIn entry", "time:", new Date().toLocaleString())
 
            await users.insertOne(payload);
           }
-      console.log( "log from event signIn after end", "time:", new Date().toLocaleString() );
+         //console.log( "log from event signIn after end", "time:", new Date().toLocaleString() );
           return;
         }
   },

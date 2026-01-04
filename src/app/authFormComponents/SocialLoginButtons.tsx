@@ -15,14 +15,13 @@ type ProviderType = {
     name: string;
 }[];
 
-const SocialLoginButtons = () => {
+const SocialLoginButtons = ({callbackUrl}:{callbackUrl: string | undefined}) => {
   const OauthSignInAction = async(formData:FormData) =>{
     "use server"
     const providerId = await formData.get("id") as string
     try {
-    console.log( "log from server inside the socialLogin buttons component", "time:", new Date().toLocaleString() );
       await signIn(providerId, {
-        // redirectTo: params?.callbackUrl ?? "",
+        redirectTo: callbackUrl ?? "/",
       });
     } catch (error) {
       // Signin can fail for a number of reasons, such as the user

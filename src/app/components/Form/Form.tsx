@@ -48,7 +48,6 @@ const Form = async({props}:{props:PropsType}) => {
                 </div>
                 
                 {/* form Submit button with action trigger*/}
-                {/* <SubmitButton mode={mode} callbackUrl={callbackUrl}/> */}
                 <SubmitButton mode={mode} callbackUrl={callbackUrl}/>
 
                 {/* use link to switch form*/}
@@ -65,7 +64,7 @@ const Form = async({props}:{props:PropsType}) => {
                 Or continue with
               </span>
             </div>
-            <SocialLoginButtons/>
+            <SocialLoginButtons callbackUrl={callbackUrl}/>
         </CardContent>
       </Card>
       </div>

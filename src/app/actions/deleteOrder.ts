@@ -16,7 +16,6 @@ export const deleteOrder = async(orderdProduct:OrderedDataype) =>{
       const res = await collection.deleteOne(query);
 
       if (res?.acknowledged) {
-        console.log('log from deleteorder route');
         
         revalidateTag("orders");
       }
