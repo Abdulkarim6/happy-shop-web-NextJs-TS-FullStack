@@ -1,6 +1,7 @@
 "use client"
 
-import { Product } from "@/app/utils/interfaces";
+import { addToBag } from "@/app/actions/addProductToBag";
+import { Product, Toast } from "@/app/utils/interfaces";
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, } from "@/components/ui/dialog"
 import { Eye, Minus, Plus } from "lucide-react";
@@ -14,6 +15,7 @@ type propsTypes = {
 const QuickViewDialog = ({product} : propsTypes) => {
     const [orderQuantity, setorderQuantity] = useState<number>(1);
     const [selectedSizeOfProduct, setSelectedSizeOfProduct] = useState<string>("");
+    const [addToBagProcessing, setAddToBagProcessing] = useState<boolean>(false);
     // console.log(orderQuantity);
 
     const handleOrderQuantityControll = (param : "plus" | "minus") =>{
@@ -24,7 +26,35 @@ const QuickViewDialog = ({product} : propsTypes) => {
       if (param === "minus") {
         setorderQuantity(prev => (prev > 1 && !Number.isNaN(prev) ? --prev : 1));
       }
-    }
+    };
+
+    const handleAddToBag = async (product: Product) => {
+      setAddToBagProcessing(true);
+      const payload = {
+        productId: product?._id,
+        productName: product?.name,
+        productImg: product?.image,
+        productQuantity: orderQuantity,
+        productQsize: selectedSizeOfProduct,
+        productPrice: product?.price,
+      };
+
+      const res = await addToBag(payload);
+
+      if (res?.acknowledged) {
+        Toast.fire({
+          icon: "success",
+          title: "Succesfully added to the Bag",
+        });
+      } else {
+        Toast.fire({
+          icon: "error",
+          title: "Faild to add to the Bag",
+        });
+      }
+      setAddToBagProcessing(false);
+    };
+
     return (
         <section>
             <Dialog>
@@ -79,7 +109,11 @@ const QuickViewDialog = ({product} : propsTypes) => {
                    </DialogHeader>
                   <DialogFooter className="flex !flex-col mt-10 gap-2">
                     <Link href={`/productDetails/${product?.subCategory?.split(" ").join("-")}/${product?._id}`} className="w-full rounded-none h-7 md:h-10 text-black hover:text-white bg-inherit hover:bg-black p-0 md:p-2 text-center font-semibold border border-black">VIEW DETAILS</Link>
-                    <Button type="submit" className="w-full rounded-none h-7 md:h-10 text-black hover:text-white bg-inherit hover:bg-orange-400 p-0 md:p-2 border border-black mt-2">ADD TO CART</Button>
+                    <Button disabled={addToBagProcessing} 
+                    onClick={() => handleAddToBag(product)}
+                    buttonSize="sm" type="submit" className="w-full rounded-none text-black hover:text-white bg-inherit hover:bg-orange-400 p-4 border-[1px] border-solid border-black mt-2">
+                      ADD TO BAG
+                    </Button>
                   </DialogFooter>
                 </div>
               </DialogContent>
