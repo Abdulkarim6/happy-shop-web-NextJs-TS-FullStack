@@ -8,6 +8,8 @@ import { Eye, Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 type propsTypes = {
   product: Product;
@@ -28,6 +30,8 @@ const QuickViewDialog = ({product} : propsTypes) => {
       }
     };
 
+    const pathname = usePathname();
+    const router = useRouter();
     const handleAddToBag = async (product: Product) => {
       setAddToBagProcessing(true);
       const payload = {
@@ -41,7 +45,11 @@ const QuickViewDialog = ({product} : propsTypes) => {
 
       const res = await addToBag(payload);
 
-      if (res?.acknowledged) {
+      if (res?.error === "UNAUTHORIZED") {
+        router.push(
+          `/account/auth?mode=login&callbackUrl=${encodeURIComponent(pathname)}`
+        );
+      } else if (res?.acknowledged) {
         Toast.fire({
           icon: "success",
           title: "Succesfully added to the Bag",

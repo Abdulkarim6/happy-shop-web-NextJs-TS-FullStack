@@ -7,7 +7,9 @@ import { auth } from "@/auth";
 export const deleteOrder = async(orderdProduct:OrderedDataype) =>{
     try {
       const session = await auth();
+      const buyerId = session?.user?.provider === "credentials" ? session?.user.credentialsUserId : session?.user.providerAccountId;
       const query = {
+        buyerId,
         buyerEmail: session?.user?.email,
         productId: orderdProduct?.productId,
       };
