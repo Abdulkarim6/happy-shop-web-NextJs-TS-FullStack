@@ -56,7 +56,7 @@ const CartNavberClient = ({ orderedProducts }: ParamsType) => {
             className=" bg-slate-100 border-2 border-solid border-black rounded sticky top-2 font-bold cursor-pointer"
           />
           
-          <div className="bg-slate-100 pl-2 w-full h-screen">
+          <div className="bg-slate-100 pl-2 w-full h-fit pb-5">
           <p className="text-center font-medium my-2">Your shopping bag</p>
           <div className="divide-y-3 divide-solid divide-blue-500">
             { orderedProducts && orderedProducts?.length ? 

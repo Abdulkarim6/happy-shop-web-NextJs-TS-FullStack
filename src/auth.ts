@@ -94,7 +94,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
   callbacks: {
     async signIn({user,account,credentials,profile}) {
-    //console.log( "log from callback signIn", "time:", new Date().toLocaleString() );
+    // console.log( "log from callback signIn", "time:", new Date().toLocaleString() );
     // console.log("u:", user, "a:", account, "c:", credentials, "p:", profile);
      // signIn logics handled by events object for fast OAuth login, 
      // evants logic executes in background without block OAuth Flow
@@ -103,12 +103,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
     //set extra data from db to token
     async jwt({token,user,account}){
-     // console.log('log from inside the jwt');
-      
-    if (user && account) {
+      // console.log( "log from callback jwt", "time:", new Date().toLocaleString() );
+      // console.log('log from inside the jwt', 't',token, user,account);
+          
+      if (user && account) {
       // Credentials user → role already present
       if (account.provider === "credentials") {
+        
+        token.provider = account.provider,
         token.role = user?.role as string;
+        token.credentialsUserId = user?.id as string;
       }
 
       // OAuth user → fetch role from DB
@@ -119,11 +123,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           provider: account.provider,
           providerAccountId: account.providerAccountId,
         });
-
+        token.provider = account.provider,
         token.role = dbUser?.role || "user";
+        token.providerAccountId = account.providerAccountId;
       }
 
-      token.providerAccountId = account.providerAccountId;
     }
     
     return token;
@@ -132,6 +136,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     //set extra data from token to session
     async session({ session, token, user }) {
     if(token){
+      session.user.provider = token.provider as string;
+      session.user.credentialsUserId = token.credentialsUserId as string;
+      // session.user.OAuthUserId = token.OAuthUserId as string;
       session.user.role = token?.role as string;
       session.user.providerAccountId = token?.providerAccountId as string;
     }
@@ -143,6 +150,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   events: {
     // OAuth providers → first time insert OAuth user data to db and then next times allow to signIn
   async signIn({ user, account }) {
+    // console.log( "log from callback signIn events", "time:", new Date().toLocaleString() );
        // Credentials → just allow to sugnIn
        if (account?.provider === "credentials") return; 
 

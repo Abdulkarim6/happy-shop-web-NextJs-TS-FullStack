@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export default auth((req) => {
   const isLoggedIn = !!req.auth;
-  const role = req.auth?.user?.role;
+  const role = req.auth?.user?.role;``
   const { pathname } = req.nextUrl;
 
   // চেক করছি ইউজার ড্যাশবোর্ড বা অ্যাডমিন এরিয়াতে যাওয়ার চেষ্টা করছে কি না
