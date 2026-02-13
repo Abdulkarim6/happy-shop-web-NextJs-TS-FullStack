@@ -1,11 +1,11 @@
-import AddButton from '../components/homeComponents/Testimonials/AddButton';
+import AddReview from '../components/homeComponents/Testimonials/AddReview';
 import Testimonials from '../components/homeComponents/Testimonials/Testimonials';
 
 const page = () => {
     return (
         <section className='mt-2'>
           <Testimonials path="testimonialPage"/>
-          <AddButton/>
+          <AddReview/>
         </section>
     );
 };

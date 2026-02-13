@@ -1,6 +1,6 @@
 'use client';
 
-import {Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, } from "@/components/ui/dialog";
+import {Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, } from "@/components/ui/dialog";
 import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,19 +14,30 @@ import { useState, useTransition } from "react";
 import Form from "next/form";
 type ResType = { acknowledged: boolean; insertedId: string; }
 
-const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-const AddButton = () => {
+const AddReview = () => {
+  const router = useRouter();
   const [rating, setRating] = useState(0);
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition(); // ২. লোডিং স্টেট হ্যান্ডেল করার জন্য
-
+  
   const addReviewHandler = async(formdata : FormData) =>{
-    console.log( 22);
+    const date = new Date();
+    const ratingValue = formdata.get("rating");
+    const rating = typeof ratingValue === "string" ? Number(ratingValue) : 0;
+    const payload = {
+      date : date as Date,
+      rating: rating as number,
+      customer: formdata.get("name") as string,
+      review: formdata.get("comment") as string,
+    }
 
     startTransition(async () => {
       try {
-        // এখানে আপনার সার্ভার অ্যাকশন কল করুন
-        // await addReview(formData); 
+          const res:ResType | null = await addReview(payload);
+          console.log(res);
+          if(res?.acknowledged){
+            router.refresh();
+          }
         
         // ডামি ডিলে (বোঝার সুবিধার জন্য)
         await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -43,24 +54,6 @@ const AddButton = () => {
     });
     
   }
-
-    const router = useRouter();
-  //   const addReviewHandler = async () => {
-  //     // const res = await fetch(`${baseUrl}/api/addReviews`, {
-  //     //   method: "POST",
-  //     //   body: JSON.stringify(data),
-  //     //   headers: {
-  //     //     "Content-Type": "application/json",
-  //     //   },
-  //     // });
-  // //}
-
-  //     const res:ResType | null = await addReview();
-  //     console.log(res);
-  //     if(res?.acknowledged){
-  //       router.refresh();
-  //     }
-  //   };
 
 
     return (
@@ -98,7 +91,7 @@ const AddButton = () => {
                   />
                 </Field>
               </FieldGroup>
-              <DialogFooter>
+              <DialogFooter className="mt-5">
                 <DialogClose asChild>
                   <Button
                     variant="outline"
@@ -125,4 +118,4 @@ const AddButton = () => {
     );
 };
 
-export default AddButton;
+export default AddReview;
