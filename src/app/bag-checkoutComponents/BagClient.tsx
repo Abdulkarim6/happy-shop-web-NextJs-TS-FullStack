@@ -3,18 +3,8 @@ import React, { useState, useTransition } from "react";
 import { OrderedDataype } from "../utils/interfaces";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import Image from "next/image";
-import { proceedToCheckout } from "../actions/proceedToCheckout";
-type ResType = {
-    success: boolean;
-    modifiedCount: number;
-    matchedCount: number;
-    error?: undefined;
-} | {
-    success: boolean;
-    error: string;
-    modifiedCount?: undefined;
-    matchedCount?: undefined;
-} 
+import { proceedToCheckout } from "../actions/checkoutActions";
+
 const BagClient = ({orderedProducts}:{orderedProducts:OrderedDataype[]}) => {
     const [products, setProductsOrderQuantity] = useState<OrderedDataype[]>(orderedProducts);
     const [isPending, startTransition] = useTransition();

@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import Swal from "sweetalert2";
 
 export interface Product {
@@ -76,4 +77,17 @@ export const Toast = Swal.mixin({
   timerProgressBar: true,
 });
  
+
+export type AddressType = {
+  _id?: string;
+  name: string;
+  address: string;
+  phone: string;
+};
     
+export type AddressDBType = {
+  _id: ObjectId;
+  name: string;
+  address: string;
+  phone: string;
+};

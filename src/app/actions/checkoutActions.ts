@@ -1,0 +1,57 @@
+"use server";
+import { redirect } from "next/navigation";
+import { unstable_cache } from "next/cache";
+import { revalidateTag } from "next/cache";
+import { AddressDBType, AddressType, OrderedDataype } from "../utils/interfaces";
+import dbConnect from "@/lib/dbConnect";
+import { ObjectId } from "mongodb";
+
+export async function proceedToCheckout(latestCartData: OrderedDataype[]) {
+  try {
+    const collection = dbConnect("orders");
+
+    // bulkWrite operations তৈরি করা
+    const operations = latestCartData.map((item) => ({
+      updateOne: {
+        filter: { productId: item.productId, buyerId: item.buyerId },
+        update: { $set: { productQuantity: item.productQuantity } },
+        // upsert: false (ডিফল্ট), যদি আইটেম না থাকে তাহলে নতুন তৈরি করবে না
+      },
+    }));
+    // Error handling: ordered: false দিলে একটি আইটেম ফেল করলেও বাকিগুলো আপডেট হবে।
+    await collection.bulkWrite(operations, { ordered: false });
+
+    revalidateTag("orders");
+  } catch (error) {
+    console.error("Quantity update failed:", error);
+    return { success: false, error: "Failed to update quantities" };
+  }
+
+  redirect("/checkout");
+}
+
+
+export const loadAddress = unstable_cache(
+  async () => {
+    const addresses = await dbConnect("addresses").find({}).toArray();
+    const res = addresses.map((address) => ({
+      ...address,
+      _id: address._id.toString(), // _id কে স্ট্রিং id তে রূপান্তর
+    }));
+    return res as AddressType[];
+  },
+  ["addresses-list"], // cache key (unique করার জন্য, optional কিন্তু ভালো)
+  {
+    tags: ["addresses"], // ← এখানে ট্যাগ দাও
+    revalidate: 3600, // optional: ১ ঘণ্টা পর অটো revalidate
+  }
+);
+
+
+export async function deleteAddress(addId: string) {
+  const query = { _id: new ObjectId(addId) };
+  const res = await dbConnect("addresses").deleteOne(query);
+  if (res.acknowledged) {
+    revalidateTag("addresses");
+  }
+}
