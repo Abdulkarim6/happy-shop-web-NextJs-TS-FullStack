@@ -85,9 +85,3 @@ export type AddressType = {
   phone: string;
 };
     
-export type AddressDBType = {
-  _id: ObjectId;
-  name: string;
-  address: string;
-  phone: string;
-};

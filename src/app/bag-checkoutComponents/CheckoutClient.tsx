@@ -1,19 +1,21 @@
 "use client";
 
-import { useState } from "react";
-import { AddressType, Toast } from "../utils/interfaces";
+import { useState, useTransition } from "react";
+import { Button } from "@/components/ui/button";
+import {Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger, } from "@/components/ui/dialog";
+import { AddressType, OrderedDataype, Toast } from "../utils/interfaces";
 import { deleteAddress } from "../actions/checkoutActions";
+import AddressFormDialog from "./AddressFormDialog";
+import { Trash2 } from "lucide-react";
+import Image from "next/image";
 
-// ধরো addresses এইভাবে আসছে server থেকে (getSavedAddresses action দিয়ে)
-const savedAddresses = [
-  { id: "69944d650a1af267f47e339b", name: "Home", address: "Mirpur, Dhaka", phone: "01xxx" },
-  { id: "2", name: "Office", address: "Gulshan, Dhaka", phone: "01xxx" },
-  { id: "3", name: "Parents House", address: "Uttara, Dhaka", phone: "01xxx" },
-];
+type paramsType = {addresses: AddressType[]; orders:OrderedDataype[]};
 
-const CheckoutClient = ({ addresses }:{addresses:AddressType[]}) => {
+const CheckoutClient = ({ addresses, orders}:paramsType) => {
   const [selectedAddress, setSelectedAddress] = useState<string | null | undefined>(null);
   const [payButton, setPayButton] = useState<boolean>(false);
+  const [open, setOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const handleProceed = () => {
     if (!selectedAddress) {
@@ -23,10 +25,6 @@ const CheckoutClient = ({ addresses }:{addresses:AddressType[]}) => {
       });
     } else {
     }
-    // if (selectedAddress) {
-    //   console.log("Proceeding with address ID:", selectedAddress);
-    //   // এখানে payment gateway বা order create action কল করো
-    // }
   };
 
   const handleDeleteAdd = async (id: string | undefined) => {
@@ -39,14 +37,37 @@ const CheckoutClient = ({ addresses }:{addresses:AddressType[]}) => {
       <div className="container mx-auto p-4 max-w-7xl">
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="lg:w-2/3">
-            <div className="bg-white p-6 rounded shadow-sm">
+            <div className="bg-white px-6 py-1 rounded shadow-sm">
               <div className="flex justify-between items-center">
                 <h2 className="text-lg font-medium text-gray-700 mb-2">
                   Delivery Information
                 </h2>
-                <button className="btn-blue px-6 py-2 rounded font-bold shadow hover:shadow-lg transition">
-                  Add new address
-                </button>
+                {
+                  addresses.length >= 3 ?
+                  <span>You can add new address after delete an old address</span>
+                    :
+                <Dialog
+                  open={open}
+                  onOpenChange={(val) => {
+                    if (!isPending) setOpen(val); // সাবমিট চলাকালীন বন্ধ হবে না
+                  }}
+                >
+                  <DialogTrigger asChild className="my-5 ">
+                    <Button variant="outline">Add new address</Button>
+                  </DialogTrigger>
+                  <DialogContent className="w-full bg-slate-100 sm:max-w-2xl">
+                    <DialogHeader>
+                      <DialogTitle>Add new shipping Address</DialogTitle>
+                    </DialogHeader>
+                    <AddressFormDialog
+                      actionFor="addNewAddr"
+                      startTransition={startTransition}
+                      isPending={isPending}
+                      setOpen={setOpen}
+                    />
+                  </DialogContent>
+                </Dialog>
+                }
               </div>
 
               <div className="space-y-2 mb-8">
@@ -79,131 +100,92 @@ const CheckoutClient = ({ addresses }:{addresses:AddressType[]}) => {
                         </div>
                       </label>
                       <div className="flex justify-between items-center">
-                        <button className="px-5 py-1 rounded shadow hover:shadow-lg transition">
-                          edit
-                        </button>
+                        {/* <Dialog
+                          open={open}
+                          onOpenChange={(val) => {
+                            if (!isPending) setOpen(val); // সাবমিট চলাকালীন বন্ধ হবে না
+                          }}
+                        >
+                          <DialogTrigger
+                            asChild
+                            className="px-5 py-1 rounded shadow hover:shadow-lg transition"
+                          >
+                            <button>Edit</button>
+                          </DialogTrigger>
+                          <DialogContent className="w-full bg-slate-100 sm:max-w-2xl">
+                            <DialogHeader>
+                              <DialogTitle>
+                                Edit shipping Address
+                              </DialogTitle>
+                            </DialogHeader>
+                            <AddressFormDialog
+                              actionFor="editAddr"
+                              startTransition={startTransition}
+                              isPending={isPending}
+                              setOpen={setOpen}
+                            />
+                          </DialogContent>
+                        </Dialog> */}
                         <button
                           onClick={() => handleDeleteAdd(addr._id)}
                           className="px-5 py-1 rounded shadow hover:shadow-lg transition"
                         >
-                          delete
+                          Delete
                         </button>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
-
-              {/* <form>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
-                  <div>
-                    <label className="block text-xs text-gray-500 mb-1">
-                      Full name
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Enter your first and last name"
-                      className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs text-gray-500 mb-1">
-                      Region
-                    </label>
-                    <select className="w-full border border-gray-300 rounded px-3 py-2 text-sm text-gray-500 focus:outline-none focus:border-blue-400 bg-white">
-                      <option>Please choose your region</option>
-                      <option>Dhaka</option>
-                      <option>Chittagong</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs text-gray-500 mb-1">
-                      Phone Number
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Please enter your phone number"
-                      className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs text-gray-500 mb-1">
-                      City
-                    </label>
-                    <select className="w-full border border-gray-300 rounded px-3 py-2 text-sm text-gray-500 focus:outline-none focus:border-blue-400 bg-white">
-                      <option>Please choose your city</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs text-gray-500 mb-1">
-                      Building / House No / Floor / Street
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Please enter"
-                      className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs text-gray-500 mb-1">
-                      Area
-                    </label>
-                    <select className="w-full border border-gray-300 rounded px-3 py-2 text-sm text-gray-500 focus:outline-none focus:border-blue-400 bg-white">
-                      <option>Please choose your area</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs text-gray-500 mb-1">
-                      Colony / Suburb / Locality / Landmark
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Please enter"
-                      className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs text-gray-500 mb-1">
-                      Address
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="For Example: House# 123, Street# 123, ABC Road"
-                      className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-blue-400"
-                    />
-                  </div>
-                </div>
-
-                <div className="mt-6">
-                  <p className="text-sm text-gray-700 mb-2">
-                    Select a label for effective delivery:
-                  </p>
-                  <div className="flex gap-4">
-                    <button
-                      type="button"
-                      className="flex items-center gap-2 px-6 py-3 border-2 border-blue-400 rounded text-blue-500 font-bold text-xs uppercase bg-blue-50"
-                    >
-                      <i className="fas fa-briefcase"></i> Office
-                    </button>
-                    <button
-                      type="button"
-                      className="flex items-center gap-2 px-6 py-3 border border-gray-300 rounded text-gray-500 font-bold text-xs uppercase hover:border-gray-400"
-                    >
-                      <i className="fas fa-home"></i> Home
-                    </button>
-                  </div>
-                </div>
-              </form> */}
             </div>
+              <div className="">
+                <h2 className="text-lg font-medium my-2">Your Orders</h2>
+        
+                <div className="w-full grid grid-cols-1 md:grid-cols-2 bg-white border border-gray-200 p-5 relative mb-6">
+                  {
+                  !orders.length ?
+                  <h2 className="text-lg font-medium mb-4">Your cart is empty</h2>
+                      :
+                  orders?.map((order: OrderedDataype) => {
+                    const currentQty = order.productQuantity || 1;
+                    const itemTotal = Number(order.productPrice) * currentQty;
+        
+                    return (<div key={order?.productName} className="flex gap-5 mb-5">
+                      
+        
+                      <div className="flex gap-5">
+                        <Image
+                          alt={order?.productName}
+                          src={order?.productImg}
+                          height={50}
+                          width={100}
+                        />
+        
+                        <div className="flex-grow">
+                          <h3 className="text-base font-medium text-gray-900">
+                            {order?.productName}
+                          </h3>
 
-            <div className="flex justify-end mt-4">
-              <button className="btn-blue text-white px-10 py-3 rounded text-sm font-bold shadow hover:shadow-lg transition">
-                SAVE
-              </button>
-            </div>
+                          <span className="flex gap-5">
+                           <p className="text-gray-500 text-sm mt-1 mb-4"> size: {order?.productQsize} </p>
+                            <p className="text-gray-500 text-sm mt-1 mb-4"> Quantity:{currentQty} </p>
+                          </span>
+
+                          <span className="flex gap-5">
+                            <p className="font-semibold">
+                             Tk:{order?.productPrice}
+                            </p>
+                            <p className="font-semibold">
+                              Total Tk : <strong className="text-gray-800">{itemTotal}</strong>
+                            </p>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  )})}
+                </div>
+        
+              </div>
           </div>
 
           <div className="lg:w-1/3">

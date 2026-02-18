@@ -38,11 +38,6 @@ const AddReview = () => {
           if(res?.acknowledged){
             router.refresh();
           }
-        
-        // ডামি ডিলে (বোঝার সুবিধার জন্য)
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-
-        console.log("Submitted Successfully");
 
         // ৩. সাকসেস হলে ডায়লগ বন্ধ করা
         setOpen(false); 
