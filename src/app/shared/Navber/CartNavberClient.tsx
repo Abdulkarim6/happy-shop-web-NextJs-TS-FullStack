@@ -119,7 +119,7 @@ const CartNavberClient = ({ orderedProducts }: ParamsType) => {
 
           <div className="flex flex-col space-y-2 px-10 [&>*]:w-full [&>*]:rounded-none [&>*]:h-7 [&>*]:md:h-10 [&>*]:text-black [&>*]:hover:text-white [&>*]:bg-inherit [&>*]:p-0 [&>*]:md:p-2 [&>*]:text-center [&>*]:font-semibold [&>*]:border [&>*]:border-black">
             <Link href={`/bag`} className="hover:bg-black"> VIEW BAG </Link>
-            <Link href={``} className="hover:bg-orange-400"> CHACKOUT </Link>
+            <Link href={`/checkout`} className="hover:bg-orange-400"> CHACKOUT </Link>
           </div>
           </div>
 

@@ -6,8 +6,9 @@ import {Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTri
 import { AddressType, OrderedDataype, Toast } from "../utils/interfaces";
 import { deleteAddress } from "../actions/checkoutActions";
 import AddressFormDialog from "./AddressFormDialog";
-import { Trash2 } from "lucide-react";
+import { Trash2, X } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 type paramsType = {addresses: AddressType[]; orders:OrderedDataype[]};
 
@@ -32,19 +33,26 @@ const CheckoutClient = ({ addresses, orders}:paramsType) => {
       await deleteAddress(id);
     }
   };
+
+  const subTotal = orders.reduce((acc, item) =>
+      acc + (Number(item.productPrice) * (item.productQuantity || 1)), 0
+    );
+  const deliveryFee = 70 as number;
+  const total = subTotal + deliveryFee;
+
   return (
     <div className="bg-gray-50 font-sans">
-      <div className="container mx-auto p-4 max-w-7xl">
+      <div className="container mx-auto md:p-4 max-w-7xl">
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="lg:w-2/3">
-            <div className="bg-white px-6 py-1 rounded shadow-sm">
-              <div className="flex justify-between items-center">
+            <div className="bg-white px-2 md:px-6 py-1 rounded shadow-sm">
+              <div className="flex flex-col-reverse md:flex-row justify-between items-center">
                 <h2 className="text-lg font-medium text-gray-700 mb-2">
                   Delivery Information
                 </h2>
                 {
                   addresses.length >= 3 ?
-                  <span>You can add new address after delete an old address</span>
+                  <span className="text-sm md:text-lg">You can add new address after delete an old address</span>
                     :
                 <Dialog
                   open={open}
@@ -53,7 +61,7 @@ const CheckoutClient = ({ addresses, orders}:paramsType) => {
                   }}
                 >
                   <DialogTrigger asChild className="my-5 ">
-                    <Button variant="outline">Add new address</Button>
+                    <Button variant="outline" className="my-0 md:my-2">Add new address</Button>
                   </DialogTrigger>
                   <DialogContent className="w-full bg-slate-100 sm:max-w-2xl">
                     <DialogHeader>
@@ -93,10 +101,10 @@ const CheckoutClient = ({ addresses, orders}:paramsType) => {
                           className="w-5 h-5"
                         />
                         <div>
-                          <p className="font-semibold">
+                          <p className="text-xs md:text-lg md:font-semibold">
                             {addr.name}-{addr.phone}
                           </p>
-                          <p className="text-gray-600">{addr.address}</p>
+                          <p className="text-xs md:text-lg text-gray-600">{addr.address}</p>
                         </div>
                       </label>
                       <div className="flex justify-between items-center">
@@ -139,9 +147,12 @@ const CheckoutClient = ({ addresses, orders}:paramsType) => {
               </div>
             </div>
               <div className="">
-                <h2 className="text-lg font-medium my-2">Your Orders</h2>
+                <div className="flex justify-between items-center px-2">
+                  <h2 className="text-lg font-medium my-2">Your Orders</h2>
+                  <Link href="/bag" className="underline text-blue-500">Go for edit bag</Link >
+                </div>
         
-                <div className="w-full grid grid-cols-1 md:grid-cols-2 bg-white border border-gray-200 p-5 relative mb-6">
+                <div className="w-full grid grid-cols-1 md:grid-cols-2 bg-white border border-gray-200 p-5 relative md:mb-6">
                   {
                   !orders.length ?
                   <h2 className="text-lg font-medium mb-4">Your cart is empty</h2>
@@ -202,31 +213,31 @@ const CheckoutClient = ({ addresses, orders}:paramsType) => {
                 </button>
               </div>
 
-              <div className="flex justify-between items-center mb-4">
+              {/* <div className="flex justify-between items-center mb-4">
                 <h3 className="text-gray-700 font-medium">
                   Invoice and Contact Info
                 </h3>
                 <a href="#" className="text-blue-500 text-sm font-medium">
                   Edit
                 </a>
-              </div>
+              </div> */}
 
               <h3 className="text-gray-700 font-medium mb-4">Order Summary</h3>
 
               <div className="flex justify-between text-sm text-gray-600 mb-2">
                 <span>Items Total (5 Items)</span>
-                <span>৳ 1,305</span>
+                <span>৳ {subTotal}</span>
               </div>
 
               <div className="flex justify-between text-sm text-gray-600 mb-4 pb-4 border-b border-gray-200">
                 <span>Delivery Fee</span>
-                <span>৳ 70</span>
+                <span>৳ {deliveryFee}</span>
               </div>
 
               <div className="flex justify-between items-center mb-1">
                 <span className="text-gray-700">Total:</span>
                 <span className="text-orange-custom text-lg font-bold">
-                  ৳ 1,375
+                  ৳ {total}
                 </span>
               </div>
               <div className="text-right text-xs text-gray-500 mb-6">
