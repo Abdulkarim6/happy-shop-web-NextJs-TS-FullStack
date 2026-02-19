@@ -64,7 +64,7 @@ const ProductInfo = async({productid}:{productid:string}) => {
         <h4 className="text-lg">Sub Category:{` `+ product?.subCategory}</h4>
         <h4 className="text-lg">Target Audience:{` `+ product?.targetAudience}</h4>
        <h4 className="text-lg">Colors:{` `+ product?.color}</h4>
-       <DateTime date={product.DateAdded.toString()}/>
+       <DateTime date={product?.DateAdded?.toString()}/>
       </div>
     </div>
     );

@@ -17,6 +17,7 @@ const CheckoutClient = ({ addresses, orders}:paramsType) => {
   const [payButton, setPayButton] = useState<boolean>(false);
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const [isDeleting, startTransitionDeleting] = useTransition();
 
   const handleProceed = () => {
     if (!selectedAddress) {
@@ -29,9 +30,11 @@ const CheckoutClient = ({ addresses, orders}:paramsType) => {
   };
 
   const handleDeleteAdd = async (id: string | undefined) => {
-    if (id) {
-      await deleteAddress(id);
-    }
+    startTransitionDeleting(async() => {
+      if (id) {
+        await deleteAddress(id);
+      }
+    })
   };
 
   const subTotal = orders.reduce((acc, item) =>
@@ -50,32 +53,35 @@ const CheckoutClient = ({ addresses, orders}:paramsType) => {
                 <h2 className="text-lg font-medium text-gray-700 mb-2">
                   Delivery Information
                 </h2>
-                {
-                  addresses.length >= 3 ?
-                  <span className="text-sm md:text-lg">You can add new address after delete an old address</span>
-                    :
-                <Dialog
-                  open={open}
-                  onOpenChange={(val) => {
-                    if (!isPending) setOpen(val); // সাবমিট চলাকালীন বন্ধ হবে না
-                  }}
-                >
-                  <DialogTrigger asChild className="my-5 ">
-                    <Button variant="outline" className="my-0 md:my-2">Add new address</Button>
-                  </DialogTrigger>
-                  <DialogContent className="w-full bg-slate-100 sm:max-w-2xl">
-                    <DialogHeader>
-                      <DialogTitle>Add new shipping Address</DialogTitle>
-                    </DialogHeader>
-                    <AddressFormDialog
-                      actionFor="addNewAddr"
-                      startTransition={startTransition}
-                      isPending={isPending}
-                      setOpen={setOpen}
-                    />
-                  </DialogContent>
-                </Dialog>
-                }
+                {addresses.length >= 3 ? (
+                  <span className="text-sm md:text-lg">
+                    You can add new address after delete an old address
+                  </span>
+                ) : (
+                  <Dialog
+                    open={open}
+                    onOpenChange={(val) => {
+                      if (!isPending) setOpen(val); // সাবমিট চলাকালীন বন্ধ হবে না
+                    }}
+                  >
+                    <DialogTrigger asChild className="my-5 ">
+                      <Button variant="outline" className="my-0 md:my-2">
+                        Add new address
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="w-full bg-slate-100 sm:max-w-2xl">
+                      <DialogHeader>
+                        <DialogTitle>Add new shipping Address</DialogTitle>
+                      </DialogHeader>
+                      <AddressFormDialog
+                        actionFor="addNewAddr"
+                        startTransition={startTransition}
+                        isPending={isPending}
+                        setOpen={setOpen}
+                      />
+                    </DialogContent>
+                  </Dialog>
+                )}
               </div>
 
               <div className="space-y-2 mb-8">
@@ -104,7 +110,9 @@ const CheckoutClient = ({ addresses, orders}:paramsType) => {
                           <p className="text-xs md:text-lg md:font-semibold">
                             {addr.name}-{addr.phone}
                           </p>
-                          <p className="text-xs md:text-lg text-gray-600">{addr.address}</p>
+                          <p className="text-xs md:text-lg text-gray-600">
+                            {addr.address}
+                          </p>
                         </div>
                       </label>
                       <div className="flex justify-between items-center">
@@ -135,10 +143,11 @@ const CheckoutClient = ({ addresses, orders}:paramsType) => {
                           </DialogContent>
                         </Dialog> */}
                         <button
+                          disabled={isDeleting}
                           onClick={() => handleDeleteAdd(addr._id)}
                           className="px-5 py-1 rounded shadow hover:shadow-lg transition"
                         >
-                          Delete
+                          {isDeleting ? "Deleting..." : "Delete"}
                         </button>
                       </div>
                     </div>
@@ -146,57 +155,69 @@ const CheckoutClient = ({ addresses, orders}:paramsType) => {
                 ))}
               </div>
             </div>
-              <div className="">
-                <div className="flex justify-between items-center px-2">
-                  <h2 className="text-lg font-medium my-2">Your Orders</h2>
-                  <Link href="/bag" className="underline text-blue-500">Go for edit bag</Link >
-                </div>
-        
-                <div className="w-full grid grid-cols-1 md:grid-cols-2 bg-white border border-gray-200 p-5 relative md:mb-6">
-                  {
-                  !orders.length ?
-                  <h2 className="text-lg font-medium mb-4">Your cart is empty</h2>
-                      :
+            <div className="">
+              <div className="flex justify-between items-center px-2">
+                <h2 className="text-lg font-medium my-2">Your Orders</h2>
+                <Link href="/bag" className="underline text-blue-500">
+                  Go for edit bag
+                </Link>
+              </div>
+
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 bg-white border border-gray-200 p-5 relative md:mb-6">
+                {!orders.length ? (
+                  <h2 className="text-lg font-medium mb-4">
+                    Your cart is empty
+                  </h2>
+                ) : (
                   orders?.map((order: OrderedDataype) => {
                     const currentQty = order.productQuantity || 1;
                     const itemTotal = Number(order.productPrice) * currentQty;
-        
-                    return (<div key={order?.productName} className="flex gap-5 mb-5">
-                      
-        
-                      <div className="flex gap-5">
-                        <Image
-                          alt={order?.productName}
-                          src={order?.productImg}
-                          height={50}
-                          width={100}
-                        />
-        
-                        <div className="flex-grow">
-                          <h3 className="text-base font-medium text-gray-900">
-                            {order?.productName}
-                          </h3>
 
-                          <span className="flex gap-5">
-                           <p className="text-gray-500 text-sm mt-1 mb-4"> size: {order?.productQsize} </p>
-                            <p className="text-gray-500 text-sm mt-1 mb-4"> Quantity:{currentQty} </p>
-                          </span>
+                    return (
+                      <div key={order?.productName} className="flex gap-5 mb-5">
+                        <div className="flex gap-5">
+                          <Image
+                            alt={order?.productName}
+                            src={order?.productImg}
+                            height={50}
+                            width={100}
+                          />
 
-                          <span className="flex gap-5">
-                            <p className="font-semibold">
-                             Tk:{order?.productPrice}
-                            </p>
-                            <p className="font-semibold">
-                              Total Tk : <strong className="text-gray-800">{itemTotal}</strong>
-                            </p>
-                          </span>
+                          <div className="flex-grow">
+                            <h3 className="text-base font-medium text-gray-900">
+                              {order?.productName}
+                            </h3>
+
+                            <span className="flex gap-5">
+                              <p className="text-gray-500 text-sm mt-1 mb-4">
+                                {" "}
+                                size: {order?.productQsize}{" "}
+                              </p>
+                              <p className="text-gray-500 text-sm mt-1 mb-4">
+                                {" "}
+                                Quantity:{currentQty}{" "}
+                              </p>
+                            </span>
+
+                            <span className="flex gap-5">
+                              <p className="font-semibold">
+                                Tk:{order?.productPrice}
+                              </p>
+                              <p className="font-semibold">
+                                Total Tk :{" "}
+                                <strong className="text-gray-800">
+                                  {itemTotal}
+                                </strong>
+                              </p>
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  )})}
-                </div>
-        
+                    );
+                  })
+                )}
               </div>
+            </div>
           </div>
 
           <div className="lg:w-1/3">

@@ -55,6 +55,8 @@ export interface UserType{
 }
 
 export type OrderedDataype = {
+  _id?: string;
+  status:string;
   buyerId?:string;
   productId: string;
   productName: string;

@@ -35,6 +35,7 @@ const QuickViewDialog = ({product} : propsTypes) => {
     const handleAddToBag = async (product: Product) => {
       setAddToBagProcessing(true);
       const payload = {
+        status:"Pending",
         productId: product?._id,
         productName: product?.name,
         productImg: product?.image,

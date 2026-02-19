@@ -1,10 +1,13 @@
-import React from 'react';
+import { getAllOrders } from "@/app/actions/ordersManageActions";
+import OrdersManageTable from "@/app/dashboardComponents/OrdersManageTable/OrdersManageTable";
 
-const page = () => {
+
+const page = async() => {
+    const allOrders = await getAllOrders();
     return (
-        <div>
-            orders
-        </div>
+      <div>
+        <OrdersManageTable allOrders={allOrders}/>
+      </div>
     );
 };
 
