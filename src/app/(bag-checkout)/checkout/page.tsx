@@ -1,7 +1,6 @@
 import { loadAddress } from '@/app/actions/checkoutActions';
 import CheckoutClient from '@/app/bag-checkoutComponents/CheckoutClient';
 import getOrderedProducts from '@/app/utils/getOrderedProducts';
-import React from 'react';
 
 const page = async() => {
 

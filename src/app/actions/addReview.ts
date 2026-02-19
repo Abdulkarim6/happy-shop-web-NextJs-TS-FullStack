@@ -12,13 +12,6 @@ type payloadType = {
 
 export const addReview = async(payload:payloadType) => {
     try {
-        console.log(payload);
-        
-        // const data = {
-        //   review: "add new review",
-        //   profile: "yes",
-        //   customer: "karim",
-        // };
 
         const collection = dbConnect("reviews");
         const res = await collection.insertOne(payload);

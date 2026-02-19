@@ -32,6 +32,11 @@ const Navber = () => {
             prefetch={active ? true : true}
             onMouseEnter={() => setActive(true)}
             href="/dashboard/addProduct" className={linkClass}>Add Product</Link>
+            
+            <Link 
+            prefetch={active ? true : true}
+            onMouseEnter={() => setActive(true)}
+            href="/dashboard/allOrders" className={linkClass}>All Orders</Link>
           </nav>
         </div>
             

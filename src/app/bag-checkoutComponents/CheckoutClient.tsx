@@ -225,7 +225,7 @@ const CheckoutClient = ({ addresses, orders}:paramsType) => {
               <h3 className="text-gray-700 font-medium mb-4">Order Summary</h3>
 
               <div className="flex justify-between text-sm text-gray-600 mb-2">
-                <span>Items Total (5 Items)</span>
+                <span>Items Total ({orders.length | 0} Items)</span>
                 <span>৳ {subTotal}</span>
               </div>
 
