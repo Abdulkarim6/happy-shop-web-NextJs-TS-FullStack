@@ -49,8 +49,8 @@ const NavberClient = ({session, categoriesOfMan, categoriesOfwomen, categoriesOf
         <button
           className={`cursor-default shrink-0 text-base md:text-xl lg:text-3xl font-semibold mr-4 md:mr-10 lg:mr-14 ${poppins.className}`}
         >
-          {/* Happy Shop */}
-          {session?.user?.name}
+          Happy Shop
+          {/* {session?.user?.name} */}
         </button>
 
         {/* NavigationMenu for Tab and Desktop view */}
