@@ -3,7 +3,6 @@
 import { auth, signIn } from "@/auth";
 import { UserData, postNewRegisterUser } from "./postNewRegisterUser";
 import { AuthError } from "next-auth";
-import { redirect } from "next/navigation";
 
 export const authFormSubmit = async ( mode: "login" | "register",callbackUrl: string | undefined, formData: FormData ) => {
   console.log('from server', callbackUrl);

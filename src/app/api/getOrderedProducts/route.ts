@@ -12,6 +12,7 @@ export async function GET() {
     const res = await collection.find(query).toArray();
     return Response.json(res);
   } catch (error) {
+    console.log(error);
      return Response.json({});
   }
 }

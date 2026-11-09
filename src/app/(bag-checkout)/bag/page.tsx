@@ -1,16 +1,11 @@
 import getOrderedProducts from "@/app/utils/getOrderedProducts";
-import { Trash2 } from "lucide-react";
-import { OrderedDataype } from "@/app/utils/interfaces";
 import React from "react";
-import Image from "next/image";
 import DeleveryPolicy_Terms from "@/app/components/deleveryPolicy_TermsComponents/DeleveryPolicy_TermsParent/DeleveryPolicy_TermsParent";
 import CustomerBenefits from "@/app/components/homeComponents/CustomerBenefits/CustomerBenefits";
 import BagClient from "@/app/bag-checkoutComponents/BagClient";
 
 const page = async () => {
   const orderedProducts = await getOrderedProducts();
-  console.log(orderedProducts, 12);
-  
   
   return (
     <div>

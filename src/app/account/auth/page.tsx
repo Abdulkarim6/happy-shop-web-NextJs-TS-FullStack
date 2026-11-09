@@ -1,6 +1,6 @@
 import Form from "@/app/components/Form/Form";
 import Image from "next/image";
-import authenticateImg from "../../../../public/bannerImages/authenticate.jpg";
+import authenticateImg from "../../../../public/bannerImages/authenticate.webp";
 
 const page = async(props: {
   searchParams: Promise<{mode: "login" | "register" , callbackUrl: string | undefined }

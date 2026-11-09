@@ -1,5 +1,5 @@
 'use client'
-import React, { ReactNode, createContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 type StateType = {
   query: string;
   setQuery:React.Dispatch<React.SetStateAction<string>>;

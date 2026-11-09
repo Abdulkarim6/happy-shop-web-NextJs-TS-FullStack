@@ -25,6 +25,7 @@ export default function UsersTable({ users }: { users: UserType[] }) {
       const response = await deleteUser(userId);
       return response;
       } catch (error) {
+        console.log(error);
         return {
           message : "Failed to deleted!"
         }
@@ -46,6 +47,7 @@ export default function UsersTable({ users }: { users: UserType[] }) {
       const response = await makeAdmin(userId);
       return response;
       } catch (error) {
+        console.log(error);
         return {
           message : "Failed to Make Admin!"
         }

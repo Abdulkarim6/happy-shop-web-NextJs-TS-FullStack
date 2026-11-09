@@ -3,7 +3,6 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select"
 import { CategoriesType } from '@/app/utils/interfaces';
-import { useState } from 'react';
 
 type paramsType = {
   allCategories: CategoriesType[];

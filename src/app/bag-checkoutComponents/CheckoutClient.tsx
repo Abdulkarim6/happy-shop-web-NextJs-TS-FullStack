@@ -2,11 +2,10 @@
 
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
-import {Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger, } from "@/components/ui/dialog";
+import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, } from "@/components/ui/dialog";
 import { AddressType, OrderedDataype, Toast } from "../utils/interfaces";
 import { deleteAddress } from "../actions/checkoutActions";
 import AddressFormDialog from "./AddressFormDialog";
-import { Trash2, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -14,7 +13,7 @@ type paramsType = {addresses: AddressType[]; orders:OrderedDataype[]};
 
 const CheckoutClient = ({ addresses, orders}:paramsType) => {
   const [selectedAddress, setSelectedAddress] = useState<string | null | undefined>(null);
-  const [payButton, setPayButton] = useState<boolean>(false);
+  // const [payButton, setPayButton] = useState<boolean>(false);
   const [open, setOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [isDeleting, startTransitionDeleting] = useTransition();

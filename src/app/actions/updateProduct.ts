@@ -63,7 +63,8 @@ export const updateProduct = async(prevState:InitialStateType, formData : FormDa
      
       const updateFields = Object.fromEntries(
         Object.entries(rawData).filter(
-          ([_, v]) => v !== "" && v !== null && v !== undefined && v !== 0
+          // ([_, v]) => v !== "" && v !== null && v !== undefined && v !== 0
+          ([v]) => v !== "" && v !== null && v !== undefined
         )
       );
 
@@ -94,6 +95,7 @@ export const updateProduct = async(prevState:InitialStateType, formData : FormDa
         matchedCount: res?.matchedCount,
       };
     } catch (error) {
+      console.log(error);
         return {
           productid: prevState.productid,
           message: "Failed to Modified",

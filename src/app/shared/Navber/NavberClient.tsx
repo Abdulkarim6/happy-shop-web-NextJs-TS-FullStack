@@ -1,13 +1,13 @@
 "use client"
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle, } from "@/components/ui/navigation-menu";
-import { AlignJustify, ChevronDownIcon, CircleUserRound, Search, ShoppingBag, X, } from "lucide-react";
+import { AlignJustify, ChevronDownIcon, Search, X, } from "lucide-react";
 import Link from "next/link";
 import { Poppins } from "next/font/google";
 import { SubCategoriesType, CategoriesType} from "@/app/utils/interfaces";
 import { Input } from "@/components/ui/input";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import MobileView from "./MobileView";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import DisplaySearchedProducts from "./DisplaySearchedProducts";
 import { Session } from "next-auth";
 

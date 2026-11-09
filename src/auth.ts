@@ -93,7 +93,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
 
   callbacks: {
-    async signIn({user,account,credentials,profile}) {
+    async signIn() {
+    // async signIn({user,account,credentials,profile}) {
     // console.log( "log from callback signIn", "time:", new Date().toLocaleString() );
     // console.log("u:", user, "a:", account, "c:", credentials, "p:", profile);
      // signIn logics handled by events object for fast OAuth login, 
@@ -110,7 +111,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       // Credentials user → role already present
       if (account.provider === "credentials") {
         
-        token.provider = account.provider,
+        token.provider = account.provider;
         token.role = user?.role as string;
         token.credentialsUserId = user?.id as string;
       }
@@ -123,7 +124,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           provider: account.provider,
           providerAccountId: account.providerAccountId,
         });
-        token.provider = account.provider,
+        token.provider = account.provider;
         token.role = dbUser?.role || "user";
         token.providerAccountId = account.providerAccountId;
       }
@@ -134,7 +135,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
 
     //set extra data from token to session
-    async session({ session, token, user }) {
+    // async session({ session, token, user }) {
+    async session({ session, token }) {
     if(token){
       session.user.provider = token.provider as string;
       session.user.credentialsUserId = token.credentialsUserId as string;
@@ -143,7 +145,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       session.user.providerAccountId = token?.providerAccountId as string;
     }
  
-    return session
+    return session;
    }
   },
 

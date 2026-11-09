@@ -3,13 +3,13 @@ import Link from "next/link";
 
 const StylishLooks = () => {
   const images = [
-    { src: "/stylishLooks/blue_shirt.png", span: "row-span-5 row-start-2", link:"/categories/men/Shirts"},
-    { src: "/stylishLooks/menT-shirt.jpg", span: "row-span-4", link:"/categories/men/T-Shirts"},
-    { src: "/stylishLooks/girlT-shirt.jpg", span: "row-span-4", link:"/categories/women/T-Shirts"},
-    { src: "/stylishLooks/saree.jpg", span: "row-span-6", link:"/categories/women/Saree"},
-    { src: "/stylishLooks/three-peace.png", span: "row-span-9", link:"/categories/women/3-piece-sets"},
+    { src: "/stylishLooks/blue_shirt.webp", span: "row-span-5 row-start-2", link:"/categories/men/Shirts"},
+    { src: "/stylishLooks/menT-shirt.webp", span: "row-span-4", link:"/categories/men/T-Shirts"},
+    { src: "/stylishLooks/girlT-shirt.webp", span: "row-span-4", link:"/categories/women/T-Shirts"},
+    { src: "/stylishLooks/saree.webp", span: "row-span-6", link:"/categories/women/Saree"},
+    { src: "/stylishLooks/three-peace.webp", span: "row-span-9", link:"/categories/women/3-piece-sets"},
     { src: "/stylishLooks/kids-girl.webp", span: "row-span-5", link:"/categories/kids/Girls"},
-    { src: "/stylishLooks/kids-boy.png", span: "row-span-5", link:"/categories/kids/Boys"},
+    { src: "/stylishLooks/kids-boy.webp", span: "row-span-5", link:"/categories/kids/Boys"},
   ];
 
   return (

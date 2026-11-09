@@ -32,13 +32,19 @@ const Banner = () => {
       <CarouselContent className="">
         {images?.map((image, i) => (
           <CarouselItem key={i}>
-            <Image
-              src={image}
-              alt="Picture of the author"
-              // width={900} //automatically provided
-              // height={600} //automatically provided
-              placeholder="blur" // Optional blur-up while loading
-            />
+            {/* <div className="relative h-[600px]"> */}
+              <Image
+                src={image}
+                alt={`Banner slide ${i + 1}`}
+                priority={i === 0}
+                placeholder="blur"
+                sizes="100vw"
+                style={{ width:'100%', height:'auto' }}
+                
+                // fill
+                // style={{ objectFit: "none" }}
+              />
+            {/* </div> */}
           </CarouselItem>
         ))}
       </CarouselContent>

@@ -40,7 +40,7 @@ const UpdateProductClient = ({allCategories,productid}:ParamsType) => {
         setSelectedSubCategory("");
       }
       
-    }, [state])
+    }, [state, router])
 
     return (
     <Form action={formAction} className='w-full my-3'>

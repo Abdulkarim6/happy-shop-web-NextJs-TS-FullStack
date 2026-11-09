@@ -20,7 +20,7 @@ type PropsType = {
 };
 
 const SubmitButton = ({mode, callbackUrl}:PropsType) => {
-  console.log(callbackUrl);
+  console.log(callbackUrl, 23);
   
   const isRegisterPage = mode === "register";
   const router = useRouter();

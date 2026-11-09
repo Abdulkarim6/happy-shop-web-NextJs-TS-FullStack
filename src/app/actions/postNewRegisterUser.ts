@@ -39,6 +39,7 @@ export const postNewRegisterUser = async (payload : UserData) => {
         return res;
 
     } catch (error) {
+        console.log(error);
         const res: AuthActionReturnType = {
             acknowledged:false, 
             error: "Registration failed. Please try again." 

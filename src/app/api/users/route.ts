@@ -8,6 +8,7 @@ export async function GET() {
         return Response.json(res);
         
     } catch (error) {
+        console.log(error);
         
     }
 }

@@ -84,7 +84,7 @@ export const articles = [
         text: "Experiment with these styles to discover what suits you best. A white shirt isn’t just clothing—it’s a canvas for your personal style!",
       },
     ],
-    image: "/imageForBlog/white-shirt-main.png",
+    image: "/imageForBlog/white-shirt-main.webp",
     link: "White-Shirt-for-Every-Occasion",
   },
   {
@@ -145,7 +145,7 @@ export const articles = [
         text: "Modern panjabi styles offer endless possibilities to express elegance. Whether opting for embroidered details or minimalist cuts, invest in quality pieces to make a lasting impression.",
       },
     ],
-    image: "/imageForBlog/modern-panjabi-main.png",
+    image: "/imageForBlog/modern-panjabi-main.webp",
     link: "Modern-panjabi-styles",
   },
   {
@@ -217,7 +217,7 @@ export const articles = [
         text: "With these simple steps, your cotton sarees will stay beautiful and ready to wear. Always opt for gentle care to preserve their natural charm.",
       },
     ],
-    image: "/imageForBlog/saree-main.png",
+    image: "/imageForBlog/saree-main.webp",
     link: "cotton-saree-careee",
   },
   {
@@ -326,7 +326,7 @@ export const articles = [
         text: "Which of these five transformations are you going to try first?",
       },
     ],
-    image: "/imageForBlog/accessories-image-main.jpg",
+    image: "/imageForBlog/accessories-image-main.webp",
     link: "change-Looks",
   },
 ];

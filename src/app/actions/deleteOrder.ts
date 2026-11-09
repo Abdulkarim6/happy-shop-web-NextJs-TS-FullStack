@@ -18,8 +18,6 @@ export const deleteOrder = async(orderdProduct:OrderedDataype) =>{
       const res = await collection.deleteOne(query);
 
       if (res?.acknowledged) {
-        console.log(res, 21);
-        
         revalidateTag("orders");
       }
 
@@ -29,6 +27,8 @@ export const deleteOrder = async(orderdProduct:OrderedDataype) =>{
         message: "Deleted Successfully",
       };
     } catch (error) {
+      console.log(error);
+      
       return {
         acknowledged: false,
         deletedCount: 0,

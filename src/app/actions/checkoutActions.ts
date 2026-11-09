@@ -59,12 +59,13 @@ export async function saveAddressAction(formData: FormData) {
     };
     const collection = dbConnect("addresses");
     const res = await collection.insertOne(rawData);
-    console.log(res);
+
     if(res.acknowledged){
       revalidateTag("addresses");
       return { success: true, message: "Address saved successfully!" };
     }
   } catch (error) {
+    console.log(error);
     return { success: false, message: "Failed to save address." };
   }
 }

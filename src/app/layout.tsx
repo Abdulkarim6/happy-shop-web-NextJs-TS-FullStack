@@ -20,7 +20,7 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
   return (
     <html lang="en">
       <head><link rel="icon" href="/favicon.ico" /></head>
-        <body className={`${poppins.className} antialiased w-max-[1440px] mx-auto min-h-screen bg-slate-100`} >
+        <body className={`${poppins.className} antialiased w-max-[900px] mx-auto min-h-screen bg-slate-100`} >
          <main>
            <Navber/>
            {children}

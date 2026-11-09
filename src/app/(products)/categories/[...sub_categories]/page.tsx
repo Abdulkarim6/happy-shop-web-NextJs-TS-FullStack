@@ -37,7 +37,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
         <div>
          {/* --Banner for men page-- */}
           <figure className="relative w-full h-[330px] md:h-[450px] lg:h-[550px]">
-            <Image src="/productsPageBannerImages/man.jpg" style={imageStyle} alt="banner" fill />
+            <Image src="/productsPageBannerImages/man.webp" style={imageStyle} alt="banner" fill />
             <div className="absolute top-0 w-full h-full flex justify-end bg-r-overlay ">
               <BannerTitleComponent
                 title="Men"
@@ -80,7 +80,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
        <div>
          {/* --Banner for women page-- */}
           <figure className="relative w-full h-[330px] md:h-[450px] lg:h-[550px]">
-            <Image src="/productsPageBannerImages/girl.jpg" style={imageStyle} alt="banner" fill/>
+            <Image src="/productsPageBannerImages/girl.webp" style={imageStyle} alt="banner" fill/>
             <div className="absolute top-0 w-full h-full flex justify-end bg-r-overlay ">
               <BannerTitleComponent
                 title="Women"
@@ -124,7 +124,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
         <div>
           {/* --Banner for kids page-- */}
           <figure className="relative w-full h-[330px] md:h-[450px] lg:h-[550px]">
-            <Image src="/productsPageBannerImages/kids.jpeg" style={imageStyle} alt="banner" fill/>
+            <Image src="/productsPageBannerImages/kids.webp" style={imageStyle} alt="banner" fill/>
             <div className="absolute top-0 w-full h-full bg-l-overlay">
               <BannerTitleComponent
                 title="KIDS"
@@ -169,7 +169,7 @@ const page = async ({ params }: { params: Promise<{ sub_categories: string[]}> }
       <div>
          {/* --Banner for accessories page-- */}
           <figure className="relative w-full h-[330px] md:h-[450px] lg:h-[550px]">
-            <Image src="/productsPageBannerImages/acce.png" style={imageStyle} alt="banner" fill/>
+            <Image src="/productsPageBannerImages/acce.webp" style={imageStyle} alt="banner" fill/>
             <div className="absolute top-0 w-full h-full flex justify-end bg-r-overlay ">
               <BannerTitleComponent
                 title="Accessories"

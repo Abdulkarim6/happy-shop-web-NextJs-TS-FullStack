@@ -16,6 +16,7 @@ export const getAllProducts = async() => {
         return allProductsOfCategories;
 
     } catch (error) { 
+      console.log(error);
         return []
     }
 };

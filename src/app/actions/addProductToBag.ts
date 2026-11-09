@@ -50,7 +50,6 @@ export const addToBag = async (orderedData:OrderedDataype) => {
     if (res?.acknowledged) {
         revalidateTag("orders");
       }
-      console.log(43, res);
 
     const resSerialize: OrderResponseType = {
       acknowledged: res?.acknowledged,
@@ -60,7 +59,6 @@ export const addToBag = async (orderedData:OrderedDataype) => {
     return resSerialize;
 
   } catch (error) {
-    console.error(error, "something went wrong");
     const res:OrderResponseType = {
       acknowledged: false,
       upsertedId: null,

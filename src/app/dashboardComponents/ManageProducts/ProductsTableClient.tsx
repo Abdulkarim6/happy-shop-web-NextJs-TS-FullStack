@@ -36,6 +36,7 @@ const ProductsTableClient = ({allProductsOfCategories}:{allProductsOfCategories 
       const response = await deleteProduct(productId);
       return response;
       } catch (error) {
+        console.log(error);
         return {
           message : "Failed to deleted!"
         }
