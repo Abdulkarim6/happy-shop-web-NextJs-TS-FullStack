@@ -326,7 +326,7 @@ export const articles = [
         text: "Which of these five transformations are you going to try first?",
       },
     ],
-    image: "/imageForBlog/accessories-image-main.webp",
+    image: "/imageForBlog/accessories-image-main.jpg",
     link: "change-Looks",
   },
 ];

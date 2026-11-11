@@ -1,20 +1,15 @@
-export const getCategories = async() => {
-    try {
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-      const res = await fetch(`${baseUrl}/api/categories`, {
-        cache: "force-cache",
-      });
+import "server-only";
+import { unstable_cache } from "next/cache";
+import dbConnect from "@/lib/dbConnect";
+import { CategoriesType } from "./interfaces";
 
-      if (!res.ok) {
-        throw new Error("Failed to fetch categories");
-      }
-      
-      const resJson = await res.json();
-      const data = await resJson?.data;
-      return data;
-      
-    } catch (error) {
-      console.error("something went wrong to fetch categories:", error);
-      return [];
-    }
-};
+export const getCategories = unstable_cache(
+  async (): Promise<CategoriesType[]> => {
+    const docs = await dbConnect("categories").find({}).toArray();
+    const data = docs.map(({ _id, ...rest }) => ({ ...rest, _id: _id.toString() })) as CategoriesType[];
+    return data;
+  },
+  
+  ["categories"],
+  { tags: ["categories"], revalidate: 3600 }
+);

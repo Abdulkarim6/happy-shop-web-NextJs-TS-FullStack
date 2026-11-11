@@ -1,15 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navber from "./shared/Navber/Navber";
-import { Poppins } from "next/font/google";
 import Footer from "./shared/Footer/Footer";
-
-export const poppins = Poppins({
-  subsets: ["latin"],
-  variable: "--font-poppins",
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  display: "swap",
-});
+import { poppins } from "@/lib/font";
 
 export const metadata: Metadata = {
   title: "Happy Shop",
@@ -18,12 +11,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-white">
       <head><link rel="icon" href="/favicon.ico" /></head>
-        <body className={`${poppins.className} antialiased w-max-[900px] mx-auto min-h-screen bg-slate-100`} >
+        <body className={`${poppins.className} antialiased max-w-[1440px] w-full px-2 mx-auto min-h-screen bg-slate-100`} >
          <main>
-           <Navber/>
+           <Navber />
+           <div>
            {children}
+           </div>
          </main>
          <Footer/>
         </body>

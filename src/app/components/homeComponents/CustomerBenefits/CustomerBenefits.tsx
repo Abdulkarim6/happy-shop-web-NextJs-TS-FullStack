@@ -1,4 +1,4 @@
-import { poppins } from "@/app/layout";
+import { poppins } from "@/lib/font";
 import { ArrowRightLeft, PhoneCall, Truck } from "lucide-react";
 
 

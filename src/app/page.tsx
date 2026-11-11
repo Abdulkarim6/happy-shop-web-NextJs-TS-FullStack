@@ -8,7 +8,7 @@ import Testimonials from "./components/homeComponents/Testimonials/Testimonials"
 
 export default function Home() {
   return (
-    <section className="flex flex-col justify-center mb-5">
+    <section className="w-full mx-auto">
       <Banner />
       <CustomerBenefits />
       <Categories />

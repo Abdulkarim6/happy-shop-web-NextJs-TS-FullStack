@@ -1,6 +1,6 @@
 import { ReviewType } from "@/app/utils/interfaces";
 import { Rating } from "./Rating";
-import { poppins } from "@/app/layout";
+import { poppins } from "@/lib/font";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 

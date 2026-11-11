@@ -43,7 +43,7 @@ const CartNavberClient = ({ orderedProducts }: ParamsType) => {
   return (
     <>
       <div
-        className={`  h-screen w-[80%] md:w-[35%] overflow-y-scroll fixed top-0 right-0 z-50 rounded transform 
+        className={`h-screen w-[80%] md:w-[35%] overflow-y-scroll fixed top-0 right-0 z-50 rounded transform 
         transition-transform duration-300 ${
           isCartOpen ? "translate-x-0" : "translate-x-full"
         }`}

@@ -14,7 +14,7 @@ const CartNavber = async ({orderedProductsPromise }: ParamsType) => {
   return (
     <CartTogglerProvider>
       <CartTogglerButton>
-        <ShoppingBag className="size-7 mr-2 cursor-pointer" />
+        <ShoppingBag className="size-7 cursor-pointer" />
         {orderedProducts && (
           <p className="absolute bottom-3 left-3 text-sm font-medium z-30 bg-black text-white py-1 px-2 rounded-full">
             {orderedProducts?.length | 0}

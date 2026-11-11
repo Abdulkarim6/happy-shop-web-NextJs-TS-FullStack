@@ -1,5 +1,5 @@
 import { CategoriesType } from "@/app/utils/interfaces";
-import { poppins } from "@/app/layout";
+import { poppins } from "@/lib/font"; 
 import { Card, CardContent, } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";

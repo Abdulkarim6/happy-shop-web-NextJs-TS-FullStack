@@ -5,7 +5,7 @@ import { decodeParams } from "@/app/utils/decodeParams";
 import BannerTitleComponent from "@/app/shared/BannerTitleComponent/BannerTitleComponent";
 import Products from "@/app/components/productsPageComponents/Products/Products";
 
-import { poppins } from "@/app/layout";
+import { poppins } from "@/lib/font"; 
 import CustomerBenefits from "@/app/components/homeComponents/CustomerBenefits/CustomerBenefits";
 import { getCategories } from "@/app/utils/getCategories";
 
