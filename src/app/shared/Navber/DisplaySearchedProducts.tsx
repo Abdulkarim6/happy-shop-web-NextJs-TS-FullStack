@@ -50,7 +50,7 @@ const DisplaySearchedProducts = ({searchForProducts, setSearchForProducts}:Param
       }, 300)
 
       return () =>{ clearTimeout(timer); productSearchController.abort() }
-    }, [searchForProducts])
+    }, [searchForProducts, baseUrl])
     
     return (
         <div

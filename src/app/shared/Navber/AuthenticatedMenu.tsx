@@ -4,7 +4,7 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMe
 import { ChevronDownIcon, CircleUserRound } from "lucide-react";
 import Link from "next/link";
 
-const AuthenticatedNavber = async() => {
+const AuthenticatedMenu = async() => {
   const session = await auth();
   
   const navigationMenuLink = `text-base lg:text-lg font-medium !px-2 !py-1 lg:!px-4 lg:!py-2`;
@@ -13,8 +13,8 @@ const AuthenticatedNavber = async() => {
       <NavigationMenu viewport={false} className="">
         <NavigationMenuList>
           <NavigationMenuItem className="">
-            <NavigationMenuTrigger className={navigationMenuLink}>
-              <CircleUserRound />
+            <NavigationMenuTrigger className={`${navigationMenuLink} bg-transparent rounded-none`}>
+              <CircleUserRound className="size-5 lg:size-6"/>
               <ChevronDownIcon
                 className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
                 aria-hidden="true"
@@ -55,4 +55,4 @@ const AuthenticatedNavber = async() => {
   );
 };
 
-export default AuthenticatedNavber;
+export default AuthenticatedMenu;

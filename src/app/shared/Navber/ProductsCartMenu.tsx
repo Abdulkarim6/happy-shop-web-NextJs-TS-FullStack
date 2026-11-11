@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 type ParamsType = {
   orderedProducts: OrderedDataype[];
 };
-const CartNavberClient = ({ orderedProducts }: ParamsType) => {
+const ProductsCartMenu = ({ orderedProducts }: ParamsType) => {
   const router = useRouter();
   const {isCartOpen, setIsCartOpen } = useCartToggler();
   const [isDeleteOrder, setIsDeleteOrder] = useState<{
@@ -141,4 +141,4 @@ const CartNavberClient = ({ orderedProducts }: ParamsType) => {
   );
 };
 
-export default CartNavberClient;
+export default ProductsCartMenu;
