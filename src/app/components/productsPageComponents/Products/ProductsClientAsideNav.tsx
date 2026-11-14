@@ -7,12 +7,12 @@ import { useEffect, useState } from "react";
 type filterAreaKey = "price" | "size" | "inStock" | "color";
 type GroupPropsTypes = {
 //   dataBySubcategory : Product[];
-//   categoriesOfAudience: CategoriesType | undefined;
-  decodedSub_categories : string[];
+//   categoriesOfAudience: CategoriesForAllType | undefined;
+  decodedParams : string[];
 };
 
-const ProductsClientAsideNav = ({decodedSub_categories} : GroupPropsTypes) => {
-    const urlPathe = decodedSub_categories.join("/");
+const ProductsClientAsideNav = ({decodedParams} : GroupPropsTypes) => {
+    const urlPathe = decodedParams.join("/");
     const [quantityOfSizes, setQuantityOfSizes] = useState<{ _id: string, quantity: number }[]>([]);  
     // state of filters values
      const { mobileNav,setMobileNav,sizes, setSizes,price,setPrice,colors,setColors,setStock,inStock} = useProductsPageStates();
@@ -25,14 +25,14 @@ const ProductsClientAsideNav = ({decodedSub_categories} : GroupPropsTypes) => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            subCategory: decodedSub_categories[1],
-            targetAudience: decodedSub_categories[0],
+            subCategory: decodedParams[1],
+            targetAudience: decodedParams[0],
            })
       })
        .then((res) => res.json())
          .then((data) => setQuantityOfSizes(data))
          .catch((err) => console.log("err", err));
-    },[decodedSub_categories, baseUrl])
+    },[decodedParams, baseUrl])
 
 
     // clear filter values from state with one click or specific value click

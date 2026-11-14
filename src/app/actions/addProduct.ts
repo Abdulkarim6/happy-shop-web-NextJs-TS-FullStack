@@ -3,7 +3,7 @@
 import dbConnect from "@/lib/dbConnect";
 import { UploadApiResponse, v2 as cloudinary } from "cloudinary";
 import { revalidateTag } from "next/cache";
-import { getAllProducts } from "../utils/getAllProducts";
+// import { getAllProducts } from "../utils/getProductsByAudience";
 import { getNewArrivals } from "../utils/getNewArrivals";
 
 cloudinary.config({
@@ -69,7 +69,7 @@ export const addProduct = async(prevState:InitialStateType, formData : FormData)
           ]);
 
           void Promise.all([
-            getAllProducts(),
+            // getAllProducts(),
             getNewArrivals()
           ]);
         }

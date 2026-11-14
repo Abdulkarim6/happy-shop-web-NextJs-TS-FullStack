@@ -2,11 +2,17 @@
 import Swal from "sweetalert2";
 
 export interface Product {
-  _id: string;
   name: string;
+  subCategory: string;
+
+  productName?:string;
+  categorySlug?:string;
+  subCategoryTitle?:string;
+  subCategorySlug?:string;
+  
+  _id: string;
   description: string;
   brand: string;
-  subCategory: string;
   targetAudience: string;
   size: string[];
   price: number;
@@ -19,21 +25,26 @@ export interface Product {
   isAdmin?:boolean;
 }
 
-export interface SubCategoriesType  {
+export interface CategoriesByAudienceType  {
   subCategory: string;
-  description: string;
   image: string;
+
+  categoryTitle:string;
+  thumbnail?:string;
+  categorySlug?:string;
+
+  description: string;
 };
 
 
-export interface CategoriesType {
+export interface CategoriesForAllType {
   _id: string ;
   thumbnail: string ;
   targetAudience:string;
-  men?: SubCategoriesType[];
-  women?: SubCategoriesType[];
-  kids?: SubCategoriesType[];
-  accessories?: SubCategoriesType[];
+  men?: CategoriesByAudienceType[];
+  women?: CategoriesByAudienceType[];
+  kids?: CategoriesByAudienceType[];
+  accessories?: CategoriesByAudienceType[];
 };
 
 export interface ReviewType {

@@ -5,9 +5,11 @@ import QuickViewDialog from "../QuickViewDialog/QuickViewDialog";
 import { Product } from "@/app/utils/interfaces";
 import { useProductsPageStates } from "@/app/contexts/productsPageStatesContext/useProductsPageStates";
 type ParamsTypes = {
-  dataBySubcategory : Product[];
+  productsByAudience : Product[];
 }
-const DisplayProducts = ({dataBySubcategory}: ParamsTypes) => {
+const DisplayProducts = ({productsByAudience}: ParamsTypes) => {
+  // console.log(productsByAudience);
+  
   const { sizes,price,colors,inStock} = useProductsPageStates();
 
     function normalizeSize(size: string | string[]): string[] {
@@ -20,7 +22,7 @@ const DisplayProducts = ({dataBySubcategory}: ParamsTypes) => {
     return []; // empty হলে খালি array ফেরত দিবে
     }
 
-  const filteredProducts = dataBySubcategory?.filter((product: Product) => {
+  const filteredProducts = productsByAudience?.filter((product: Product) => {
   // price filter
   const matchPrice =
     price ? product.price <= parseInt(price) : true;

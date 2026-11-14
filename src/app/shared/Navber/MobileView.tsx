@@ -1,18 +1,18 @@
-import { SubCategoriesType } from "@/app/utils/interfaces";
+import { CategoriesByAudienceType } from "@/app/utils/interfaces";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/components/ui/accordion";
 import { LayoutDashboard, Minus, Plus } from "lucide-react";
 import Link from "next/link";
 
-type DropDownMenuCategoriesType = { titleOfCategory: string; link: string; subCategories: SubCategoriesType[]};
-type TypeOfProps = { categories: DropDownMenuCategoriesType[] }
+type DropDownMenuCategoriesType = { titleOfCategory: string; link: string; categoriesByAudience: CategoriesByAudienceType[]};
+type TypeOfProps = { categoriesForAll: DropDownMenuCategoriesType[] }
 
-const MobileView = ({categories}: TypeOfProps) => {
+const MobileView = ({categoriesForAll}: TypeOfProps) => {
 
   return (
     <div className="mr-0 p-2 bg-slate-50">
       <Accordion type="single" collapsible className="w-full">
       {
-        categories?.map((menulist: DropDownMenuCategoriesType) =>
+        categoriesForAll?.map((menulist: DropDownMenuCategoriesType) =>
             
         <AccordionItem value={menulist?.titleOfCategory} key={menulist?.titleOfCategory}>
           <AccordionTrigger className="flex items-center justify-between group pt-2 pb-0">
@@ -25,12 +25,12 @@ const MobileView = ({categories}: TypeOfProps) => {
 
           <AccordionContent className="ml-3 p-0">
             <ul>
-              {menulist?.subCategories?.map((subCategory : SubCategoriesType | null, id) => (
+              {menulist?.categoriesByAudience?.map((categoryByAudience : CategoriesByAudienceType | null, id) => (
                 <li key={id} className="my-2">
-                  <Link type="button" href={`${menulist.link}/${subCategory?.subCategory?.split(" ").join("-")}`}
+                  <Link type="button" href={`${menulist.link}/${categoryByAudience?.categorySlug}`}
                   className="active:bg-blue-500 text-black  border-l border-l-blue-500 px-2 text-base leading-none font-medium"
                   >
-                    {subCategory?.subCategory}
+                    {categoryByAudience?.categoryTitle}
                   </Link>
                 </li>
               ))}

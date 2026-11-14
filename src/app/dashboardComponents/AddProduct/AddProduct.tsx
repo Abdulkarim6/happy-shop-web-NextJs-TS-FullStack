@@ -1,13 +1,13 @@
 import AddProductCient from './AddProductClient';
-import { CategoriesType } from '@/app/utils/interfaces';
+import { CategoriesForAllType } from '@/app/utils/interfaces';
 
-const AddProduct = async({promise}:{promise : Promise<CategoriesType[]>}) => {
-    const allCategories = await promise;
-    // console.log(allCategories);
+const AddProduct = async({promise}:{promise : Promise<CategoriesForAllType[]>}) => {
+    const categoriesForAll = await promise;
+    // console.log(categoriesForAll);
     
     return (
         <div>
-           <AddProductCient allCategories={allCategories}/> 
+           <AddProductCient categoriesForAll={categoriesForAll}/> 
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import { CategoriesType } from "@/app/utils/interfaces";
+import { CategoriesForAllType } from "@/app/utils/interfaces";
 import { poppins } from "@/lib/font"; 
 import { Card, CardContent, } from "@/components/ui/card";
 import Image from "next/image";
@@ -6,13 +6,13 @@ import Link from "next/link";
 import { getCategories } from "@/app/utils/getCategories";
 
 const Categories = async () => {
-   const categoriesOfGenders = await getCategories();
+   const categoriesForAll = await getCategories();
 
   return (
     <section className="flex flex-col justify-center items-center">
       <h2 className={`text-2xl md:text-3xl lg:text-4xl font-semibold ${poppins.className}`}>-SHOP BY-</h2>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-1 mt-3 lg:mt-5">
-        {categoriesOfGenders?.map((categoryOfGenders: CategoriesType) => (
+        {categoriesForAll?.map((categoryOfGenders: CategoriesForAllType) => (
         <Link href={`/categories/${categoryOfGenders?.targetAudience}`} key={categoryOfGenders?._id}>
           <Card className="w-full py-0 gap-0 rounded-lg" >
             <CardContent className="p-1 md:p-2">

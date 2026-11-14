@@ -2,14 +2,14 @@
 import { AlignJustify, X } from "lucide-react";
 import { useState } from "react";
 import MobileView from "./MobileView";
-import { SubCategoriesType } from "@/app/utils/interfaces";
+import { CategoriesByAudienceType } from "@/app/utils/interfaces";
 
-type DropDownMenuCategoriesType = { titleOfCategory: string; link: string; subCategories: SubCategoriesType[]};
+type DropDownMenuCategoriesType = { titleOfCategory: string; link: string; categoriesByAudience: CategoriesByAudienceType[]};
 type TypeOfProps = {
-  categories: DropDownMenuCategoriesType[]
+  categoriesForAll: DropDownMenuCategoriesType[]
 }
 
-const MobileMenu = ({categories}: TypeOfProps) => {
+const MobileMenu = ({categoriesForAll}: TypeOfProps) => {
     const [toggleHamburger, setToggleHamburger] = useState<boolean>(false);
 
     return (
@@ -31,7 +31,7 @@ const MobileMenu = ({categories}: TypeOfProps) => {
                  }`}
             >
               <MobileView
-                categories={categories}
+                categoriesForAll={categoriesForAll}
               />
             </div>
         </div>

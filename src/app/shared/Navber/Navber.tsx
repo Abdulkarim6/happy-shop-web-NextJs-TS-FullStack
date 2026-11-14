@@ -12,11 +12,10 @@ import SearchBar from "./SearchBar";
 const Navber = async () => {
   const [sessionRes, categoriesRes] = await Promise.allSettled([
     auth(),
-    loadDropDownMenuCategories(),
+    loadDropDownMenuCategories()
   ]);
   const session = sessionRes?.status === "fulfilled" ? sessionRes?.value : [];
-  const categories =
-    categoriesRes?.status === "fulfilled" ? categoriesRes?.value : [];
+  const categoriesForAll = categoriesRes?.status === "fulfilled" ? categoriesRes?.value : [];
 
   const orderedProductsPromise = getOrderedProducts();
 
@@ -24,7 +23,7 @@ const Navber = async () => {
     <div className="sticky top-0 w-full z-50 flex justify-between items-center !pr-3 p-1 bg-slate-100">
       <div className="flex items-center">
         {/*-----Menu part for Mobile----- */}
-        <MobileMenu categories={categories} />
+        <MobileMenu categoriesForAll={categoriesForAll} />
 
         {/*----Navber Logo----- */}
         <Link href="/">
@@ -38,7 +37,7 @@ const Navber = async () => {
 
       <div className="flex items-center gap-2">
         {/*----- Menu part for laptop and Desktop----- */}
-        <LaptopDesktopMenu session={session} categories={categories} />
+        <LaptopDesktopMenu session={session} categoriesForAll={categoriesForAll} />
 
         {/* -----Search Bar for desktop----- */}
         <SearchBar />

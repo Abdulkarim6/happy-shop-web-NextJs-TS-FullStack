@@ -1,19 +1,19 @@
 "use client";
 import { useManegePageContext } from '@/app/contexts/managePageStatesContext/useManegePageContext';
-import { CategoriesType } from '@/app/utils/interfaces';
+import { CategoriesForAllType } from '@/app/utils/interfaces';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-const FIlterFieldsClient = ({allCategories}:{allCategories:CategoriesType[]}) => {
+const FIlterFieldsClient = ({categoriesForAll}:{categoriesForAll:CategoriesForAllType[]}) => {
     const {audience,setAudience,selectedSubCategory,setSelectedSubCategory} = useManegePageContext();
     let subcategory;
     if (audience === "men") {
-       subcategory = allCategories[0]?.men;
+       subcategory = categoriesForAll[0]?.men;
       } else if(audience === "women"){
-        subcategory = allCategories[1]?.women;
+        subcategory = categoriesForAll[1]?.women;
       } else if(audience === "kids"){
-        subcategory = allCategories[2]?.kids;
+        subcategory = categoriesForAll[2]?.kids;
       } else if(audience === "accessories"){
-        subcategory = allCategories[3]?.accessories;
+        subcategory = categoriesForAll[3]?.accessories;
     }
 
     return (

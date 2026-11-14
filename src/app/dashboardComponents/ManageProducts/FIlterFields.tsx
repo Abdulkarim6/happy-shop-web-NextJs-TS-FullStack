@@ -2,9 +2,9 @@ import FIlterFieldsClient from './FilterFieldsClient';
 import { getCategories } from '@/app/utils/getCategories';
 
 const FIlterFields = async() => {
-  const allCategories = await getCategories();
+  const categoriesForAll = await getCategories();
 
-  return ( <FIlterFieldsClient allCategories={allCategories}/> );
+  return ( <FIlterFieldsClient categoriesForAll={categoriesForAll}/> );
 };
 
 export default FIlterFields;

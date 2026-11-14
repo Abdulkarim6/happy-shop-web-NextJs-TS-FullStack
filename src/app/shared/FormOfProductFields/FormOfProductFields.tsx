@@ -2,27 +2,27 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue, } from "@/components/ui/select"
-import { CategoriesType } from '@/app/utils/interfaces';
+import { CategoriesForAllType } from '@/app/utils/interfaces';
 
 type paramsType = {
-  allCategories: CategoriesType[];
+  categoriesForAll: CategoriesForAllType[];
   selectedSubCategory:string;
   setSelectedSubCategory:React.Dispatch<React.SetStateAction<string>>
   targetAudience:string | null;
   setTargetAudience:React.Dispatch<React.SetStateAction<string | null>>
 }
 
-const FormOfProductFields = ({selectedSubCategory, targetAudience, setTargetAudience,setSelectedSubCategory, allCategories}:paramsType) => {
+const FormOfProductFields = ({selectedSubCategory, targetAudience, setTargetAudience,setSelectedSubCategory, categoriesForAll}:paramsType) => {
     
     let subcategory;
     if (targetAudience === "men") {
-       subcategory = allCategories[0]?.men;
+       subcategory = categoriesForAll[0]?.men;
       } else if(targetAudience === "women"){
-        subcategory = allCategories[1]?.women;
+        subcategory = categoriesForAll[1]?.women;
       } else if(targetAudience === "kids"){
-        subcategory = allCategories[2]?.kids;
+        subcategory = categoriesForAll[2]?.kids;
       } else if(targetAudience === "accessories"){
-        subcategory = allCategories[3]?.accessories;
+        subcategory = categoriesForAll[3]?.accessories;
     };
 
     const colorsArr = [

@@ -2,12 +2,12 @@ import AddProduct from "@/app/dashboardComponents/AddProduct/AddProduct";
 import { getCategories } from "@/app/utils/getCategories";
 
 const page = () => {
-    const allCategories = getCategories();
-    // console.log(allCategories);
+    const categoriesForAll = getCategories();
+    // console.log(categoriesForAll);
     
     return (
       <div>
-        <AddProduct promise={allCategories} />
+        <AddProduct promise={categoriesForAll} />
       </div>
     );
 };

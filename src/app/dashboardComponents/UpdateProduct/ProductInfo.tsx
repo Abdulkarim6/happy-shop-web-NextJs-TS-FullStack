@@ -1,12 +1,17 @@
-import { getAllProducts } from '@/app/utils/getAllProducts';
+import { getProductsByAudience } from '@/app/utils/getProductsByAudience';
 import { Product } from '@/app/utils/interfaces';
 import Image from 'next/image';
 import React from 'react';
 import DateTime from './DateTime';
 
 const ProductInfo = async({productid}:{productid:string}) => {
-    const product:Product = await getAllProducts()?.then(it => 
-      it?.find((product:Product) => product?._id === productid));
+    // const product:Product = await getProductsByAudience()?.then(it => 
+    //   it?.find((product:Product) => product?._id === productid));
+
+    //Todo : demo path
+    const decodedParams = [ "men", "shirts"];
+    const product:Product = await getProductsByAudience(decodedParams).then(it => 
+      it?.find((product:Product) => product?._id === productid)) as Product;
   
     return (
     <div className='px-2 md:px-24 rounded-none pt-3 md:pt-5 w-full'>

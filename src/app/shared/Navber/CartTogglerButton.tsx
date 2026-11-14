@@ -9,6 +9,7 @@ const CartTogglerButton = ({children}:{children: React.ReactNode}) => {
         onClick={() => setIsCartOpen(!isCartOpen)}
         className="relative title z-30 cursor-pointer"
       >
+       {/* The children is actualy cart button(cart icon and order quantity number) */}
        {children}
       </div>
     );

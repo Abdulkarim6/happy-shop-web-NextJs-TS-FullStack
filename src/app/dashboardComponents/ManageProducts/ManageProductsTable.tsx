@@ -1,10 +1,11 @@
-import { getAllProducts } from '@/app/utils/getAllProducts';
+import { getProductsByAudience } from '@/app/utils/getProductsByAudience';
 import ProductsTableClient from './ProductsTableClient';
 
 const ManageProductsTable = async() => {
-  const allProductsOfCategories = await getAllProducts();
+  // const categoriesForAll = await getProductsByAudience();
 
-  return <ProductsTableClient allProductsOfCategories={allProductsOfCategories}/>;
+  // return <ProductsTableClient categoriesForAll={categoriesForAll}/>;
+  return <p>Todo</p>;
 };
 
 export default ManageProductsTable;

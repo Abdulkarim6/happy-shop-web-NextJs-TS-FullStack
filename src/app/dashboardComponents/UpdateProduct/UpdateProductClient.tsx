@@ -1,17 +1,17 @@
 "use client"
 import { updateProduct } from "@/app/actions/updateProduct";
 import FormOfProductFields from "@/app/shared/FormOfProductFields/FormOfProductFields";
-import { CategoriesType, Toast } from "@/app/utils/interfaces";
+import { CategoriesForAllType, Toast } from "@/app/utils/interfaces";
 import { Spinner } from "@/components/ui/spinner";
 import Form from "next/form";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react";
 
 type ParamsType = {
-  allCategories: CategoriesType[];
+  categoriesForAll: CategoriesForAllType[];
   productid: string;
 };
-const UpdateProductClient = ({allCategories,productid}:ParamsType) => {
+const UpdateProductClient = ({categoriesForAll,productid}:ParamsType) => {
     const initialState = {
      productid:productid,  message: "", acknowledged: "",
      modifiedCount: 0, upsertedId: "", upsertedCount: 0, matchedCount:0
@@ -46,7 +46,7 @@ const UpdateProductClient = ({allCategories,productid}:ParamsType) => {
     <Form action={formAction} className='w-full my-3'>
     
       <FormOfProductFields
-       allCategories={allCategories}
+       categoriesForAll={categoriesForAll}
        selectedSubCategory={selectedSubCategory}
        setSelectedSubCategory={setSelectedSubCategory}
        targetAudience={targetAudience}

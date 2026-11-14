@@ -2,11 +2,11 @@
 import { addProduct } from '@/app/actions/addProduct';
 import Form from 'next/form';
 import { useActionState, useEffect, useState } from 'react';
-import { CategoriesType, Toast } from '@/app/utils/interfaces';
+import { CategoriesForAllType, Toast } from '@/app/utils/interfaces';
 import { Spinner } from '@/components/ui/spinner';
 import FormOfProductFields from '@/app/shared/FormOfProductFields/FormOfProductFields';
 
-const AddProductCient = ({allCategories}:{allCategories: CategoriesType[]}) => {  
+const AddProductCient = ({categoriesForAll}:{categoriesForAll: CategoriesForAllType[]}) => {  
     const initialState = { message: "", acknowledged: "", insertedId: "" };
     const [state, formAction, isPanding] = useActionState(addProduct, initialState);
 
@@ -37,7 +37,7 @@ const AddProductCient = ({allCategories}:{allCategories: CategoriesType[]}) => {
     <Form action={formAction} className='w-full my-3'>
     
       <FormOfProductFields
-       allCategories={allCategories}
+       categoriesForAll={categoriesForAll}
        selectedSubCategory={selectedSubCategory}
        setSelectedSubCategory={setSelectedSubCategory}
        targetAudience={targetAudience}

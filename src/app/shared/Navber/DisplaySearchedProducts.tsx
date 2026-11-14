@@ -80,12 +80,12 @@ const DisplaySearchedProducts = ({searchForProducts, setSearchForProducts}:Param
                      <div className="relative group overflow-hidden">
                        <Link
                         onClick={() => setSearchForProducts("")}
-                        href={`/productDetails/${product?.subCategory?.split(" ").join("-")}/${product?._id}`}
+                        href={`/productDetails/${product?.categorySlug}/${product?._id}`}
                        >
                           <Image
                             src={product?.image}
                             alt={product?.name} width={250} height={300}
-                            className=" hover:scale-105 transition-transform opacity-90"
+                            className="hover:scale-105 transition-transform opacity-90"
                           />
                           <h3 className="text-xs md:text-sm text-center md:font-medium my-1">
                             {product?.name}

@@ -24,9 +24,9 @@ const ManageProducts = () => {
               <Pagination/>
             </div>
           </div>
-          <Suspense fallback={<ProductsManageSkeleton/>}>
+          {/* <Suspense fallback={<ProductsManageSkeleton/>}>
            <ManageProductsTable />
-          </Suspense>
+          </Suspense> */}
         </div>
       </ManagePageContextProvider >
     );
