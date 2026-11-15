@@ -4,6 +4,8 @@ import dbConnect from "@/lib/dbConnect";
 export async function GET() {
   try {
     const session = await auth();
+    console.log("from api");
+    
     const query = {
       buyerEmail:session?.user?.email
     }

@@ -1,4 +1,4 @@
-import { articles } from '@/app/blog/blog';
+import { articles } from '@/app/(pages)/blog/blog';
 import { MoveRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';

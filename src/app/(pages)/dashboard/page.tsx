@@ -1,5 +1,5 @@
-import Users from "../dashboardComponents/Users/Users";
-import { getUsers } from "../utils/getUsers";
+import Users from "../../dashboardComponents/Users/Users";
+import { getUsers } from "../../utils/getUsers";
 
 
 const page = () => {

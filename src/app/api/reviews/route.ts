@@ -1,8 +1,9 @@
-export const dynamic = "force-dynamic";
 import dbConnect from "@/lib/dbConnect";
 
 export async function GET() {
   try {
+    console.log("logged");
+    
     const collection = dbConnect("reviews");
     const data = await collection.find({}).toArray();
     return Response.json({ data });

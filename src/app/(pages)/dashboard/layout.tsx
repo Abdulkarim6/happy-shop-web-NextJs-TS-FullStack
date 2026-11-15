@@ -1,4 +1,4 @@
-import Navber from "../dashboardComponents/Navber/Navber";
+import Navber from "../../dashboardComponents/Navber/Navber";
 
 const layout = ({children}:{children:React.ReactNode}) => {
 

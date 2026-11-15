@@ -1,20 +1,22 @@
 import LaptopDesktopMenu from "./LaptopDesktopMenu";
 import getOrderedProducts from "@/app/utils/getOrderedProducts";
 import CartMenu from "./CartMenu";
-import { auth } from "@/auth";
-import AuthenticatedMenu from "./AuthenticatedMenu";
+// import { auth } from "@/auth";
+import AuthenticatedMenu from "./AuthMenu";
 import { loadDropDownMenuCategories } from "@/app/utils/loadDropDownMenuCategories";
 import Link from "next/link";
 import { poppins } from "@/lib/font";
 import MobileMenu from "./MobileMenu";
 import SearchBar from "./SearchBar";
+import AuthMenu from "./AuthMenu";
 
 const Navber = async () => {
-  const [sessionRes, categoriesRes] = await Promise.allSettled([
-    auth(),
+  const [ categoriesRes] = await Promise.allSettled([
+  // const [sessionRes, categoriesRes] = await Promise.allSettled([
+    // auth(),
     loadDropDownMenuCategories()
   ]);
-  const session = sessionRes?.status === "fulfilled" ? sessionRes?.value : [];
+  // const session = sessionRes?.status === "fulfilled" ? sessionRes?.value : [];
   const categoriesForAll = categoriesRes?.status === "fulfilled" ? categoriesRes?.value : [];
 
   const orderedProductsPromise = getOrderedProducts();
@@ -37,14 +39,14 @@ const Navber = async () => {
 
       <div className="flex items-center gap-2">
         {/*----- Menu part for laptop and Desktop----- */}
-        <LaptopDesktopMenu session={session} categoriesForAll={categoriesForAll} />
+        <LaptopDesktopMenu categoriesForAll={categoriesForAll} />
 
         {/* -----Search Bar for desktop----- */}
         <SearchBar />
 
         <div className="flex items-center gap-2 bg-white rounded px-1.5">
           {/* auth menu list */}
-          <AuthenticatedMenu />
+          <AuthMenu />
 
           {/* cart menu */}
           <CartMenu orderedProductsPromise={orderedProductsPromise} />
