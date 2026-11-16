@@ -3,6 +3,7 @@ import "./globals.css";
 import Navber from "./shared/Navber/Navber";
 import Footer from "./shared/Footer/Footer";
 import { poppins } from "@/lib/font";
+import NextAuthProvider from "./providers/NextAuthProvider";
 
 export const metadata: Metadata = {
   title: "Happy Shop",
@@ -16,10 +17,12 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
         <body className={`${poppins.className} antialiased max-w-[1440px] w-full px-2 mx-auto min-h-screen bg-slate-100`} >
          
          <main>
+          <NextAuthProvider>
            <Navber />
            <div>
             {children}
            </div>
+          </NextAuthProvider>
          </main>
 
          <Footer/>

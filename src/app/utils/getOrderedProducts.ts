@@ -1,6 +1,9 @@
-import { cookies } from "next/headers";
+import { Session } from "next-auth";
+// import { cookies } from "next/headers";
 
- const getOrderedProducts = async() => {
+ const getOrderedProducts = async(session: Session) => {
+  console.log(session);
+  
     const baseUrl = process.env.NEXT_PUBLIC_API_URL;
      const res = await fetch(`${baseUrl}/api/getOrderedProducts`, {
       //  headers: {

@@ -1,11 +1,11 @@
-import getOrderedProducts from "@/app/utils/getOrderedProducts";
+// import getOrderedProducts from "@/app/utils/getOrderedProducts";
 import React from "react";
 import DeleveryPolicy_Terms from "@/app/components/deleveryPolicy_TermsComponents/DeleveryPolicy_TermsParent/DeleveryPolicy_TermsParent";
 import CustomerBenefits from "@/app/components/homeComponents/CustomerBenefits/CustomerBenefits";
 import BagClient from "@/app/bag-checkoutComponents/BagClient";
 
 const page = async () => {
-  const orderedProducts = await getOrderedProducts();
+  // const orderedProducts = await getOrderedProducts();
   
   return (
     <div>
@@ -16,9 +16,9 @@ const page = async () => {
           </h1>
         </div>
 
-        <div className="max-w-7xl mx-auto px-2 md:px-4 sm:px-6 lg:px-8 pb-20">
+        {/* <div className="max-w-7xl mx-auto px-2 md:px-4 sm:px-6 lg:px-8 pb-20">
           <BagClient orderedProducts={orderedProducts}/>
-        </div>
+        </div> */}
       </div>
       <DeleveryPolicy_Terms />
       <CustomerBenefits />

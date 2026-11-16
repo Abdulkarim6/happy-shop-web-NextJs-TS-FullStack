@@ -2,7 +2,6 @@ import { ChevronDownIcon } from "lucide-react";
 import Link from "next/link";
 import type { CategoriesByAudienceType } from "@/app/utils/interfaces";
 import DashboardList from "./DashboardList";
-import NextAuthProvider from "@/app/providers/NextAuthProvider";
 
 type DropDownMenuCategoriesType = {
   titleOfCategory: string;
@@ -10,11 +9,9 @@ type DropDownMenuCategoriesType = {
   categoriesByAudience: CategoriesByAudienceType[];
 };
 type TypeOfProps = {
-  // session: Session | never[] | null;
   categoriesForAll: DropDownMenuCategoriesType[];
 };
 
-// const LaptopDesktopMenu = ({ session, categoriesForAll }: TypeOfProps) => {
 const LaptopDesktopMenu = ({ categoriesForAll }: TypeOfProps) => {
   
   return (
@@ -54,17 +51,8 @@ const LaptopDesktopMenu = ({ categoriesForAll }: TypeOfProps) => {
           </li>
         ))}
 
-        {/* {
-          session?.user?.role === "admin" &&
-          <li className="bg-white px-2 py-1.5 rounded">
-            <Link href="/dashboard">Dashboard</Link>
-          </li>
-        } */}
-
         <li>
-          <NextAuthProvider>
-            <DashboardList/>
-          </NextAuthProvider>
+          <DashboardList/>
         </li>
       </ul>
     </div>

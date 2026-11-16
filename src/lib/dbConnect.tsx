@@ -1,48 +1,31 @@
-// const { MongoClient, ServerApiVersion } = require("mongodb");
 import { MongoClient, ServerApiVersion } from "mongodb";
-const uri ="mongodb+srv://AbdulKarim:r16karim90i@cluster0.6ertblk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-function dbConnect(collectionName : string){
+const uri = process.env.MONGODB_URI;
+if (!uri) throw new Error("MONGODB_URI is not set");
 
-    const client = new MongoClient(uri, {
-      serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-      },
-    });
+const g = globalThis as unknown as { _mongo?: MongoClient };
 
-  return client.db("happyShop").collection(collectionName);
-}
+const client =
+  (g._mongo ??= new MongoClient(uri, {
+    serverApi: { version: ServerApiVersion.v1, strict: true, deprecationErrors: true },
+    maxPoolSize: 10,
+  }));
 
-
-export default dbConnect;
+export default function dbConnect(collectionName: string) {
+return client.db("happyShop").collection(collectionName);
+};
 
 // import { MongoClient, ServerApiVersion } from "mongodb";
+// function dbConnect(collectionName : string){
 
-// const uri = process.env.MONGO_URI as string;
+//     const client = new MongoClient(uri, {
+//       serverApi: {
+//         version: ServerApiVersion.v1,
+//         strict: true,
+//         deprecationErrors: true,
+//       },
+//     });
 
-// let client: MongoClient;
-
-// declare global {
-//   var _mongoClientPromise: Promise<MongoClient> | undefined;
+//   return client.db("happyShop").collection(collectionName);
 // }
-
-// if (!global._mongoClientPromise) {
-//   client = new MongoClient(uri, {
-//     serverApi: {
-//       version: ServerApiVersion.v1,
-//       strict: true,
-//       deprecationErrors: true,
-//     },
-//   });
-//   global._mongoClientPromise = client.connect();
-// }
-
-// const clientPromise: Promise<MongoClient> = global._mongoClientPromise!; // ✅ const
-
-// export default async function dbConnect(collectionName: string) {
-//   const conn = await clientPromise;
-//   return conn.db("happyShop").collection(collectionName);
-// }
+// export default dbConnect;

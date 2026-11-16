@@ -1,12 +1,15 @@
 import { CategoriesByAudienceType } from "@/app/utils/interfaces";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, } from "@/components/ui/accordion";
 import { LayoutDashboard, Minus, Plus } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 type DropDownMenuCategoriesType = { titleOfCategory: string; link: string; categoriesByAudience: CategoriesByAudienceType[]};
 type TypeOfProps = { categoriesForAll: DropDownMenuCategoriesType[] }
 
 const MobileView = ({categoriesForAll}: TypeOfProps) => {
+  const { data: session, status } = useSession();
+  // if (status !== "authenticated" || !session?.user) { return null }
 
   return (
     <div className="mr-0 p-2 bg-slate-50">
@@ -40,14 +43,17 @@ const MobileView = ({categoriesForAll}: TypeOfProps) => {
         )
         }
 
-        <AccordionItem value="dashboard">
-          <Link href="/dashboard" className="flex items-center justify-between group pt-2 pb-0">
-            <span className="text-lg font-medium">dashboard</span>
-            <span className="ml-2">
-              <LayoutDashboard className="h-5 w-5 transition-all duration-200 group-data-[state=open]:hidden" />
-            </span>
-          </Link>
-        </AccordionItem>
+        {
+         status === "authenticated" && session?.user &&
+         (<AccordionItem value="dashboard">
+           <Link href="/dashboard" className="flex items-center justify-between group pt-2 pb-0">
+             <span className="text-lg font-medium">dashboard</span>
+             <span className="ml-2">
+               <LayoutDashboard className="h-5 w-5 transition-all duration-200 group-data-[state=open]:hidden" />
+             </span>
+           </Link>
+         </AccordionItem>)
+        }
 
       </Accordion>
     </div>

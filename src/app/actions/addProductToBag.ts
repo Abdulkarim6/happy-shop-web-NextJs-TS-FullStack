@@ -14,6 +14,8 @@ type OrderResponseType = {
 }
 
 export const addToBag = async (orderedData:OrderedDataype) => {
+  console.log("Logged addToBag");
+  
   try {
     const session = await auth();
     

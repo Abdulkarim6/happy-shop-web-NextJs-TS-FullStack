@@ -1,4 +1,4 @@
-"use server";
+import "server-only";
 
 import dbConnect from "@/lib/dbConnect";
 import { unstable_cache } from "next/cache";

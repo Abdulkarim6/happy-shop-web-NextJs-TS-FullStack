@@ -35,7 +35,7 @@ const page = async ({ params }: { params: Promise<{ category: string[]}> }) => {
   );
 
 
-  console.log(categoriesDataForAll);
+  // console.log(categoriesDataForAll);
   
   let content = null;
 

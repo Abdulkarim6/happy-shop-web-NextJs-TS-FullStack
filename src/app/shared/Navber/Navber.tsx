@@ -1,8 +1,6 @@
 import LaptopDesktopMenu from "./LaptopDesktopMenu";
-import getOrderedProducts from "@/app/utils/getOrderedProducts";
+// import getOrderedProducts from "@/app/utils/getOrderedProducts";
 import CartMenu from "./CartMenu";
-// import { auth } from "@/auth";
-import AuthenticatedMenu from "./AuthMenu";
 import { loadDropDownMenuCategories } from "@/app/utils/loadDropDownMenuCategories";
 import Link from "next/link";
 import { poppins } from "@/lib/font";
@@ -11,15 +9,10 @@ import SearchBar from "./SearchBar";
 import AuthMenu from "./AuthMenu";
 
 const Navber = async () => {
-  const [ categoriesRes] = await Promise.allSettled([
-  // const [sessionRes, categoriesRes] = await Promise.allSettled([
-    // auth(),
-    loadDropDownMenuCategories()
-  ]);
-  // const session = sessionRes?.status === "fulfilled" ? sessionRes?.value : [];
+  const [ categoriesRes] = await Promise.allSettled([loadDropDownMenuCategories()]);
   const categoriesForAll = categoriesRes?.status === "fulfilled" ? categoriesRes?.value : [];
 
-  const orderedProductsPromise = getOrderedProducts();
+  // const orderedProductsPromise = getOrderedProducts();
 
   return (
     <div className="sticky top-0 w-full z-50 flex justify-between items-center !pr-3 p-1 bg-slate-100">
@@ -49,7 +42,8 @@ const Navber = async () => {
           <AuthMenu />
 
           {/* cart menu */}
-          <CartMenu orderedProductsPromise={orderedProductsPromise} />
+          <CartMenu />
+          {/* <CartMenu orderedProductsPromise={orderedProductsPromise} /> */}
         </div>
       </div>
     </div>

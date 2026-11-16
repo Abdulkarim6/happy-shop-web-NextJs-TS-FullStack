@@ -1,13 +1,9 @@
-// import { auth, signOut } from "@/auth";
-import { Button } from "@/components/ui/button";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import { ChevronDownIcon, CircleUserRound } from "lucide-react";
 import Link from "next/link";
 import AuthDropdownMenu from "./AuthDropdownMenu";
-import NextAuthProvider from "@/app/providers/NextAuthProvider";
 
 const AuthMenu = async() => {
-  // const session = await auth();
   
   const navigationMenuLink = `text-base lg:text-lg font-medium !px-2 !py-1 lg:!px-4 lg:!py-2`;
   
@@ -31,9 +27,7 @@ const AuthMenu = async() => {
                 </li>
                 
                 <li>
-                  <NextAuthProvider>
-                    <AuthDropdownMenu/>
-                  </NextAuthProvider>
+                  <AuthDropdownMenu/>
                 </li>
 
               </ul>
