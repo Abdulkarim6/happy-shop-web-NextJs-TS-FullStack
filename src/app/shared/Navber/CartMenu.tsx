@@ -1,58 +1,29 @@
 "use client"
 import { CartTogglerProvider } from "@/app/contexts/cartTogglerStatesContext/CartTogglerProvider";
-import { OrderedDataype } from "@/app/utils/interfaces";
 import { ShoppingBag } from "lucide-react";
 import CartTogglerButton from "./CartTogglerButton";
 import ProductsCartMenu from "./ProductsCartMenu";
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
-import { Session } from "next-auth";
-
-type ParamsType = {
-  orderedProductsPromise: Promise<OrderedDataype[]>;
-};
-
-export const getOrderedProducts = async (session: Session) => {
-  console.log(session);
-  
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-  const res = await fetch(`${baseUrl}/api/getOrderedProducts`);
-  console.log(res);
-  
-  return res.json();
-}
+import { useCart } from "@/app/hooks/useCart";
+import { Spinner } from "@/components/ui/spinner";
 
 const CartMenu = () => {
-// const CartMenu = async ({ orderedProductsPromise }: ParamsType) => {
-  // const orderedProducts = await orderedProductsPromise;
-
-  const { data: session, status } = useSession();
-  const [orderedProducts, setOrderedProducts] = useState<OrderedDataype[]>([]);
- 
-   useEffect(() => {
-     if (session?.user) {
-       getOrderedProducts(session)
-         .then((data) => {
-           setOrderedProducts(Array.isArray(data) ? data : data?.data || []);
-         })
-         .catch((err) => console.error("Error fetching cart:", err));
-     } else {
-       setOrderedProducts([]);
-     }
-   }, [session]);
+  const {orders , isLoading} = useCart();
 
   return (
     <div className="relative z-50 hover:bg-accent px-4 py-2">
       <CartTogglerProvider>
         <CartTogglerButton>
           <ShoppingBag className="size-5 lg:size-6 cursor-pointer" />
-          {orderedProducts && (
+          {isLoading ? (
+            <Spinner className="size-4 md:size-5 absolute bottom-3 left-3" />
+          ) : (
             <p className="absolute bottom-3 left-3 text-xs font-medium z-30 bg-black text-white py-0.5 px-1 rounded-full">
-              {orderedProducts?.length | 0}
+              {orders?.length ?? 0}
             </p>
           )}
+          
         </CartTogglerButton>
-        <ProductsCartMenu orderedProducts={orderedProducts} />
+        <ProductsCartMenu orderedProducts={orders} />
       </CartTogglerProvider>
     </div>
   );

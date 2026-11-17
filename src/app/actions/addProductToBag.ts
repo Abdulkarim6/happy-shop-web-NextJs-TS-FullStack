@@ -48,10 +48,6 @@ export const addToBag = async (orderedData:OrderedDataype) => {
         upsert: true,
       }
     );
-    
-    if (res?.acknowledged) {
-        revalidateTag("orders");
-      }
 
     const resSerialize: OrderResponseType = {
       acknowledged: res?.acknowledged,

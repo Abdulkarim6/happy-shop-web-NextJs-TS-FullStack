@@ -1,11 +1,11 @@
-// import getOrderedProducts from "@/app/utils/getOrderedProducts";
+// import getMyOrders from "@/app/utils/getMyOrders";
 import React from "react";
 import DeleveryPolicy_Terms from "@/app/components/deleveryPolicy_TermsComponents/DeleveryPolicy_TermsParent/DeleveryPolicy_TermsParent";
 import CustomerBenefits from "@/app/components/homeComponents/CustomerBenefits/CustomerBenefits";
 import BagClient from "@/app/bag-checkoutComponents/BagClient";
 
 const page = async () => {
-  // const orderedProducts = await getOrderedProducts();
+  // const orderedProducts = await getMyOrders();
   
   return (
     <div>

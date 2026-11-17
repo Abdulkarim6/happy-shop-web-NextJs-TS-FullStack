@@ -1,5 +1,4 @@
 import LaptopDesktopMenu from "./LaptopDesktopMenu";
-// import getOrderedProducts from "@/app/utils/getOrderedProducts";
 import CartMenu from "./CartMenu";
 import { loadDropDownMenuCategories } from "@/app/utils/loadDropDownMenuCategories";
 import Link from "next/link";
@@ -11,8 +10,6 @@ import AuthMenu from "./AuthMenu";
 const Navber = async () => {
   const [ categoriesRes] = await Promise.allSettled([loadDropDownMenuCategories()]);
   const categoriesForAll = categoriesRes?.status === "fulfilled" ? categoriesRes?.value : [];
-
-  // const orderedProductsPromise = getOrderedProducts();
 
   return (
     <div className="sticky top-0 w-full z-50 flex justify-between items-center !pr-3 p-1 bg-slate-100">

@@ -1,12 +1,12 @@
 import { loadAddress } from '@/app/actions/checkoutActions';
 import CheckoutClient from '@/app/bag-checkoutComponents/CheckoutClient';
-// import getOrderedProducts from '@/app/utils/getOrderedProducts';
+// import getMyOrders from '@/app/utils/getMyOrders';
 
 const page = async() => {
 
   //  const [addressesResult, ordersResult] = await Promise.allSettled([
   //    loadAddress(),
-  //    getOrderedProducts(),
+  //    getMyOrders(),
   //  ]);
 
   //  const addresses = addressesResult.status === "fulfilled" ? addressesResult.value : [];

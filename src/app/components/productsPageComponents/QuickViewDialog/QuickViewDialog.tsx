@@ -10,6 +10,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { refreshCart } from "@/app/hooks/useCart";
 
 type propsTypes = {
   product: Product;
@@ -45,7 +46,8 @@ const QuickViewDialog = ({product} : propsTypes) => {
       };
 
       const res = await addToBag(payload);
-
+      if(res.acknowledged) await refreshCart();
+      
       if (res?.error === "UNAUTHORIZED") {
         router.push(
           `/account/auth?mode=login&callbackUrl=${encodeURIComponent(pathname)}`

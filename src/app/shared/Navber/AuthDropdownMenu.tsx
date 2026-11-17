@@ -8,10 +8,13 @@ const AuthDropdownMenu = () => {
   const { data: session, status } = useSession();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   
-
   const handleSignOut = async () => {
+    try {
     setIsLoggingOut(true);
-    await signOut({ callbackUrl: "/" }); 
+    await signOut({ callbackUrl: "/" });
+  } catch (error) {
+    setIsLoggingOut(false);
+  }
   };
 
   if (isLoggingOut || status === "unauthenticated") {
