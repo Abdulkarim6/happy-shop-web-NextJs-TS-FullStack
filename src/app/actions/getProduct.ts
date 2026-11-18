@@ -4,8 +4,9 @@ import dbConnect from "@/lib/dbConnect";
 import { ObjectId } from "mongodb";
 import { Product } from "@/app/utils/interfaces";
 import { notFound } from "next/navigation";
+import { cache } from "react";
 
-export const getProduct = async (id: string): Promise<Product> => {
+export const getProduct = cache(async (id: string): Promise<Product> => {
      const collection = dbConnect("products");
      const isValidId = id?.slice(0, 24);
 
@@ -22,7 +23,7 @@ export const getProduct = async (id: string): Promise<Product> => {
      }
     
     return serializedData as Product;
-};
+});
 
 export async function preloadProduct(id:string){
     void getProduct(id);

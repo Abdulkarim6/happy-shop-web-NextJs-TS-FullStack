@@ -18,6 +18,9 @@ const DisplaySearchedProducts = ({searchForProducts, setSearchForProducts}:Param
 
     useEffect(()=> {
       const query = searchForProducts.trim();
+      // স্পেস বা স্পেশাল ক্যারেক্টার (+, &, ?) নিরাপদভাবে URL-এ পাঠানোর জন্য
+      const encodedQuery = encodeURIComponent(query.trim());
+
       if (!query) {
         setSearchedProducts([]);
         setSearchedProductsLoading(false);
@@ -33,7 +36,7 @@ const DisplaySearchedProducts = ({searchForProducts, setSearchForProducts}:Param
 
       const timer = setTimeout(async() => {
         try {
-         const res = await fetch(`${baseUrl}/api/searchingProducts?search=${searchForProducts}`, {signal: productSearchController.signal})
+         const res = await fetch(`${baseUrl}/api/searchingProducts?search=${encodedQuery}`, {signal: productSearchController.signal})
          if (!res?.ok) { throw new Error("Failed to fetch products"); }
 
          const data = await res.json();

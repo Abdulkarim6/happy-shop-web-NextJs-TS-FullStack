@@ -2,12 +2,14 @@ import Image from "next/image";
 import { articles } from "../blog";
 import Link from "next/link";
 
+export function generateStaticParams(){
+  return articles?.map((article) => ({slug: article?.link}))
+}
+
 const page = async ({params}:{params: Promise<{slug:string}>}) => {
-    const { slug:id } = await params;
-   // console.log(id);
-    
-    const blog = articles?.find(article => article.link === id);
-   // console.log(blog);
+    const { slug } = await params;
+
+    const blog = articles?.find(article => article.link === slug);
    
     return (
       <section className="w-full md:w-[90%] lg:w-[80%] p-0.5 lg:p-3 flex flex-col-reverse lg:flex-row mx-auto">
@@ -38,18 +40,16 @@ const page = async ({params}:{params: Promise<{slug:string}>}) => {
         </div>
   
         {/* Blog Area */}
+          {
+           blog && 
         <div className="w-full lg:w-7/10 flex flex-col items-center justify-center">
-          {blog && (
+        
             <Image
               src={blog?.image}
               alt={blog.title}
               width={400}
               height={550}
             />
-          )}
-
-         {
-          blog && 
 
           <article className="max-w-2xl mx-auto px-2 md:px-3 lg:px-6 py-2 font-sans">
             {blog?.blog?.map((block, index) => {
@@ -109,9 +109,9 @@ const page = async ({params}:{params: Promise<{slug:string}>}) => {
               }
             })}
           </article>
-         }
 
         </div>
+         }
       </section>
     );
 };
