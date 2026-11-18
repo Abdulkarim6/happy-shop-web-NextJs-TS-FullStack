@@ -1,28 +1,31 @@
 'use server'
-
+import { auth } from "@/auth";
 import dbConnect from "@/lib/dbConnect";
 import { revalidateTag } from "next/cache";
 
-type payloadType = {
-   date: Date,
+type review = {
    rating: number,
-   customer: string,
    review: string,
  };
 
-export const addReview = async(payload:payloadType) => {
+export const addReview = async(review:review) => {
     try {
+        const session = await auth();
 
-        const collection = dbConnect("reviews");
-        const res = await collection.insertOne(payload);
-        
-        if (res?.acknowledged) {
-          revalidateTag("reviews");
+        if (!session?.user) return {error: "UNAUTHORIZED. Please Login"}
+
+        const payload = {
+          ...review,
+          customerName: session?.user?.name,
+          createdAt: new Date() as Date
         }
-        const resSerialize = {
-          acknowledged: res?.acknowledged,
-          insertedId: res?.insertedId.toString()
-        };
+        
+        const collection = dbConnect("reviews");
+        const {acknowledged, insertedId} = await collection.insertOne(payload);
+        
+        if (acknowledged) {revalidateTag("reviews")};
+
+        const resSerialize = { acknowledged, insertedId: insertedId ? insertedId.toString() : null  };
         return resSerialize;
 
     } catch (error) {

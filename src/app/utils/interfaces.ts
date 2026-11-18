@@ -49,12 +49,12 @@ export interface CategoriesForAllType {
 
 export interface ReviewType {
   _id: string;
-  customer: string;
+  customerName: string;
   location: string;
   review: string;
   profile: string;
   rating: number;
-  date: string;
+  createdAt: string;
 };
 
 export interface UserType{

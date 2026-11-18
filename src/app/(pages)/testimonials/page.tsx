@@ -4,8 +4,8 @@ import Testimonials from "../../components/homeComponents/Testimonials/Testimoni
 const page = () => {
     return (
         <section className='mt-2'>
-          <Testimonials path="testimonialPage"/>
           <AddReview/>
+          <Testimonials path="testimonialPage"/>
         </section>
     );
 };
