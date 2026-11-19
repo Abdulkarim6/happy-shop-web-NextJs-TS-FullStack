@@ -18,6 +18,8 @@ type PropTypes = {
 }
 
 const CategoriesByAudienceComponent = async ({categoriesByAudience, decodedParams}:PropTypes) => {
+  const kidsPath = decodedParams[0]?.toLocaleLowerCase() === "kids" ? true : false;
+  
   const urlPath = decodedParams?.join("/").toLocaleLowerCase();
   const imageStyle = { border: "1px solid #fff" };
 
@@ -33,7 +35,7 @@ const CategoriesByAudienceComponent = async ({categoriesByAudience, decodedParam
               fill
               priority
             />
-            <div className="absolute top-0 w-full h-full flex justify-end bg-r-overlay ">
+            <div className={`absolute inset-0 w-full flex ${ kidsPath ? "justify-start bg-l-overlay" : "justify-end bg-r-overlay"}`}>
               <BannerTitleComponent
                 title={categoriesByAudience?.bannerTitle}
                 subTitle={categoriesByAudience?.bannerSubTitle}

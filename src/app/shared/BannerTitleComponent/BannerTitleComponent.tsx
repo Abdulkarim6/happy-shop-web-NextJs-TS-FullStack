@@ -17,10 +17,8 @@ const BannerTitleComponent = ({ title, subTitle }: Props) => {
   
 
   useGSAP(() => {
-    const titleSplit = SplitText.create(".title", { type: "words, chars" });
-    const subtitleSplit = SplitText.create(".sub-title", {
-      type: "words, chars",
-    });
+    const titleSplit = SplitText.create(".titleClass", { type: "words, chars" });
+    const subtitleSplit = SplitText.create(".subTitleClass", { type: "words, chars", });
 
     gsap.from(titleSplit.chars, {
       duration: 1,
@@ -38,14 +36,9 @@ const BannerTitleComponent = ({ title, subTitle }: Props) => {
   });
 
   return (
-    <div className="flex items-center w-1/2 h-full ">
-
-      <div className={`flex flex-col justify-center w-full h-full ${path?.includes("kids")  ? "pl-[25%]" : "pr-[25%]" }`}>
-        <h2 className="text-white font-bold title text-2xl md:text-3xl lg:text-4xl">{title}</h2>
-
-        <p className="text-white sub-title text-base md:text-lg lg:text-xl">{subTitle}</p>
-      </div>
-
+    <div className={`flex flex-col items-start justify-center w-1/2 px-2 md:px-5`}>
+      <h2 className="text-white font-bold titleClass text-2xl md:text-3xl lg:text-4xl">{title}</h2>
+      <p className="text-white subTitleClass text-base md:text-lg lg:text-xl">{subTitle}</p>
     </div>
   );
 };

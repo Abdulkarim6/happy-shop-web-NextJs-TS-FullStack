@@ -12,9 +12,6 @@ type GroupPropsTypes = {
 const Products = async ({productsByAudience, decodedParams }: GroupPropsTypes) => {
   const urlPath = decodedParams?.join("/").toLocaleLowerCase();
 
-  console.log("prds");
-  
-
   return (
     <section className="relative ">
       {/* Filter drawer open button for mobile view*/}

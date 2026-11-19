@@ -25,12 +25,12 @@
 
 .bg-l-overlay{
 background: #000000;
-background: linear-gradient(79deg, rgba(0, 0, 0, 0.67) 0%, rgba(224, 34, 34, 0) 62%);
+background: linear-gradient(35deg, rgba(0, 0, 0, 0.67) 0%, rgba(224, 34, 34, 0) 62%);
 }
 
 .bg-r-overlay{
   background: #000000;
-background: linear-gradient(301deg, rgba(0, 0, 0, 0.67) 0%, rgba(224, 34, 34, 0) 62%);
+background: linear-gradient(300deg, rgba(0, 0, 0, 0.67) 0%, rgba(224, 34, 34, 0) 62%);
 }
 
 .no-select {
