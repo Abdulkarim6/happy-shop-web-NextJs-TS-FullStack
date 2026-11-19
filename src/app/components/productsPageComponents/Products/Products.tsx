@@ -3,19 +3,17 @@ import DisplayProducts from "./DisplayProducts";
 import ProductsClientAsideNav from "./ProductsClientAsideNav";
 import ProductsPageStatesContextProvider from "@/app/contexts/productsPageStatesContext/ProductsPageStatesContextProvider";
 import DrawerOpenButton from "./DrawerOpenButton";
-import { notFound } from "next/navigation";
-import { getProductsByAudience } from "@/app/utils/getProductsByAudience";
 
 type GroupPropsTypes = {
   decodedParams: string[];
+  productsByAudience: Product[];
 };
 
-const Products = async ({ decodedParams }: GroupPropsTypes) => {
-  const productsByAudience :Product[] = await getProductsByAudience(decodedParams);
+const Products = async ({productsByAudience, decodedParams }: GroupPropsTypes) => {
+  const urlPath = decodedParams?.join("/").toLocaleLowerCase();
 
-  // if (dataBySubcategory?.length <= 0) {
-  //   notFound();
-  // }
+  console.log("prds");
+  
 
   return (
     <section className="relative ">
@@ -31,7 +29,7 @@ const Products = async ({ decodedParams }: GroupPropsTypes) => {
 
           {/* products display area */}
           <div className="w-full md:w-4/5 px-1 z-10">
-            <DisplayProducts productsByAudience={productsByAudience} />
+            <DisplayProducts productsByAudience={productsByAudience} urlPath={urlPath}/>
           </div>
         </div>
       </ProductsPageStatesContextProvider>

@@ -9,6 +9,8 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 const ProductDetails = ({product} : {product : Product}) => {
+  console.log(product);
+  
     const [addToBagProcessing, setAddToBagProcessing] = useState<boolean>(false);
     const [orderQuantity, setorderQuantity] = useState<number>(1);
     const [selectedSizeOfProduct, setSelectedSizeOfProduct] = useState<string>("");

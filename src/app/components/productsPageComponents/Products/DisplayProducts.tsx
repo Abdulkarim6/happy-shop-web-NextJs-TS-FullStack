@@ -6,9 +6,9 @@ import { Product } from "@/app/utils/interfaces";
 import { useProductsPageStates } from "@/app/contexts/productsPageStatesContext/useProductsPageStates";
 type ParamsTypes = {
   productsByAudience : Product[];
+  urlPath : string;
 }
-const DisplayProducts = ({productsByAudience}: ParamsTypes) => {
-  // console.log(productsByAudience);
+const DisplayProducts = ({productsByAudience, urlPath}: ParamsTypes) => {
   
   const { sizes,price,colors,inStock} = useProductsPageStates();
 
@@ -58,7 +58,7 @@ const DisplayProducts = ({productsByAudience}: ParamsTypes) => {
               <div key={product?._id}>
                  <div className="relative group overflow-hidden">
                    <Link
-                     href={`/productDetails/${product?.subCategory?.split(" ").join("-")}/${product?._id}`}
+                     href={`/categories/${urlPath}/${product?._id}`}
                    >
                       <Image
                         src={product?.image}
@@ -70,9 +70,9 @@ const DisplayProducts = ({productsByAudience}: ParamsTypes) => {
                      product={product}
                    ></QuickViewDialog>
                  </div>
-                
+
                 <Link
-                  href={`/productDetails/${product?.subCategory?.split(" ").join("-")}/${product?._id}`}
+                  href={`/categories/${urlPath}/${product?._id}`}
                 >
                   <h3 className="text-sm md:text-xl text-center font-medium my-2">
                     {product?.name}

@@ -1,11 +1,9 @@
-import { getProduct } from '@/app/actions/getProduct';
 import ProductDetails from '@/app/components/productsPageComponents/ProductDetails/ProductDetails';
 import { Product } from '@/app/utils/interfaces';
 import Image from 'next/image';
 import React from 'react';
 
-const ProductBlock = async({id}:{id:string}) => {
-    const product : Product = await getProduct(id);
+const ProductBlock = async({product} : {product : Product}) => {
 
     return (
         <div className="px-2 md:px-24 rounded-none bg-slate-100 pt-3 md:pt-5 flex flex-col md:flex-row justify-around gap-3 w-full">

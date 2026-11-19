@@ -1,4 +1,5 @@
 // import { ObjectId } from "mongodb";
+import { StaticImageData } from "next/image";
 import Swal from "sweetalert2";
 
 export interface Product {
@@ -36,6 +37,13 @@ export interface CategoriesByAudienceType  {
   description: string;
 };
 
+export type typeforcategories = {
+  targetAudience: string;
+  bannerImg: StaticImageData;
+  bannerTitle: string;
+  bannerSubTitle: string;
+  categoriesByAudience: CategoriesByAudienceType[];
+};
 
 export interface CategoriesForAllType {
   _id: string ;
