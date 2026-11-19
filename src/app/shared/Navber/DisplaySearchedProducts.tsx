@@ -14,8 +14,6 @@ const DisplaySearchedProducts = ({searchForProducts, setSearchForProducts}:Param
     const [searchedProducts, setSearchedProducts] = useState<Product[]>([]);
     const [searchedProductsLoading, setSearchedProductsLoading] = useState<boolean>(false);
 
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-
     useEffect(()=> {
       const query = searchForProducts.trim();
       // স্পেস বা স্পেশাল ক্যারেক্টার (+, &, ?) নিরাপদভাবে URL-এ পাঠানোর জন্য
@@ -36,7 +34,7 @@ const DisplaySearchedProducts = ({searchForProducts, setSearchForProducts}:Param
 
       const timer = setTimeout(async() => {
         try {
-         const res = await fetch(`${baseUrl}/api/searchingProducts?search=${encodedQuery}`, {signal: productSearchController.signal})
+         const res = await fetch(`/api/searchingProducts?search=${encodedQuery}`, {signal: productSearchController.signal})
          if (!res?.ok) { throw new Error("Failed to fetch products"); }
 
          const data = await res.json();
@@ -53,7 +51,7 @@ const DisplaySearchedProducts = ({searchForProducts, setSearchForProducts}:Param
       }, 300)
 
       return () =>{ clearTimeout(timer); productSearchController.abort() }
-    }, [searchForProducts, baseUrl])
+    }, [searchForProducts])
     
     return (
         <div

@@ -6,8 +6,6 @@ import { useEffect, useState } from "react";
 
 type filterAreaKey = "price" | "size" | "inStock" | "color";
 type GroupPropsTypes = {
-//   dataBySubcategory : Product[];
-//   categoriesOfAudience: CategoriesForAllType | undefined;
   decodedParams : string[];
 };
 
@@ -17,10 +15,9 @@ const ProductsClientAsideNav = ({decodedParams} : GroupPropsTypes) => {
     // state of filters values
      const { mobileNav,setMobileNav,sizes, setSizes,price,setPrice,colors,setColors,setStock,inStock} = useProductsPageStates();
     
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL;
     // Loads quantity of products based on size
     useEffect(() => {
-       fetch(`${baseUrl}/api/getQuantityOfItemsForEachSizes`,{
+       fetch(`/api/getQuantityOfItemsForEachSizes`,{
           cache:"no-store",
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -32,7 +29,7 @@ const ProductsClientAsideNav = ({decodedParams} : GroupPropsTypes) => {
        .then((res) => res.json())
          .then((data) => setQuantityOfSizes(data))
          .catch((err) => console.log("err", err));
-    },[decodedParams, baseUrl])
+    },[decodedParams])
 
 
     // clear filter values from state with one click or specific value click

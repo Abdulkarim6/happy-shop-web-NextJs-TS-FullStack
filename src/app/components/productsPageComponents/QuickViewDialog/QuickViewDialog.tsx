@@ -10,12 +10,13 @@ import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { refreshCart } from "@/app/hooks/useCart";
+import { useCart } from "@/app/hooks/useCart";
 
 type propsTypes = {
   product: Product;
 };
 const QuickViewDialog = ({product} : propsTypes) => {
+    const {refreshCart} = useCart();
     const [orderQuantity, setorderQuantity] = useState<number>(1);
     const [selectedSizeOfProduct, setSelectedSizeOfProduct] = useState<string>("");
     const [addToBagProcessing, setAddToBagProcessing] = useState<boolean>(false);

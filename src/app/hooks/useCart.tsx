@@ -1,12 +1,11 @@
 "use client";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 import { useSession } from "next-auth/react";
 import type { OrderedDataype } from "@/app/utils/interfaces";
 
-const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-const CART_KEY = `${baseUrl}/api/loadMyOrders`;
+const CART_URL = `/api/loadMyOrders`;
 
-const fetcher = async (url: string) => {
+const fetcher = async ([url]: readonly [string, string]) => {
   const res = await fetch(url, { cache: "no-store" });
   if (!res.ok) throw new Error("Failed to load cart");
   const d = await res.json();
@@ -14,10 +13,19 @@ const fetcher = async (url: string) => {
 };
 
 export function useCart() {
-  const { status } = useSession();
-  const authed = status === "authenticated";
-  const { data, isLoading } = useSWR<OrderedDataype[]>(authed ? CART_KEY : null, fetcher);
-  return { orders: authed && data ? data : [], isLoading };
-}
+  
+  const { data: session, status } = useSession();
+  const userEmail = session?.user?.email;
 
-export const refreshCart = () => mutate(CART_KEY);
+  const { data, error, isLoading, mutate } = useSWR<OrderedDataype[]>(
+    status === "authenticated" && userEmail ? ([CART_URL, userEmail] as const) : null,
+    fetcher
+  );
+
+  return {
+    orders: status === "authenticated" && userEmail ? data ?? [] : [],
+    isLoading: status === "loading" || isLoading,
+    error,
+    refreshCart: mutate,
+  };
+}
