@@ -37,8 +37,8 @@ const BannerTitleComponent = ({ title, subTitle }: Props) => {
 
   return (
     <div className={`flex flex-col items-start justify-center w-1/2 px-2 md:px-5`}>
-      <h2 className="text-white font-bold titleClass text-2xl md:text-3xl lg:text-4xl">{title}</h2>
-      <p className="text-white subTitleClass text-base md:text-lg lg:text-xl">{subTitle}</p>
+      <h2 className="text-white font-bold titleClass text-xl md:text-2xl lg:text-3xl">{title}</h2>
+      <p className="text-white subTitleClass text-sm md:text-lg lg:text-xl">{subTitle}</p>
     </div>
   );
 };

@@ -27,7 +27,7 @@ const CategoriesByAudienceComponent = async ({categoriesByAudience, decodedParam
       <section>
         {/* --- Banner section --- */}
         <div>
-          <figure className="relative w-full h-[330px] md:h-[450px] lg:h-[550px]">
+          <figure className="relative w-full h-[200px] md:h-[330px] lg:h-[520px]">
             <Image
               src={categoriesByAudience?.bannerImg}
               style={imageStyle}
